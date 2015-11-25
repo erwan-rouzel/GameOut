@@ -427,6 +427,7 @@ public class MainActivity extends ActionBarActivity implements
         paramTest = (paramTest+1)%8;
         paramTestText = String.format("%2d",paramTest);
         mParamTestButton.setText(paramTestText);
+        //TODO ERWAN ajouter test serveur
     }
 
     /**
