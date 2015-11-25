@@ -1,4 +1,6 @@
-package fr.ecp.sio.gameout;
+package fr.ecp.sio.gameout.remote;
+
+import fr.ecp.sio.gameout.HVPoint;
 
 /**
  * Created by od on 11/20/2015.
