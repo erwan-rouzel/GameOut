@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (C) 2014 Google, Inc.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/layout_padding">
+
+    <fr.ecp.sio.gameout.PlayFieldSurfaceView
+        android:id="@+id/surface_view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="bottom"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text_delta_view" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New"
+        android:id="@+id/toggle_gps_button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="toggleButtonHandler"
+        android:checked="false" />
+
+    <Button
+        android:id="@+id/calib_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/calib_txt"
+        android:onClick="calibButtonHandler"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/latitude_label"
+        android:layout_toEndOf="@+id/latitude_label"
+        android:layout_alignBottom="@+id/toggle_gps_button" />
+
+    <Button
+        android:id="@+id/param_test_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="000"
+        android:onClick="paramTestButtonHandler"
+        android:layout_alignTop="@+id/calib_button"
+        android:layout_toRightOf="@+id/calib_button"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp" />
+
+    <TextView
+        android:id="@+id/latitude_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/latitude_label"
+        android:textSize="@dimen/default_text_size"
+        android:layout_below="@+id/toggle_gps_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/latitude_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/latitude_label"
+        android:layout_alignBaseline="@+id/latitude_label"
+        android:layout_marginLeft="@dimen/small_margin_left"
+        android:textSize="@dimen/default_text_size" />
+
+    <TextView
+        android:id="@+id/longitude_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/longitude_label"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/latitude_label"
+        android:textSize="@dimen/default_text_size" />
+
+    <TextView
+        android:id="@+id/longitude_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/longitude_label"
+        android:layout_alignBaseline="@+id/longitude_label"
+        android:layout_marginLeft="@dimen/small_margin_left"
+        android:textSize="@dimen/default_text_size" />
+
+    <TextView
+        android:id="@+id/text_delta_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/dist_txt"
+        android:layout_below="@+id/longitude_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/default_text_size" />
+
+    <TextView
+        android:id="@+id/text_view_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/score_txt"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/surface_view"
+        android:layout_alignEnd="@+id/surface_view"
+        android:layout_alignBottom="@+id/calib_button" />
+
+    <TextView
+        android:id="@+id/text_view_best_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/best_score_txt"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_alignBaseline="@+id/text_view_score"
+        android:layout_alignBottom="@+id/text_view_score"
+        android:layout_toLeftOf="@+id/text_view_score"
+        android:layout_toStartOf="@+id/text_view_score" />
+
+</RelativeLayout>
