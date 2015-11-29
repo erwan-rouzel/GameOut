@@ -2,39 +2,46 @@
 <items version="2" >
 
     <item
-        jar="D:\Programming\AndroidStudioProjects\GameOut\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\jars\classes.jar"
+        jar="/Users/erwanrouzel/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="D:\Programming\AndroidStudioProjects\GameOut\app\build\intermediates\pre-dexed\debug\classes-9c43d3088bf66e73e2792da95df6414372b87484.jar" />
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/gson-2.2.4-3ee9ad2d694ed2486aab3f6878c80b73b1af9e30.jar" />
     </item>
     <item
-        jar="D:\Programming\AndroidStudioProjects\GameOut\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\jars\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
-        <dex dex="D:\Programming\AndroidStudioProjects\GameOut\app\build\intermediates\pre-dexed\debug\classes-ebd7facd5a6c96363b1e158fad12f22e68d75bfc.jar" />
-    </item>
-    <item
-        jar="D:\Programming\AndroidStudioProjects\GameOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\libs\internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="D:\Programming\AndroidStudioProjects\GameOut\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-a021f233a41ad7bd6f1b1a960f5b091db820a470.jar" />
-    </item>
-    <item
-        jar="D:\Programming\AndroidStudioProjects\GameOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="D:\Programming\AndroidStudioProjects\GameOut\app\build\intermediates\pre-dexed\debug\classes-cde2ce7fb4140bdca9b4477922490938bc625813.jar" />
-    </item>
-    <item
-        jar="C:\Users\Public\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jar="/Users/erwanrouzel/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="D:\Programming\AndroidStudioProjects\GameOut\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-c3ac26c293d462d70675693827cc6ce4df6af008.jar" />
+        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-06b85cc842f15d58a5e5b3ad5909e4006b78cfc4.jar" />
+    </item>
+    <item
+        jar="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-68ab7a0d11653932e3dd7f98199f51c0f0ecd55f.jar" />
+    </item>
+    <item
+        jar="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-4a9da3f93a77a2c2ac45833f90659aabf15bd50c.jar" />
+    </item>
+    <item
+        jar="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-067b621fbe34be19e14560633787244682411711.jar" />
+    </item>
+    <item
+        jar="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-6ba55d68ad73bee7744c0a0fbbdc1bd3b889883a.jar" />
     </item>
 
 </items>
