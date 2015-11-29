@@ -1,15 +1,14 @@
 package fr.ecp.sio.gameout.remote;
 
-import fr.ecp.sio.gameout.remote.GameState;
-import fr.ecp.sio.gameout.remote.Player;
-import fr.ecp.sio.gameout.remote.Team;
+import fr.ecp.sio.gameout.model.GameState;
+import fr.ecp.sio.gameout.model.Player;
+import fr.ecp.sio.gameout.model.Team;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
 
 /**
  * Created by erwan on 21/11/2015.

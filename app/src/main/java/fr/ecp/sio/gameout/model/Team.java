@@ -1,9 +1,10 @@
-package fr.ecp.sio.gameout.remote;
+package fr.ecp.sio.gameout.model;
 
 /**
  * Created by erwan on 14/11/2015.
  */
 public class Team {
+    public byte id;
     public GameState parentGameState;
     public Player[] players;
     public byte score;

@@ -1,4 +1,4 @@
-package fr.ecp.sio.gameout.remote;
+package fr.ecp.sio.gameout.model;
 
 //import com.google.gson.JsonElement;
 

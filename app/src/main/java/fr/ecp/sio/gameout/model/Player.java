@@ -1,4 +1,4 @@
-package fr.ecp.sio.gameout.remote;
+package fr.ecp.sio.gameout.model;
 
 import java.net.InetAddress;
 
@@ -7,6 +7,7 @@ import java.net.InetAddress;
  */
 
 public class Player {
+    public byte id;
     public Team parentTeam;
     public InetAddress ip;
     public PlayerType type;

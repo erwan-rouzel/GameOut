@@ -22,14 +22,18 @@
  */
 package fr.ecp.sio.gameout;
 
+import java.io.IOException;
 import java.lang.*;
 
+import android.content.Context;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -43,6 +47,12 @@ import com.google.android.gms.location.sample.locationupdates.R;
 
 import android.view.View;
 import android.widget.ToggleButton;
+
+import fr.ecp.sio.gameout.model.GameSession;
+import fr.ecp.sio.gameout.model.GameState;
+import fr.ecp.sio.gameout.model.Team;
+import fr.ecp.sio.gameout.remote.GameoutClient;
+import fr.ecp.sio.gameout.model.Player;
 
 /**
  * Out door game mixing the fun of mobile games, retro gaming and fitness activity.
@@ -238,7 +248,6 @@ public class MainActivity extends ActionBarActivity implements
         mBestScoreTextView = (TextView) findViewById(R.id.text_view_best_score);
         mInfoTextView  = (TextView) findViewById(R.id.text_delta_view);
 
-
         mRequestingLocationUpdates = false;
         calibStage= 0;
         paramTest = 3;
@@ -422,12 +431,23 @@ public class MainActivity extends ActionBarActivity implements
     /**
      * Handles the Set Calib button.
      */
-    public void paramTestButtonHandler(View view)
-    {
+    public void paramTestButtonHandler(View view) throws IOException {
         paramTest = (paramTest+1)%8;
         paramTestText = String.format("%2d",paramTest);
         mParamTestButton.setText(paramTestText);
         //TODO ERWAN ajouter test serveur
+        EditText mLogServerEditText = (EditText) this.findViewById(R.id.edit_text_log_server);
+        mLogServerEditText.setTextSize(10.0f);
+        mLogServerEditText.setWidth(300);
+
+        ServerTask serverTask = new ServerTask(this);
+        String responseFromServer = serverTask.doInBackground();
+
+        if(responseFromServer.length() > 0) {
+            mLogServerEditText.setText(responseFromServer);
+        } else {
+            mLogServerEditText.setText("No response from server...");
+        }
     }
 
     /**
@@ -641,5 +661,48 @@ public class MainActivity extends ActionBarActivity implements
         savedInstanceState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY, mRequestingLocationUpdates);
         savedInstanceState.putParcelable(LOCATION_KEY, mCurrentLocation);
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    private static class ServerTask extends AsyncTask<String, Void, String> {
+        Context context;
+
+        public ServerTask(Context context) {
+            context = context;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String responseFromServer = "";
+
+            GameoutClient client = null;
+            try {
+                client = GameoutClient.getInstance();
+
+                if(! client.isGameStarted()) {
+                    GameSession gameSession = new GameSession();
+                    gameSession.id = 1;
+                    gameSession.numberOfPlayersInTeam1 = 1;
+                    gameSession.numberOfPlayersInTeam2 = 1;
+
+                    responseFromServer = client.startGameSession(gameSession);
+                } else {
+                    GameState gameState = new GameState(client.getGameSession());
+                    Team team = new Team(gameState, 2);
+
+                    Player player = new Player(team);
+                    player.id = 1;
+                    player.x = (short)CurPfp.pfp.xPosPad[0][0];
+                    player.y = (short)CurPfp.pfp.yPosPad[0][0];
+                    player.vx = (short)CurPfp.pfp.xSpePad[0][0];
+                    player.vx = (short)CurPfp.pfp.xSpePad[0][0];
+
+                    responseFromServer = client.sendPosition(player);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return responseFromServer;
+        }
     }
 }
