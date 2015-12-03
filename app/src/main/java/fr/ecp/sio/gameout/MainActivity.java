@@ -24,6 +24,7 @@ package fr.ecp.sio.gameout;
 
 import java.io.IOException;
 import java.lang.*;
+import java.util.concurrent.ExecutionException;
 
 import android.content.Context;
 import android.location.Location;
@@ -431,7 +432,7 @@ public class MainActivity extends ActionBarActivity implements
     /**
      * Handles the Set Calib button.
      */
-    public void paramTestButtonHandler(View view) throws IOException {
+    public void paramTestButtonHandler(View view) throws IOException, ExecutionException, InterruptedException {
         paramTest = (paramTest+1)%8;
         paramTestText = String.format("%2d",paramTest);
         mParamTestButton.setText(paramTestText);
@@ -440,14 +441,23 @@ public class MainActivity extends ActionBarActivity implements
         mLogServerEditText.setTextSize(10.0f);
         mLogServerEditText.setWidth(300);
 
-        ServerTask serverTask = new ServerTask(this);
-        String responseFromServer = serverTask.doInBackground();
+        HVPoint pt = new HVPoint();
+        pt.H = 1000;
+        pt.V = 2000;
+        String responseFromServer = sendPositionToServer(pt);
 
         if(responseFromServer.length() > 0) {
             mLogServerEditText.setText(responseFromServer);
         } else {
             mLogServerEditText.setText("No response from server...");
         }
+    }
+
+    private String sendPositionToServer(HVPoint currentPosition) throws ExecutionException, InterruptedException {
+        ServerTask serverTask = new ServerTask(this);
+        String responseFromServer = serverTask.execute().get();
+
+        return responseFromServer;
     }
 
     /**
@@ -663,7 +673,7 @@ public class MainActivity extends ActionBarActivity implements
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    private static class ServerTask extends AsyncTask<String, Void, String> {
+    private static class ServerTask extends AsyncTask<Void, Void, String> {
         Context context;
 
         public ServerTask(Context context) {
@@ -671,7 +681,7 @@ public class MainActivity extends ActionBarActivity implements
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(Void... params) {
             String responseFromServer = "";
 
             GameoutClient client = null;
@@ -687,10 +697,10 @@ public class MainActivity extends ActionBarActivity implements
                     responseFromServer = client.startGameSession(gameSession);
                 } else {
                     GameState gameState = new GameState(client.getGameSession());
-                    Team team = new Team(gameState, 2);
+                    Team team = new Team((byte)0, gameState, 2);
 
-                    Player player = new Player(team);
-                    player.id = 1;
+                    //HVPoint p = LatiLongHV.convertLocToHV(mCurrentLocation);
+                    Player player = new Player((byte)0, team);
                     player.x = (short)CurPfp.pfp.xPosPad[0][0];
                     player.y = (short)CurPfp.pfp.yPosPad[0][0];
                     player.vx = (short)CurPfp.pfp.xSpePad[0][0];

@@ -86,22 +86,27 @@ public class LatiLongHV
         l2 =xr*xr + yr*yr;
         // Fin du code à mettre en mémoire lors de la calibration
 
-        yp = pLoc.getLatitude();
-        xp = pLoc.getLongitude() * invCosLat;
+        if(pLoc != null) {
+            yp = pLoc.getLatitude();
+            xp = pLoc.getLongitude() * invCosLat;
 
-        xc = xp - x1;
-        yc = yp - y1;
+            xc = xp - x1;
+            yc = yp - y1;
 
-        x = (xc*xr + yc*yr)/l2; /* Produit scalaire avec normalisation => projection */
-        x = (x < 0) ? 0 : (x > 1) ? 1 : x;
-        if (x<0)
-            res.H = -1;
-        else if (x>1)
-            res.H = HVPoint.WIDTH_REF;
-        else
-            res.H = (int) Math.round(x*HVPoint.WIDTH_REF-1);
+            x = (xc*xr + yc*yr)/l2; /* Produit scalaire avec normalisation => projection */
+            x = (x < 0) ? 0 : (x > 1) ? 1 : x;
+            if (x<0)
+                res.H = -1;
+            else if (x>1)
+                res.H = HVPoint.WIDTH_REF;
+            else
+                res.H = (int) Math.round(x*HVPoint.WIDTH_REF-1);
 
-        res.V = (HVPoint.WIDTH_REF/10)*8;
+            res.V = (HVPoint.WIDTH_REF/10)*8;
+        } else {
+            res.H = HVPoint.WIDTH_REF/2;
+            res.V = (HVPoint.WIDTH_REF/10)*8/4;
+        }
 
         return res;
     }

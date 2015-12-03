@@ -18,8 +18,9 @@ public class Player {
     public short vy;
 
 
-    public Player(Team parentTeam) {
+    public Player(byte id, Team parentTeam) {
         this.parentTeam = parentTeam;
+        this.id = id;
         ip = null;
         type = PlayerType.Guest;
         state = PlayerState.Active;

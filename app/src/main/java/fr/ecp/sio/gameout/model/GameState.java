@@ -12,8 +12,8 @@ public class GameState {
         this.id = session.id;
         this.ball = new Ball();
         this.teams = new  Team[3];
-        this.teams[0] = new Team(this, session.numberOfPlayersInTeam1);
-        this.teams[1] = new Team(this, session.numberOfPlayersInTeam2);
-        this.teams[2] = new Team(this, session.numberOfPlayersInTeam3);
+        this.teams[0] = new Team((byte)0, this, session.numberOfPlayersInTeam1);
+        this.teams[1] = new Team((byte)1, this, session.numberOfPlayersInTeam2);
+        this.teams[2] = new Team((byte)2, this, session.numberOfPlayersInTeam3);
     }
 }

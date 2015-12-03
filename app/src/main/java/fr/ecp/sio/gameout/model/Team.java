@@ -9,12 +9,13 @@ public class Team {
     public Player[] players;
     public byte score;
 
-    public Team(GameState parentGameState, int numberOfPlayers) {
+    public Team(byte id, GameState parentGameState, int numberOfPlayers) {
+        this.id = id;
         this.parentGameState = parentGameState;
         this.players = new Player[numberOfPlayers];
 
         for(int i = 0; i < numberOfPlayers; i++) {
-            this.players[i] = new Player(this);
+            this.players[i] = new Player((byte)i, this);
         }
     }
 }

@@ -117,7 +117,12 @@ public class GameoutClient {
         message.add(buffer[0]);
         message.add(buffer[1]);
 
-        return sendMessageUDP(message.toString());
+        byte[] result = new byte[message.size()];
+        for(int i = 0; i < message.size(); i++) {
+            result[i] = message.get(i);
+        }
+
+        return sendMessageUDP(result);
     }
 
     private String sendMessageTCP(String message) throws IOException {
@@ -133,8 +138,7 @@ public class GameoutClient {
         return response;
     }
 
-    private String sendMessageUDP(String message) throws IOException {
-        byte[] sendData = message.getBytes(Charset.forName("UTF-8"));
+    private String sendMessageUDP(byte[] sendData) throws IOException {
         byte[] receiveData = new byte[1024];
         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, ipAddress, UDP_PORT);
         udpSocket.send(sendPacket);
