@@ -24,9 +24,11 @@ package fr.ecp.sio.gameout;
 
 import java.io.IOException;
 import java.lang.*;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,6 +56,8 @@ import fr.ecp.sio.gameout.model.GameState;
 import fr.ecp.sio.gameout.model.Team;
 import fr.ecp.sio.gameout.remote.GameoutClient;
 import fr.ecp.sio.gameout.model.Player;
+import fr.ecp.sio.gameout.remote.RemoteGameState;
+import fr.ecp.sio.gameout.remote.SyncStateService;
 
 /**
  * Out door game mixing the fun of mobile games, retro gaming and fitness activity.
@@ -262,6 +266,9 @@ public class MainActivity extends ActionBarActivity implements
         buildGoogleApiClient();
         updateMyButtons();
         GPSTiming.resetStatEvents();
+
+        Intent mServiceIntent = new Intent(this, SyncStateService.class);
+        this.startService(mServiceIntent);
     }
 
     /**
@@ -438,26 +445,39 @@ public class MainActivity extends ActionBarActivity implements
         mParamTestButton.setText(paramTestText);
         //TODO ERWAN ajouter test serveur
         EditText mLogServerEditText = (EditText) this.findViewById(R.id.edit_text_log_server);
-        mLogServerEditText.setTextSize(10.0f);
-        mLogServerEditText.setWidth(300);
+        mLogServerEditText.setTextSize(9.0f);
+        mLogServerEditText.setMinWidth(400);
 
         HVPoint pt = new HVPoint();
         pt.H = 1000;
         pt.V = 2000;
-        String responseFromServer = sendPositionToServer(pt);
 
-        if(responseFromServer.length() > 0) {
-            mLogServerEditText.setText(responseFromServer);
-        } else {
-            mLogServerEditText.setText("No response from server...");
+        GameSession gameSession = new GameSession();
+        gameSession.id = 1;
+        gameSession.numberOfPlayersInTeam1 = 1;
+        gameSession.numberOfPlayersInTeam2 = 1;
+
+        long startTime = System.nanoTime();
+        String responseFromServer = RemoteGameState.getInstance(gameSession).sendPosition(pt);
+        long endTime = System.nanoTime();
+        double difference = Math.round((endTime - startTime)/1e6);
+
+        if(responseFromServer.length() == 0) {
+            responseFromServer = "No response from server...";
         }
-    }
 
-    private String sendPositionToServer(HVPoint currentPosition) throws ExecutionException, InterruptedException {
-        ServerTask serverTask = new ServerTask(this);
-        String responseFromServer = serverTask.execute().get();
+        Log.d("Test", "Button pressed!");
 
-        return responseFromServer;
+        mLogServerEditText.setText(mLogServerEditText.getText() + "\n" + "[" + difference + "ms] - "
+                + responseFromServer
+        );
+
+        RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
+
+        mLogServerEditText.setText(mLogServerEditText.getText() + "\n" + "[" + difference + "ms] - "
+                + remoteGameState.timestamp
+                + " - ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")"
+        );
     }
 
     /**
@@ -671,48 +691,5 @@ public class MainActivity extends ActionBarActivity implements
         savedInstanceState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY, mRequestingLocationUpdates);
         savedInstanceState.putParcelable(LOCATION_KEY, mCurrentLocation);
         super.onSaveInstanceState(savedInstanceState);
-    }
-
-    private static class ServerTask extends AsyncTask<Void, Void, String> {
-        Context context;
-
-        public ServerTask(Context context) {
-            context = context;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            String responseFromServer = "";
-
-            GameoutClient client = null;
-            try {
-                client = GameoutClient.getInstance();
-
-                if(! client.isGameStarted()) {
-                    GameSession gameSession = new GameSession();
-                    gameSession.id = 1;
-                    gameSession.numberOfPlayersInTeam1 = 1;
-                    gameSession.numberOfPlayersInTeam2 = 1;
-
-                    responseFromServer = client.startGameSession(gameSession);
-                } else {
-                    GameState gameState = new GameState(client.getGameSession());
-                    Team team = new Team((byte)0, gameState, 2);
-
-                    //HVPoint p = LatiLongHV.convertLocToHV(mCurrentLocation);
-                    Player player = new Player((byte)0, team);
-                    player.x = (short)CurPfp.pfp.xPosPad[0][0];
-                    player.y = (short)CurPfp.pfp.yPosPad[0][0];
-                    player.vx = (short)CurPfp.pfp.xSpePad[0][0];
-                    player.vx = (short)CurPfp.pfp.xSpePad[0][0];
-
-                    responseFromServer = client.sendPosition(player);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return responseFromServer;
-        }
     }
 }

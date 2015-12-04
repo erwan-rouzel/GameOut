@@ -32,6 +32,12 @@ public class GameoutUtils {
         return wrapped.getShort();
     }
 
+    public static long bytesToLong(byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
+        byte[] buffer = {b1, b2, b3, b4, b5, b6, b7, b8};
+        ByteBuffer wrapped = ByteBuffer.wrap(buffer); // big-endian by default
+        return wrapped.getLong();
+    }
+
     public static byte[] longToBytes(long x) {
         ByteBuffer buffer = ByteBuffer.allocate(Long.SIZE);
         buffer.putLong(x);

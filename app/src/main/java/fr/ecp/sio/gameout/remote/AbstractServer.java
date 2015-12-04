@@ -1,5 +1,7 @@
 package fr.ecp.sio.gameout.remote;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -18,14 +20,14 @@ public abstract class AbstractServer {
 
     protected void log(String message) {
         Date now = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
-        System.out.println("[" + sdf.format(now) + "]-[" + this.getClass().getSimpleName() + "] " + message);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Log.d("[" + sdf.format(now) + "]-[" + this.getClass().getSimpleName() + "] ",  message);
     }
 
     protected void log(Exception exception) {
         Date now = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
-        System.out.println("[" + sdf.format(now) + "]-[" + this.getClass().getSimpleName() + "] " + exception.toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Log.d("[" + sdf.format(now) + "]-[" + this.getClass().getSimpleName() + "] ", exception.toString());
         exception.printStackTrace();
     }
 }

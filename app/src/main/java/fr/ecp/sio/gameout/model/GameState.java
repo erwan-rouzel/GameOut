@@ -4,11 +4,15 @@ package fr.ecp.sio.gameout.model;
  * Created by erwan on 14/11/2015.
  */
 public class GameState {
+    protected GameSession session;
+    public long timestamp;
+    public int increment;
     public int id;
     public Ball ball;
     public Team[] teams;
 
     public GameState(GameSession session) {
+        this.session = session;
         this.id = session.id;
         this.ball = new Ball();
         this.teams = new  Team[3];

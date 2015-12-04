@@ -1,7 +1,10 @@
 package fr.ecp.sio.gameout.remote;
 
+import com.google.android.gms.games.Game;
+
 import fr.ecp.sio.gameout.model.GameState;
 import fr.ecp.sio.gameout.model.Player;
+import fr.ecp.sio.gameout.model.PlayerState;
 import fr.ecp.sio.gameout.model.Team;
 
 import java.net.DatagramPacket;
@@ -20,11 +23,11 @@ public class RemoteStreamServer extends AbstractServer implements Runnable {
     }
 
     public void run() {
-        DatagramPacket sendPacket;
         DatagramSocket udpSocket;
         byte[] udpData = new byte[1024];
         byte[] sendData;
-        byte[] gameStateMessage;
+        DatagramPacket receivePacket = new DatagramPacket(udpData, udpData.length);
+        DatagramPacket sendPacket;
 
         try {
             udpSocket = new DatagramSocket(port);
@@ -39,20 +42,18 @@ public class RemoteStreamServer extends AbstractServer implements Runnable {
         while(true) {
             /* Process UDP Packets */
             try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                log(e);
-            }
-
-            try {
-                //TODO
+                log("Before receive packet");
+                udpSocket.receive(receivePacket);
+                log("After receive packet");
+                updateGameState(receivePacket.getData());
+                log("After update game state");
             } catch (Exception e) {
                 log(e);
             }
         }
     }
 
-    public static byte[] getGameStateMessage(GameState gameState) {
+    public static void updateGameState(byte[] m) {
         /*
         8 octets : timestamp
         1 octet : incrément
@@ -73,89 +74,48 @@ public class RemoteStreamServer extends AbstractServer implements Runnable {
         ...
         */
 
-        ArrayList<Byte> message = new ArrayList<Byte>();
+        RemoteGameState remoteGameState = RemoteGameState.getInstance();
+        if(remoteGameState == null) return;
 
-        long timestamp = new Date().getTime();
-        byte increment = 0;
-        byte score1 = gameState.teams[0].score;
-        byte score2 = gameState.teams[1].score;
-        byte score3 = gameState.teams[2].score;
-        short ballX = gameState.ball.x;
-        short ballY = gameState.ball.y;
-        short ballVX = gameState.ball.vx;
-        short ballVY = gameState.ball.vy;
-        byte numPlayersTeam1 = (byte) gameState.teams[0].players.length;
-        byte numPlayersTeam2 = (byte) gameState.teams[1].players.length;
-        byte numPlayersTeam3 = (byte) gameState.teams[2].players.length;
+        remoteGameState.timestamp =  GameoutUtils.bytesToLong(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7]);
+        remoteGameState.increment = m[8];
+        remoteGameState.teams[0].score = m[9];
+        remoteGameState.teams[1].score = m[10];
+        remoteGameState.teams[2].score = m[11];
+        remoteGameState.ball.x = GameoutUtils.bytesToShort(m[12], m[13]);
+        remoteGameState.ball.y = GameoutUtils.bytesToShort(m[14], m[15]);
+        remoteGameState.ball.vx = GameoutUtils.bytesToShort(m[16], m[17]);
+        remoteGameState.ball.vy = GameoutUtils.bytesToShort(m[18], m[19]);
 
-        byte[] buffer;
+        byte sizeTeam1 = m[20];
+        byte sizeTeam2 = m[21];
+        byte sizeTeam3 = m[22];
 
-        buffer = GameoutUtils.longToBytes(timestamp);
-        message.add(buffer[0]);
-        message.add(buffer[1]);
-        message.add(buffer[2]);
-        message.add(buffer[3]);
-        message.add(buffer[4]);
-        message.add(buffer[5]);
-        message.add(buffer[6]);
-        message.add(buffer[7]);
-
-        message.add(increment);
-        message.add(score1);
-        message.add(score2);
-        message.add(score3);
-
-        buffer = GameoutUtils.shortToBytes(ballX);
-        message.add(buffer[0]);
-        message.add(buffer[1]);
-
-        buffer = GameoutUtils.shortToBytes(ballY);
-        message.add(buffer[0]);
-        message.add(buffer[1]);
-
-        buffer = GameoutUtils.shortToBytes(ballVX);
-        message.add(buffer[0]);
-        message.add(buffer[1]);
-
-        buffer = GameoutUtils.shortToBytes(ballVY);
-        message.add(buffer[0]);
-        message.add(buffer[1]);
-
-        message.add(numPlayersTeam1);
-        message.add(numPlayersTeam2);
-        message.add(numPlayersTeam3);
-
-        for(Team t: gameState.teams) {
-            for(Player p: t.players) {
-                buffer = GameoutUtils.shortToBytes(p.x);
-                message.add(buffer[0]);
-                message.add(buffer[1]);
-
-                buffer = GameoutUtils.shortToBytes(p.y);
-                message.add(buffer[0]);
-                message.add(buffer[1]);
-
-                buffer = GameoutUtils.shortToBytes(p.vx);
-                message.add(buffer[0]);
-                message.add(buffer[1]);
-
-                buffer = GameoutUtils.shortToBytes(p.vy);
-                message.add(buffer[0]);
-                message.add(buffer[1]);
-
-                message.add((byte) p.state.ordinal());
-            }
+        int n = 23;
+        for(int i = 0; i < sizeTeam1; i++) {
+            remoteGameState.teams[0].players[i].x =     GameoutUtils.bytesToShort(m[n + 0 + i*9],   m[n + 1 + i*9]);
+            remoteGameState.teams[0].players[i].y =     GameoutUtils.bytesToShort(m[n + 2 + i*9],   m[n + 3 + i*9]);
+            remoteGameState.teams[0].players[i].vx =    GameoutUtils.bytesToShort(m[n + 4 + i*9],   m[n + 5 + i*9]);
+            remoteGameState.teams[0].players[i].vy =    GameoutUtils.bytesToShort(m[n + 6 + i*9],   m[n + 7 + i*9]);
+            remoteGameState.teams[0].players[i].state = (m[n + 8 + i*9] == 0)?PlayerState.Inactive:PlayerState.Active;
         }
 
-        byte[] result = new byte[message.size()];
-        for(int i = 0; i < message.size(); i++) {
-            result[i] = message.get(i);
+        n = 23 + sizeTeam1*9;
+        for(int i = 0; i < sizeTeam2; i++) {
+            remoteGameState.teams[1].players[i].x =     GameoutUtils.bytesToShort(m[n + 0 + i*9],   m[n + 1 + i*9]);
+            remoteGameState.teams[1].players[i].y =     GameoutUtils.bytesToShort(m[n + 2 + i*9],   m[n + 3 + i*9]);
+            remoteGameState.teams[1].players[i].vx =    GameoutUtils.bytesToShort(m[n + 4 + i*9],   m[n + 5 + i*9]);
+            remoteGameState.teams[1].players[i].vy =    GameoutUtils.bytesToShort(m[n + 6 + i*9],   m[n + 7 + i*9]);
+            remoteGameState.teams[1].players[i].state = (m[n + 8 + i*9] == 0)?PlayerState.Inactive:PlayerState.Active;
         }
-        return result;
-    }
 
-    public static void updateGameState(GameState state) {
-        state.ball.x += 1;
-        state.ball.y += 1;
+        n = 23 + sizeTeam2*9;
+        for(int i = 0; i < sizeTeam3; i++) {
+            remoteGameState.teams[2].players[i].x =     GameoutUtils.bytesToShort(m[n + 0 + i*9],   m[n + 1 + i*9]);
+            remoteGameState.teams[2].players[i].y =     GameoutUtils.bytesToShort(m[n + 2 + i*9],   m[n + 3 + i*9]);
+            remoteGameState.teams[2].players[i].vx =    GameoutUtils.bytesToShort(m[n + 4 + i*9],   m[n + 5 + i*9]);
+            remoteGameState.teams[2].players[i].vy =    GameoutUtils.bytesToShort(m[n + 6 + i*9],   m[n + 7 + i*9]);
+            remoteGameState.teams[2].players[i].state = (m[n + 8 + i*9] == 0)?PlayerState.Inactive:PlayerState.Active;
+        }
     }
 }

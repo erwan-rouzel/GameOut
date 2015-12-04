@@ -139,6 +139,8 @@ public class GameoutClient {
     }
 
     private String sendMessageUDP(byte[] sendData) throws IOException {
+        udpSocket = new DatagramSocket();
+
         byte[] receiveData = new byte[1024];
         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, ipAddress, UDP_PORT);
         udpSocket.send(sendPacket);
