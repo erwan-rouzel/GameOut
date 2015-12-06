@@ -1,7 +1,5 @@
 package fr.ecp.sio.gameout.remote;
 
-import android.app.IntentService;
-import android.content.Intent;
 import android.os.AsyncTask;
 
 import java.io.IOException;
@@ -20,8 +18,10 @@ public class RemoteGameState extends GameState
 {
     private static RemoteGameState instance;
 
-    private RemoteGameState(GameSession session) {
+    private RemoteGameState(GameSession session) throws IOException {
         super(session);
+        StartSessionTask startSessionTask = new StartSessionTask();
+        startSessionTask.execute(session);
     }
 
     public static synchronized RemoteGameState getInstance(GameSession session) throws IOException {
@@ -36,15 +36,26 @@ public class RemoteGameState extends GameState
         return instance;
     }
 
-    public String sendPosition(HVPoint position) throws ExecutionException, InterruptedException {
+    public void sendPosition(HVPoint position) throws ExecutionException, InterruptedException {
         SendPositionTask serverTask = new SendPositionTask();
-        String responseFromServer = serverTask.execute(position).get();
-        return responseFromServer;
+        serverTask.execute(position);
     }
 
     public void getNewState() // Fonction bloquante en attente des nouvelles position.
     {
 
+    }
+
+    private static class StartSessionTask extends AsyncTask<GameSession, Void, String> {
+        @Override
+        protected String doInBackground(GameSession... params) {
+            try {
+                return GameoutClient.getInstance().startGameSession(params[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
     private static class SendPositionTask extends AsyncTask<HVPoint, Void, String> {
@@ -57,21 +68,19 @@ public class RemoteGameState extends GameState
             try {
                 client = GameoutClient.getInstance();
 
-                if(! client.isGameStarted()) {
-                    responseFromServer = client.startGameSession(instance.session);
-                } else {
-                    GameState gameState = new GameState(client.getGameSession());
-                    Team team = new Team((byte)0, gameState, 2);
+                GameState gameState = new GameState(client.getGameSession());
+                Team team = new Team((byte)0, gameState, 2);
 
-                    HVPoint position = params[0];
-                    Player player = new Player((byte)0, team);
-                    player.x = (short)position.H;
-                    player.y = (short)position.V;
-                    player.vx = (short)1;
-                    player.vx = (short)1;
+                HVPoint position = params[0];
+                Player player = new Player((byte)0, team);
+                player.x = (short)position.H;
+                player.y = (short)position.V;
+                player.vx = (short)1;
+                player.vx = (short)1;
 
-                    responseFromServer = client.sendPosition(player);
-                }
+                byte[] responseBytes = client.sendPosition(player);
+                GameoutClientHelper.updateGameState(responseBytes);
+                responseFromServer = "";
             } catch (Exception e) {
                 e.printStackTrace();
             }

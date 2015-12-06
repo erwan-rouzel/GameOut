@@ -445,7 +445,7 @@ public class MainActivity extends ActionBarActivity implements
         mParamTestButton.setText(paramTestText);
         //TODO ERWAN ajouter test serveur
         EditText mLogServerEditText = (EditText) this.findViewById(R.id.edit_text_log_server);
-        mLogServerEditText.setTextSize(9.0f);
+        mLogServerEditText.setTextSize(8.0f);
         mLogServerEditText.setMinWidth(400);
 
         HVPoint pt = new HVPoint();
@@ -458,19 +458,11 @@ public class MainActivity extends ActionBarActivity implements
         gameSession.numberOfPlayersInTeam2 = 1;
 
         long startTime = System.nanoTime();
-        String responseFromServer = RemoteGameState.getInstance(gameSession).sendPosition(pt);
+        RemoteGameState.getInstance(gameSession).sendPosition(pt);
         long endTime = System.nanoTime();
         double difference = Math.round((endTime - startTime)/1e6);
 
-        if(responseFromServer.length() == 0) {
-            responseFromServer = "No response from server...";
-        }
-
         Log.d("Test", "Button pressed!");
-
-        mLogServerEditText.setText(mLogServerEditText.getText() + "\n" + "[" + difference + "ms] - "
-                + responseFromServer
-        );
 
         RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
 
@@ -478,6 +470,8 @@ public class MainActivity extends ActionBarActivity implements
                 + remoteGameState.timestamp
                 + " - ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")"
         );
+
+        mLogServerEditText.setSelection(mLogServerEditText.getText().length());
     }
 
     /**

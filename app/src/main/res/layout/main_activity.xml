@@ -137,15 +137,15 @@
         android:layout_toStartOf="@+id/text_view_score" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
         android:inputType="textMultiLine"
         android:ems="10"
         android:ellipsize="end"
         android:id="@+id/edit_text_log_server"
         android:layout_below="@+id/param_test_button"
         android:layout_alignLeft="@+id/param_test_button"
-        android:layout_alignStart="@+id/param_test_button"
-        android:layout_above="@+id/surface_view" />
+        android:layout_alignStart="@+id/param_test_button">
+    </EditText>
 
 </RelativeLayout>

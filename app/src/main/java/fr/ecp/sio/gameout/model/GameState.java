@@ -1,9 +1,11 @@
 package fr.ecp.sio.gameout.model;
 
+import com.google.android.gms.games.Game;
+
 /**
  * Created by erwan on 14/11/2015.
  */
-public class GameState {
+public class GameState extends GameObject {
     protected GameSession session;
     public long timestamp;
     public int increment;

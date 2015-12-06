@@ -3,7 +3,7 @@ package fr.ecp.sio.gameout.model;
 /**
  * Created by erwan on 14/11/2015.
  */
-public class Team {
+public class Team extends GameObject {
     public byte id;
     public GameState parentGameState;
     public Player[] players;

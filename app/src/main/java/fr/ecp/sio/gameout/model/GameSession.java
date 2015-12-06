@@ -2,7 +2,7 @@ package fr.ecp.sio.gameout.model;
 
 //import com.google.gson.JsonElement;
 
-public class GameSession {
+public class GameSession extends GameObject {
     public int id;
     public int timestamp;
     public int scores;

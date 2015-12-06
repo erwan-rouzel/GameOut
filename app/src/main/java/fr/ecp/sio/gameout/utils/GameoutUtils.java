@@ -1,7 +1,8 @@
-package fr.ecp.sio.gameout.remote;
+package fr.ecp.sio.gameout.utils;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -54,5 +55,15 @@ public class GameoutUtils {
         ByteBuffer buffer = ByteBuffer.allocate(Long.SIZE);
         buffer.putInt(x);
         return buffer.array();
+    }
+
+    public static String implode(String glue, ArrayList<String> strArray)
+    {
+        String ret = "";
+        for(int i=0;i<strArray.size();i++)
+        {
+            ret += (i == strArray.size() - 1) ? strArray.get(i) : strArray.get(i) + glue;
+        }
+        return ret;
     }
 }

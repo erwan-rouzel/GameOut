@@ -1,17 +1,15 @@
 package fr.ecp.sio.gameout.remote;
 
-import android.os.AsyncTask;
-
 import com.google.gson.Gson;
 
 import java.io.*;
 import java.net.*;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 
 import fr.ecp.sio.gameout.model.GameSession;
 import fr.ecp.sio.gameout.model.Player;
+import fr.ecp.sio.gameout.utils.GameoutUtils;
 
 /*
 
@@ -60,7 +58,7 @@ public class GameoutClient {
         return (gameSession != null);
     }
 
-    public String sendPosition(Player player) throws IOException {
+    public byte[] sendPosition(Player player) throws IOException {
         /*
         4 octets : ID Partie
         8 octets : timestamp en secondes
@@ -138,7 +136,7 @@ public class GameoutClient {
         return response;
     }
 
-    private String sendMessageUDP(byte[] sendData) throws IOException {
+    private byte[] sendMessageUDP(byte[] sendData) throws IOException {
         udpSocket = new DatagramSocket();
 
         byte[] receiveData = new byte[1024];
@@ -146,9 +144,9 @@ public class GameoutClient {
         udpSocket.send(sendPacket);
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
         udpSocket.receive(receivePacket);
-        String response = new String(receivePacket.getData());
+        byte[] responseBytes = receivePacket.getData();
         udpSocket.close();
 
-        return response;
+        return responseBytes;
     }
 }

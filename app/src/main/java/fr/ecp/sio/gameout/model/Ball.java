@@ -3,7 +3,7 @@ package fr.ecp.sio.gameout.model;
 /**
  * Created by erwan on 14/11/2015.
  */
-public class Ball {
+public class Ball extends GameObject {
     public short x;
     public short y;
     public short vx;

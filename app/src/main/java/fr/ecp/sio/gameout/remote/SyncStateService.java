@@ -14,6 +14,6 @@ public class SyncStateService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        new Thread(new RemoteStreamServer(9500)).start();
+        //new Thread(new RemoteStreamServer(9500)).start();
     }
 }

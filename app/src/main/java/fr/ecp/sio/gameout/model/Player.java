@@ -1,12 +1,14 @@
 package fr.ecp.sio.gameout.model;
 
+import com.google.android.gms.games.Game;
+
 import java.net.InetAddress;
 
 /**
  * Created by erwan on 14/11/2015.
  */
 
-public class Player {
+public class Player extends GameObject {
     public byte id;
     public Team parentTeam;
     public InetAddress ip;
