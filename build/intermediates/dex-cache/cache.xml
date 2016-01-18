@@ -2,46 +2,109 @@
 <items version="2" >
 
     <item
-        jar="/Users/erwanrouzel/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="a60a5e993c98c864010053cb901b7eab25306568">
-        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/gson-2.2.4-3ee9ad2d694ed2486aab3f6878c80b73b1af9e30.jar" />
-    </item>
-    <item
-        jar="/Users/erwanrouzel/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-06b85cc842f15d58a5e5b3ad5909e4006b78cfc4.jar" />
-    </item>
-    <item
-        jar="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars/classes.jar"
+        jar="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-68ab7a0d11653932e3dd7f98199f51c0f0ecd55f.jar" />
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-7710250e0e4dc0dd37b0ab3f6030ee6ac7ffa93e.jar" />
     </item>
     <item
-        jar="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/libs/internal_impl-21.0.3.jar"
+        jar="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/6.5.87/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4a568f733067f786d53e191ccf998e7ea3da68cc">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-c434a0f36dac8d0c6c101916231e69caa7100cb5.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.4/c5cd3347c0a86d0dcfbf3da593d8431d5a789d54/jackson-core-2.4.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c5cd3347c0a86d0dcfbf3da593d8431d5a789d54">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/jackson-core-2.4.4-3b130395cdad34fbd3a82db08e782eb8e29e4386.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.0/d6a66c7a5f01cf500377bd669507a08cfeba882a/jackson-annotations-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d6a66c7a5f01cf500377bd669507a08cfeba882a">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/jackson-annotations-2.4.0-7a937756a5a26d51f05f5ef564a537aaf3e50a05.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-03dc10f7d839fcc34a337d42d75a17757298d3d3.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/6.5.87/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f265524e1c414567131fdcbb05d7dd3241e61bab">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-762a6e27d19746c2a593e6b43045ebcef11ba6a2.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/6.5.87/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a75b29dc51b364df032af8bcfcad7e54ccfda28d">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-6e7f85317016ba7d584781bf6ee53c6419cb6d54.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/libs/internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-4a9da3f93a77a2c2ac45833f90659aabf15bd50c.jar" />
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-63d43b83a965a7bacc6ace9e99afffb056fa3046.jar" />
     </item>
     <item
-        jar="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/classes.jar"
+        jar="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/6.5.87/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="95482e7c792a7c0d5a9d5461e97726bd54fe9549">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-9d2631ea1316bc95d5ac48ef9cc0db601777e996.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-067b621fbe34be19e14560633787244682411711.jar" />
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-ffebe93a9359c950354375b5b8cbabfb73f4d545.jar" />
     </item>
     <item
-        jar="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/jars/classes.jar"
+        jar="/Users/CodjoQuenum/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
-        <dex dex="/Users/erwanrouzel/StudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-6ba55d68ad73bee7744c0a0fbbdc1bd3b889883a.jar" />
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/gson-2.2.4-6a225882467789c0f0f902ec1597229028019c5b.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/exploded-aar/GameOut.libraries/BaseGameUtils/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0600478979e67891561a5d69051d91a1e986809f">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-d3e868d78ca3bf3b95f0a31a2795e7d4a16034ad.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.4/e2ff13c3de2f5a2ab2449a3dace2b0d1c37bd8ee/jackson-databind-2.4.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e2ff13c3de2f5a2ab2449a3dace2b0d1c37bd8ee">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/jackson-databind-2.4.4-bc3b94c4274f0628f4aec9786684db8710210f7c.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/6.5.87/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ce5b43052e5b22fae97c6ae33afcfcbaf5259125">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-131783fb07cceb0c86255310e458c5e9b5485a72.jar" />
+    </item>
+    <item
+        jar="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/6.5.87/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b0be2331107b99f72200fc94573faf9410082124">
+        <dex dex="/Users/CodjoQuenum/AndroidStudioProjects/GameOut/app/build/intermediates/pre-dexed/debug/classes-e154de7d27e949052f966e4e3036a17ba4f7f4e7.jar" />
     </item>
 
 </items>

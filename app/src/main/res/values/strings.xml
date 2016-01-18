@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2014 Google, Inc
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +14,7 @@
   limitations under the License.
 -->
 <resources>
-    <string name="app_name">Getting Location Updates</string>
+    <string name="app_name">Game Out</string>
     <string name="action_settings">Settings</string>
 
     <string name="latitude_label">Latitude: </string>
@@ -33,5 +32,18 @@
     <string name="dist_txt">Dist to center</string>
     <string name="score_txt">888</string>
     <string name="best_score_txt">777</string>
+    <string name="instructions">Instructions</string>
+    <string name="settings">Settings</string>
+    <string name="online_game">Play Online</string>
+    <string name="quick_game">Quick match</string>
+    <string name="exit">Exit</string>
+    <string name="back">Back</string>
+    <string name="leaderboard">Leaderbord</string>
+    <string name="achievements">Achievements</string>
+    <string name="credits">Credits</string>
+    <string name="login_invite">Login to play online</string>
+    <string name="automatch_player">Play</string>
+    <string name="invite_players">Select players</string>
+    <string name="show_invitations">See my invitations</string>
     param_test_button
 </resources>

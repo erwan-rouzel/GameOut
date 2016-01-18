@@ -29,15 +29,13 @@ import com.google.android.gms.location.LocationServices;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import fr.ecp.sio.gameout.MainActivity;
-
 
 /**
  * Test showing use of mock location data to test code using the Google Play Location APIs. To
  * run this test, you must first check the "Allow mock locations" setting within
  * Settings -> Developer options.
  */
-public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class GameActivityTest extends ActivityInstrumentationTestCase2<GameActivity> {
     public static final String TAG = "MainActivityTest";
 
     /**
@@ -57,10 +55,10 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     /**
      * The activity under test.
      */
-    private MainActivity mMainActivity;
+    private GameActivity mMainActivity;
 
-    public MainActivityTest() {
-        super(MainActivity.class);
+    public GameActivityTest() {
+        super(GameActivity.class);
     }
 
     /**

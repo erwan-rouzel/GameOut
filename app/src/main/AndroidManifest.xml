@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 Copyright 2014 Google, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,23 +13,34 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.android.gms.location.sample.locationupdates"
-    android:sharedUserId="com.google.android.gms.location.sample.locationupdates">
-    <!-- We use sharedUserId to apply the ACCESS_MOCK_LOCATION permission to the application APK. -->
+    package="fr.ecp.sio.gameout"
+    android:sharedUserId="fr.ecp.sio.gameout">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- We use sharedUserId to apply the ACCESS_MOCK_LOCATION permission to the application APK. -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Base" >
-
-        <meta-data android:name="com.google.android.gms.version"
+        android:theme="@style/Theme.Base">
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.games.APP_ID"
+            android:value="@string/app_id" />
+        <meta-data
+            android:name="com.google.android.gms.nearby.connection.SERVICE_ID"
+            android:value="@string/app_id" />
+
         <activity
-            android:name="fr.ecp.sio.gameout.MainActivity"
-            android:label="@string/app_name" >
+            android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -39,12 +48,14 @@ limitations under the License.
         </activity>
 
         <service
-            android:name="fr.ecp.sio.gameout.remote.SyncStateService"
-            android:exported="false"/>
+            android:name=".remote.SyncStateService"
+            android:exported="false" />
+
+        <activity android:name=".GameActivity" />
+        <activity android:name=".salon.InstructionsActivity" />
+        <activity android:name=".salon.SettingsActivity" />
+        <activity android:name=".salon.CreditsActivity" />
+        <activity android:name=".salon.OnlineGameActivity"/>
     </application>
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 </manifest>
