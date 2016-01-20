@@ -51,6 +51,7 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG,"onCreate");
         mInterstitialAd = new InterstitialAd(getApplicationContext());
         mInterstitialAd.setAdUnitId("ca-app-pub-2963674502359443/7565389212");
         requestNewInterstitial();
@@ -112,7 +113,7 @@ public class MainActivity extends ActionBarActivity implements
             }
         });
 
-        findViewById(R.id.online_game_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.multi_player_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, OnlineGameActivity.class);
@@ -120,7 +121,7 @@ public class MainActivity extends ActionBarActivity implements
             }
         });
 
-        findViewById(R.id.quick_play_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.single_player_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GameActivity.class);
@@ -150,10 +151,10 @@ public class MainActivity extends ActionBarActivity implements
         Log.i(TAG, "onConnected: sign-in successful.");
         // Disable login button
         // Enable Online game button
-        Intent intent=new Intent();
+        Intent intent = new Intent();
         setResult(Activity.RESULT_OK,intent);
         findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-        findViewById(R.id.online_game_button).setVisibility(View.VISIBLE);
+        findViewById(R.id.multi_player_button).setVisibility(View.VISIBLE);
     }
 
     @Override

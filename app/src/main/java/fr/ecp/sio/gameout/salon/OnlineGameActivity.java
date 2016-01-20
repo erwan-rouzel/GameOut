@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import fr.ecp.sio.gameout.GameActivity;
+import fr.ecp.sio.gameout.MainActivity;
 import fr.ecp.sio.gameout.R;
 import fr.ecp.sio.gameout.salon.message.Message;
 import fr.ecp.sio.gameout.salon.message.ParticipantMessage;
@@ -101,7 +102,7 @@ public class OnlineGameActivity extends ActionBarActivity implements
             }
         }
 
-        findViewById(R.id.automatch_player_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.quick_match_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startQuickGame();
@@ -125,7 +126,9 @@ public class OnlineGameActivity extends ActionBarActivity implements
         findViewById(R.id.show_invitations_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(OnlineGameActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

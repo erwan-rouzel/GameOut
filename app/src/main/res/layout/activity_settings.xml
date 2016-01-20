@@ -42,12 +42,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/settings_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            />
     </LinearLayout>
     <com.google.android.gms.ads.AdView
         android:id="@+id/banner"

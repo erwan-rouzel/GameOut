@@ -71,13 +71,6 @@ public class SettingsActivity extends ActionBarActivity {
 
             }
         });
-
-        findViewById(R.id.settings_back_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
     }
 
     @Override

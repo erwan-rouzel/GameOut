@@ -13,16 +13,6 @@
         android:id="@+id/instructions_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/instructions"
         android:gravity="start|center_horizontal"
         android:keepScreenOn="true"/>
-    <Button
-        android:id="@+id/instructions_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:text="@string/back"/>
-
 </RelativeLayout>

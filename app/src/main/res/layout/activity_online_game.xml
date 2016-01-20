@@ -16,7 +16,7 @@
         android:gravity="center"
         android:orientation="vertical">
         <Button
-            android:id="@+id/automatch_player_button"
+            android:id="@+id/quick_match_button"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:text="@string/automatch_player"/>

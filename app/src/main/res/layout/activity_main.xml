@@ -28,13 +28,13 @@
         android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/online_game_button"
+        android:id="@+id/multi_player_button"
         android:visibility="gone"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:text="@string/online_game"/>
     <Button
-        android:id="@+id/quick_play_button"
+        android:id="@+id/single_player_button"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:text="@string/quick_game"/>
