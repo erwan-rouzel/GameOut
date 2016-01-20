@@ -10,7 +10,7 @@ import android.view.SurfaceView;
 
 /**
  * Created by od on 10/31/2015.
- * Zone graphique où est affiché le jeu en cours.
+ * Zone graphique où est affiché le jeu en cour.
  * C'est dans cette surface que sont dessinés les raquettes, les balles, le score
  */
 public class PlayFieldSurfaceView extends SurfaceView

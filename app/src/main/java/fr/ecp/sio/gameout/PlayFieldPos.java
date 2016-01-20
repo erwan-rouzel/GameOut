@@ -7,10 +7,7 @@ package fr.ecp.sio.gameout;
  */
 public class PlayFieldPos
 {
-    public static char ThreadTraffic='R';
-    private int bestScoreBid; // Meilleur score (temporaire)
-
-    public long timeLNU; // date in ms of Last Update received by the network
+    public long timeLNU; // date in ms of Last Network Update
     public long timeExt; // date in ms for witch the values had been extrapolated
 
     public char[]  big_digit = new char[3]; // Afficheur (score en particulier)
@@ -26,6 +23,12 @@ public class PlayFieldPos
     public int xPosBal, yPosBal;
     public int xRadBal, yRadBal;
     public int xSpeBal, ySpeBal; // distance per hour
+
+    public static char ThreadTraffic='R'; // Gestion à l'ancienne de l'activité du thread
+    private int bestScoreBid; // Meilleur score (temporaire)
+    //TODO Supprimer l'utilisation de la variable bestScoreBid (Bid pour Bidon).
+
+
 
     PlayFieldPos() // initialisation des variables de classe représentant l'état du terrain
     {
@@ -137,7 +140,7 @@ public class PlayFieldPos
     }
 
     // Ne fait pas sauter la raquette, mais modifie le vecteur vitesse avec comme cible
-    // le point auquel est prédit la position de la raquette dans un futur proche, lors de
+    // le point auquel est prédit la position de la raquette dans un futur proche, c.a.d lors de
     // la reception de la prochaine position. Param entre 0 et 1. Essayez 0.6
     public void setPosPad2(int e, int j, HVPoint p, float coef)
     {
@@ -207,7 +210,8 @@ public class PlayFieldPos
     public void balleMiseEnJeuRep() // Mise en jeu répétable de la balle (toujours pareil)
     {
         // Mise en jeu de la balle au centre. Vitesse adaptée au terrain.
-        ySpeBal = -HVPoint.WIDTH_REF*23456 / LatiLongHV.distBackCorners(); // LatiLongHV.distBackCorners();
+        //TODO appeler la fonction balleRegleVitesse pour fixer la vitesse
+        ySpeBal = -HVPoint.WIDTH_REF*23456 / LatiLongHV.distBackCorners();
         xSpeBal = -ySpeBal / 4; // distance per hour
         xPosBal =  HVPoint.WIDTH_REF/2;
         yPosBal =  HVPoint.WIDTH_REF/2;

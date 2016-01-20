@@ -66,7 +66,6 @@ public class GameActivity extends ActionBarActivity implements
     private long tInitBal = -1;  // Date of first update of the ball for debug
     private long nbMajBal = 0;   // Number of updates since tInitBal for debug
 
-    // TODO à quoi sert le TAG ?
     protected static final String TAG = "location-updates-sample";
 
     /**
