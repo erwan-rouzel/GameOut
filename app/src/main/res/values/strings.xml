@@ -34,16 +34,16 @@
     <string name="best_score_txt">777</string>
     <string name="instructions">Instructions</string>
     <string name="settings">Settings</string>
-    <string name="online_game">Play Online</string>
-    <string name="quick_game">Quick match</string>
+    <string name="online_game">Multi Player</string>
+    <string name="quick_game">Single Player</string>
     <string name="exit">Exit</string>
     <string name="back">Back</string>
     <string name="leaderboard">Leaderbord</string>
     <string name="achievements">Achievements</string>
     <string name="credits">Credits</string>
     <string name="login_invite">Login to play online</string>
-    <string name="automatch_player">Play</string>
-    <string name="invite_players">Select players</string>
-    <string name="show_invitations">See my invitations</string>
+    <string name="automatch_player">Quick Match</string>
+    <string name="invite_players">Invite Players</string>
+    <string name="show_invitations">Show Invitations</string>
     param_test_button
 </resources>

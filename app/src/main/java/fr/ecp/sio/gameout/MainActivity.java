@@ -108,6 +108,9 @@ public class MainActivity extends ActionBarActivity implements
         findViewById(R.id.exit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (GoogleApiClientSingleton.getInstance().isSignedIn())
+                    GoogleApiClientSingleton.getInstance().signOut();
+
                 finish();
             }
         });
@@ -177,13 +180,5 @@ public class MainActivity extends ActionBarActivity implements
         }
     }
 
-
-    @Override
-    public void onStop(){
-        if (GoogleApiClientSingleton.getInstance().isSignedIn())
-            GoogleApiClientSingleton.getInstance().signOut();
-        super.onStop();
-
-    }
 
 }
