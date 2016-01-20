@@ -6,12 +6,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.plus.Plus;
 import com.google.example.games.basegameutils.BaseGameUtils;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 import fr.ecp.sio.gameout.salon.GoogleApiClientSingleton;
 import fr.ecp.sio.gameout.salon.InstructionsActivity;
@@ -22,6 +27,8 @@ import fr.ecp.sio.gameout.salon.SettingsActivity;
 public class MainActivity extends ActionBarActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
+
+    InterstitialAd mInterstitialAd;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -44,7 +51,20 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mInterstitialAd = new InterstitialAd(getApplicationContext());
+        mInterstitialAd.setAdUnitId("ca-app-pub-2963674502359443/7565389212");
+        requestNewInterstitial();
         setContentView(R.layout.activity_main);
+        requestNewInterstitial();
+        final AdView adView = (AdView) findViewById(R.id.banner);
+        adView.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener() {
+
+            @Override
+            public void onAdLoaded() {
+                mInterstitialAd.show();
+            }
+        });
 
         // Get invitation from Bundle
         if (savedInstanceState == null) {
@@ -60,6 +80,9 @@ public class MainActivity extends ActionBarActivity implements
             GoogleApiClientSingleton.getInstance()
                     .setApiClient(mGoogleApiClient);
         }
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded())
+            mInterstitialAd.show();
+
 
         mGoogleApiClient = GoogleApiClientSingleton.getInstance()
                 .getApiClient();
@@ -179,6 +202,15 @@ public class MainActivity extends ActionBarActivity implements
             }
         }
     }
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
+
+    }
+
 
 
 }

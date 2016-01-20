@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 
@@ -27,6 +29,8 @@ public class SettingsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        final AdView adView = (AdView) findViewById(R.id.banner);
+        adView.loadAd(new AdRequest.Builder().build());
 
         if (GoogleApiClientSingleton.getInstance().isSignedIn())
             mGoogleApiClient = GoogleApiClientSingleton.getInstance().getApiClient();

@@ -33,6 +33,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
@@ -58,7 +60,7 @@ import fr.ecp.sio.gameout.remote.SyncStateService;
  */
 public class GameActivity extends ActionBarActivity implements
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
-
+    InterstitialAd mInterstitialAd;
     protected char balTraffic = 'N';
     private   BallThread balThread = null;
 
@@ -227,6 +229,11 @@ public class GameActivity extends ActionBarActivity implements
         PlayFieldSurfaceView lPfsv;
 
         super.onCreate(savedInstanceState);
+        mInterstitialAd = new InterstitialAd(getApplicationContext());
+        mInterstitialAd.setAdUnitId("ca-app-pub-2963674502359443/7565389212");
+        requestNewInterstitial();
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded())
+            mInterstitialAd.show();
         setContentView(R.layout.game_activity);
 
         // Locate the UI widgets.
@@ -244,7 +251,6 @@ public class GameActivity extends ActionBarActivity implements
         mRequestingLocationUpdates = false;
         calibStage= 0;
         paramTest = 3;
-
         // Update values using data stored in the Bundle.
         // TODO understand why next line meaning
         updateValuesFromBundle(savedInstanceState);
@@ -679,5 +685,13 @@ public class GameActivity extends ActionBarActivity implements
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
+
     }
 }
