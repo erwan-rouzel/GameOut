@@ -9,14 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee1b9bfc-31c7-4260-befe-3cfc79a55a11" name="Default" comment="Modifs mineures pendant la relecture du code par OD">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/GameActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/GameActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/PlayFieldPos.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/PlayFieldPos.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/PlayFieldSurfaceView.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/PlayFieldSurfaceView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+    <list default="true" id="ee1b9bfc-31c7-4260-befe-3cfc79a55a11" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="GameOut.iws" />
@@ -3216,7 +3209,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448818867978</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Modifs mineures pendant la relecture du code par OD">
+      <created>1453281633910</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1453281633910</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
