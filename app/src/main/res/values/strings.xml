@@ -45,5 +45,7 @@
     <string name="automatch_player">Quick Match</string>
     <string name="invite_players">Invite Players</string>
     <string name="show_invitations">Show Invitations</string>
-    param_test_button
+    <string name="param_test_button">Parameter test button</string>
+    <string name="banner_ads_unit_id">ca-app-pub-2963674502359443/6088656017</string>
+    <string name="fs_ads_unit_id">ca-app-pub-2963674502359443/7565389212</string>
 </resources>

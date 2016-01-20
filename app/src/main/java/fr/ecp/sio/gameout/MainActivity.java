@@ -51,9 +51,10 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"onCreate");
+        Log.d(TAG, "onCreate");
         mInterstitialAd = new InterstitialAd(getApplicationContext());
-        mInterstitialAd.setAdUnitId("ca-app-pub-2963674502359443/7565389212");
+        String adUnitId = getResources().getString(R.string.fs_ads_unit_id);
+        mInterstitialAd.setAdUnitId(adUnitId);
         requestNewInterstitial();
         setContentView(R.layout.activity_main);
         requestNewInterstitial();
