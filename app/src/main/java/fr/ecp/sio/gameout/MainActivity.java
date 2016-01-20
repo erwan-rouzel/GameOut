@@ -2,8 +2,8 @@ package fr.ecp.sio.gameout;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -57,8 +57,7 @@ public class MainActivity extends ActionBarActivity implements
         mInterstitialAd.setAdUnitId(adUnitId);
         requestNewInterstitial();
         setContentView(R.layout.activity_main);
-        requestNewInterstitial();
-        final AdView adView = (AdView) findViewById(R.id.banner);
+        final AdView adView = (AdView) findViewById(R.id.banner1);
         adView.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
 
@@ -205,6 +204,7 @@ public class MainActivity extends ActionBarActivity implements
         }
     }
     private void requestNewInterstitial() {
+        Log.d(TAG,"requestNewInterstitial");
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();

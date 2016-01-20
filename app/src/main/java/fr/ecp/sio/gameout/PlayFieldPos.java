@@ -10,19 +10,19 @@ public class PlayFieldPos
     public long timeLNU; // date in ms of Last Network Update
     public long timeExt; // date in ms for witch the values had been extrapolated
 
-    public char[]  big_digit = new char[3]; // Afficheur (score en particulier)
+    public char[]  big_digit = new char[3]; // Afficheur (score en particulier), from server
 
-    public int      nb_team;   // 1 à 3 équipes, 1 à 3 joueurs par équipe
-    public int []   nb_player; // Nb joueurs par équipe
-    public int [][] xPosPadExt, yPosPadExt; // Position des raquettes Extrapolée à une date recente
-    public int [][] xPosPad,    yPosPad; // Position des raquettes [Equipe][Joueur]
-    public int [][] xRadPad,    yRadPad; // Taille des raquettes [Equipe][Joueur]
-    public int [][] xSpePad,    ySpePad; // Vitesse des raquettes [Equipe][Joueur]
-    public char[][] statePad; // Bits donnant l'état de la raquette (active ou pas, hors zone...)
+    public int      nb_team;   // 1 à 3 équipes, 1 à 3 joueurs par équipe, from server
+    public int []   nb_player; // Nb joueurs par équipe, from server
+    public int [][] xPosPadExt, yPosPadExt; // Position des raquettes Extrapolée à une date récente
+    public int [][] xPosPad,    yPosPad; // Position des raquettes [Equipe][Joueur] from server
+    public int [][] xRadPad,    yRadPad; // Taille des raquettes [Equipe][Joueur] from server
+    public int [][] xSpePad,    ySpePad; // Vitesse des raquettes [Equipe][Joueur] from server
+    public char[][] statePad; // Bits d'état de la raquette (blinking, hors zone...) from server
 
-    public int xPosBal, yPosBal;
-    public int xRadBal, yRadBal;
-    public int xSpeBal, ySpeBal; // distance per hour
+    public int xPosBal, yPosBal; // from server
+    public int xRadBal, yRadBal; // from server
+    public int xSpeBal, ySpeBal; // distance per hour from server
 
     public static char ThreadTraffic='R'; // Gestion à l'ancienne de l'activité du thread
     private int bestScoreBid; // Meilleur score (temporaire)
