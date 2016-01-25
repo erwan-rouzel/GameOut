@@ -409,12 +409,12 @@ public class OnlineGameActivity extends ActionBarActivity implements
      * Add a GameOutParticipant to the ongoing game and update turn order. If the
      * GameOutParticipant is a duplicate, this method does nothing.
      *
-     * @param dp the GameOutParticipant to add.
+     * @param gp the GameOutParticipant to add.
      */
-    private void onParticipantConnected(GameOutParticipant dp) {
-        Log.d(TAG, "onParticipantConnected: " + dp.getPersistentId());
-        if (!mParticipants.containsKey(dp.getPersistentId())) {
-            mParticipants.put(dp.getPersistentId(), dp);
+    private void onParticipantConnected(GameOutParticipant gp) {
+        Log.d(TAG, "onParticipantConnected: " + gp.getPersistentId());
+        if (!mParticipants.containsKey(gp.getPersistentId())) {
+            mParticipants.put(gp.getPersistentId(), gp);
         }
 
         // TODO: 06/12/2015 Update UI
