@@ -1,5 +1,10 @@
 package fr.ecp.sio.gameout;
 
+import fr.ecp.sio.gameout.model.HVPoint;
+import fr.ecp.sio.gameout.model.Player;
+import fr.ecp.sio.gameout.model.Team;
+import fr.ecp.sio.gameout.remote.RemoteGameState;
+
 /**
  * Created by od on 10/31/2015.
  * Classe dont les instances décrive l'état instanté d'un jeu :
@@ -10,19 +15,19 @@ public class PlayFieldPos
     public long timeLNU; // date in ms of Last Network Update
     public long timeExt; // date in ms for witch the values had been extrapolated
 
-    public char[]  big_digit = new char[3]; // Afficheur (score en particulier), from server
+    public byte[]  big_digit = new byte[3]; // Afficheur (score en particulier)
 
-    public int      nb_team;   // 1 à 3 équipes, 1 à 3 joueurs par équipe, from server
-    public int []   nb_player; // Nb joueurs par équipe, from server
-    public int [][] xPosPadExt, yPosPadExt; // Position des raquettes Extrapolée à une date récente
-    public int [][] xPosPad,    yPosPad; // Position des raquettes [Equipe][Joueur] from server
-    public int [][] xRadPad,    yRadPad; // Taille des raquettes [Equipe][Joueur] from server
-    public int [][] xSpePad,    ySpePad; // Vitesse des raquettes [Equipe][Joueur] from server
-    public char[][] statePad; // Bits d'état de la raquette (blinking, hors zone...) from server
+    public int      nb_team;   // 1 à 3 équipes, 1 à 3 joueurs par équipe
+    public int []   nb_player; // Nb joueurs par équipe
+    public int [][] xPosPadExt, yPosPadExt; // Position des raquettes Extrapolée à une date recente
+    public int [][] xPosPad,    yPosPad; // Position des raquettes [Equipe][Joueur]
+    public int [][] xRadPad,    yRadPad; // Taille des raquettes [Equipe][Joueur]
+    public int [][] xSpePad,    ySpePad; // Vitesse des raquettes [Equipe][Joueur]
+    public byte[][] statePad; // Bits donnant l'état de la raquette (active ou pas, hors zone...)
 
-    public int xPosBal, yPosBal; // from server
-    public int xRadBal, yRadBal; // from server
-    public int xSpeBal, ySpeBal; // distance per hour from server
+    public int xPosBal, yPosBal;
+    public int xRadBal, yRadBal;
+    public int xSpeBal, ySpeBal; // distance per hour
 
     public static char ThreadTraffic='R'; // Gestion à l'ancienne de l'activité du thread
     private int bestScoreBid; // Meilleur score (temporaire)
@@ -62,7 +67,7 @@ public class PlayFieldPos
         yRadPad    = new int [nb_team][nb_player[0]];
         xSpePad    = new int [nb_team][nb_player[0]];
         ySpePad    = new int [nb_team][nb_player[0]];
-        statePad   = new char[nb_team][nb_player[0]];
+        statePad   = new byte[nb_team][nb_player[0]];
 
         for (e=0;e<nb_team;e++)
             for (j=0; j<nb_player[e]; j++)
@@ -236,5 +241,40 @@ public class PlayFieldPos
         float baseX = baseY / 4.f;
         xSpeBal = Math.round(signX*coefScore*baseX); // distance per hour
         ySpeBal = Math.round(signY*coefScore*baseY); // distance per hour
+    }
+
+    public void syncGameState() {
+        RemoteGameState gameState = RemoteGameState.getInstance();
+        LocationManager locationManager = LocationManager.getInstance();
+
+        if(gameState == null) return;
+
+        //Envoyer position de la raquette du joueur
+        gameState.sendPosition(locationManager.getCurrentPosition());
+
+        // Mapping entre RemoteGameState et PlayFieldPos
+        xPosBal = gameState.ball.x;
+        yPosBal = gameState.ball.y;
+
+        for(Team team: gameState.teams) {
+            if(team != null) {
+                this.big_digit[team.id] = team.score;
+
+                for (Player player : team.players) {
+                    if (player != null) {
+                        xPosPad[team.id][player.id] = gameState.teams[team.id].players[player.id].x;
+                        yPosPad[team.id][player.id] = gameState.teams[team.id].players[player.id].y;
+                        xPosPadExt[team.id][player.id] = xPosPad[team.id][player.id];
+                        yPosPadExt[team.id][player.id] = yPosPad[team.id][player.id];
+                        xSpePad[team.id][player.id] = gameState.teams[team.id].players[player.id].vx;
+                        ySpePad[team.id][player.id] = gameState.teams[team.id].players[player.id].vy;
+                        statePad[team.id][player.id] = gameState.teams[team.id].players[player.id].state;
+                    }
+                }
+            }
+        }
+
+
+        //TODO - mise à jour du score - à voir avec Olivier
     }
 }

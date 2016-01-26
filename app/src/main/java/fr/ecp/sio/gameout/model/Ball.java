@@ -12,7 +12,7 @@ public class Ball extends GameObject {
     public Ball() {
         x = 0;
         y = 0;
-        vx = 1;
-        vy = 1;
+        vx = 200;
+        vy = 300;
     }
 }

@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import fr.ecp.sio.gameout.model.GameSession;
+import fr.ecp.sio.gameout.model.HVPoint;
 import fr.ecp.sio.gameout.remote.RemoteGameState;
 import fr.ecp.sio.gameout.remote.SyncStateService;
 
@@ -116,6 +117,8 @@ public class GameActivity extends ActionBarActivity implements
 
     protected TextView mLatitudeTextView;
     protected TextView mLongitudeTextView;
+    EditText mLogServerEditText;
+
 
     //Le texte indiquant à l'utilisateur le prochain point de calibration à acquérir
     String calibText="vide";
@@ -438,33 +441,48 @@ public class GameActivity extends ActionBarActivity implements
         paramTestText = String.format("%2d",paramTest);
         mParamTestButton.setText(paramTestText);
         //TODO ERWAN ajouter test serveur
-        EditText mLogServerEditText = (EditText) this.findViewById(R.id.edit_text_log_server);
+        mLogServerEditText = (EditText) this.findViewById(R.id.edit_text_log_server);
         mLogServerEditText.setTextSize(8.0f);
         mLogServerEditText.setMinWidth(400);
-
-        HVPoint pt = new HVPoint();
-        pt.H = 1000;
-        pt.V = 2000;
 
         GameSession gameSession = new GameSession();
         gameSession.id = 1;
         gameSession.numberOfPlayersInTeam1 = 1;
-        gameSession.numberOfPlayersInTeam2 = 1;
+        gameSession.numberOfPlayersInTeam2 = 0;
+        gameSession.numberOfPlayersInTeam3 = 0;
+
+        HVPoint pt = new HVPoint();
+        pt.H = 6000;
+        pt.V = 10000;
+        LocationManager.getInstance().setPosition(pt);
 
         long startTime = System.nanoTime();
         RemoteGameState.getInstance(gameSession).sendPosition(pt);
         long endTime = System.nanoTime();
         double difference = Math.round((endTime - startTime)/1e6);
 
-        Log.d("Test", "Button pressed!");
-
         RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
 
-        mLogServerEditText.setText(mLogServerEditText.getText() + "\n" + "[" + difference + "ms] - "
-                + remoteGameState.timestamp
-                + " - ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")"
-        );
+        logServer("ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")");
 
+        new Thread()
+        {
+            public void run() {
+                while(true) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    CurPfp.pfp.syncGameState();
+                }
+            }
+        }.start();
+    }
+
+    private void logServer(String message) {
+        mLogServerEditText.setText(mLogServerEditText.getText() + "[" + RemoteGameState.getInstance().timestamp + "] " + message + "\n");
         mLogServerEditText.setSelection(mLogServerEditText.getText().length());
     }
 
@@ -679,6 +697,30 @@ public class GameActivity extends ActionBarActivity implements
         savedInstanceState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY, mRequestingLocationUpdates);
         savedInstanceState.putParcelable(LOCATION_KEY, mCurrentLocation);
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    public void moveLeftButtonHandler(View view) {
+        RemoteGameState gameState = RemoteGameState.getInstance();
+
+        HVPoint newPosition = LocationManager.getInstance().getCurrentPosition();
+        newPosition.H = (short) (newPosition.H - 400);
+
+        LocationManager.getInstance().setPosition(newPosition);
+        CurPfp.pfp.syncGameState();
+
+        logServer("x=" + gameState.teams[0].players[0].x);
+    }
+
+    public void moveRightButtonHandler(View view) {
+        RemoteGameState gameState = RemoteGameState.getInstance();
+
+        HVPoint newPosition = LocationManager.getInstance().getCurrentPosition();
+        newPosition.H = (short) (newPosition.H + 400);
+
+        LocationManager.getInstance().setPosition(newPosition);
+        CurPfp.pfp.syncGameState();
+
+        logServer("x=" + gameState.teams[0].players[0].x);
     }
 
     @Override

@@ -1,12 +1,10 @@
 package fr.ecp.sio.gameout.model;
 
-import com.google.android.gms.games.Game;
-
 /**
  * Created by erwan on 14/11/2015.
  */
 public class GameState extends GameObject {
-    protected GameSession session;
+    public GameSession session;
     public long timestamp;
     public int increment;
     public int id;
@@ -18,8 +16,17 @@ public class GameState extends GameObject {
         this.id = session.id;
         this.ball = new Ball();
         this.teams = new  Team[3];
-        this.teams[0] = new Team((byte)0, this, session.numberOfPlayersInTeam1);
-        this.teams[1] = new Team((byte)1, this, session.numberOfPlayersInTeam2);
-        this.teams[2] = new Team((byte)2, this, session.numberOfPlayersInTeam3);
+
+        if(session.numberOfPlayersInTeam1 > 0) {
+            this.teams[0] = new Team((byte)0, this, session.numberOfPlayersInTeam1);
+        }
+
+        if(session.numberOfPlayersInTeam2 > 0) {
+            this.teams[1] = new Team((byte)1, this, session.numberOfPlayersInTeam2);
+        }
+
+        if(session.numberOfPlayersInTeam3 > 0) {
+            this.teams[2] = new Team((byte)2, this, session.numberOfPlayersInTeam3);
+        }
     }
 }

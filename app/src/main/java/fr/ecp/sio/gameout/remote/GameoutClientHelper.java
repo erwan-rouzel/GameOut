@@ -33,9 +33,19 @@ public class GameoutClientHelper {
 
         remoteGameState.timestamp =  GameoutUtils.bytesToLong(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7]);
         remoteGameState.increment = m[8];
-        remoteGameState.teams[0].score = m[9];
-        remoteGameState.teams[1].score = m[10];
-        remoteGameState.teams[2].score = m[11];
+
+        if(remoteGameState.session.numberOfPlayersInTeam1 > 0) {
+            remoteGameState.teams[0].score = m[9];
+        }
+
+        if(remoteGameState.session.numberOfPlayersInTeam2 > 0) {
+            remoteGameState.teams[1].score = m[10];
+        }
+
+        if(remoteGameState.session.numberOfPlayersInTeam3 > 0) {
+            remoteGameState.teams[2].score = m[11];
+        }
+
         remoteGameState.ball.x = GameoutUtils.bytesToShort(m[12], m[13]);
         remoteGameState.ball.y = GameoutUtils.bytesToShort(m[14], m[15]);
         remoteGameState.ball.vx = GameoutUtils.bytesToShort(m[16], m[17]);
@@ -51,7 +61,7 @@ public class GameoutClientHelper {
             remoteGameState.teams[0].players[i].y =     GameoutUtils.bytesToShort(m[n + 2 + i*9],   m[n + 3 + i*9]);
             remoteGameState.teams[0].players[i].vx =    GameoutUtils.bytesToShort(m[n + 4 + i*9],   m[n + 5 + i*9]);
             remoteGameState.teams[0].players[i].vy =    GameoutUtils.bytesToShort(m[n + 6 + i*9],   m[n + 7 + i*9]);
-            remoteGameState.teams[0].players[i].state = (m[n + 8 + i*9] == 0)? PlayerState.Inactive:PlayerState.Active;
+            remoteGameState.teams[0].players[i].state = (m[n + 8 + i*9] == 0)? PlayerState.INACTIVE:PlayerState.ACTIVE;
         }
 
         n = 23 + sizeTeam1*9;
@@ -60,7 +70,7 @@ public class GameoutClientHelper {
             remoteGameState.teams[1].players[i].y =     GameoutUtils.bytesToShort(m[n + 2 + i*9],   m[n + 3 + i*9]);
             remoteGameState.teams[1].players[i].vx =    GameoutUtils.bytesToShort(m[n + 4 + i*9],   m[n + 5 + i*9]);
             remoteGameState.teams[1].players[i].vy =    GameoutUtils.bytesToShort(m[n + 6 + i*9],   m[n + 7 + i*9]);
-            remoteGameState.teams[1].players[i].state = (m[n + 8 + i*9] == 0)?PlayerState.Inactive:PlayerState.Active;
+            remoteGameState.teams[1].players[i].state = (m[n + 8 + i*9] == 0)?PlayerState.INACTIVE:PlayerState.ACTIVE;
         }
 
         n = 23 + sizeTeam2*9;
@@ -69,7 +79,7 @@ public class GameoutClientHelper {
             remoteGameState.teams[2].players[i].y =     GameoutUtils.bytesToShort(m[n + 2 + i*9],   m[n + 3 + i*9]);
             remoteGameState.teams[2].players[i].vx =    GameoutUtils.bytesToShort(m[n + 4 + i*9],   m[n + 5 + i*9]);
             remoteGameState.teams[2].players[i].vy =    GameoutUtils.bytesToShort(m[n + 6 + i*9],   m[n + 7 + i*9]);
-            remoteGameState.teams[2].players[i].state = (m[n + 8 + i*9] == 0)?PlayerState.Inactive:PlayerState.Active;
+            remoteGameState.teams[2].players[i].state = (m[n + 8 + i*9] == 0)?PlayerState.INACTIVE:PlayerState.ACTIVE;
         }
     }
 }
