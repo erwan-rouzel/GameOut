@@ -44,6 +44,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import fr.ecp.sio.gameout.model.GameSession;
@@ -445,8 +446,10 @@ public class GameActivity extends ActionBarActivity implements
         mLogServerEditText.setTextSize(8.0f);
         mLogServerEditText.setMinWidth(400);
 
+        Random random = new Random();
+
         GameSession gameSession = new GameSession();
-        gameSession.id = 1;
+        gameSession.id = random.nextInt(10000);
         gameSession.numberOfPlayersInTeam1 = 1;
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
@@ -566,8 +569,6 @@ public class GameActivity extends ActionBarActivity implements
                                 + GPSTiming.meanPeriod()
                                 + "ms" ;
 
-                    LocationManager locationManager = LocationManager.getInstance();
-                    locationManager.setPosition(p);
                     break;
 
                 default:
@@ -708,7 +709,8 @@ public class GameActivity extends ActionBarActivity implements
         HVPoint newPosition = LocationManager.getInstance().getCurrentPosition();
         newPosition.H = (short) (newPosition.H - 400);
 
-        LocationManager.getInstance().setPosition(newPosition);
+        //LocationManager.getInstance().setPosition(newPosition);
+        CurPfp.pfp.setPosPad0(0, 0, newPosition);
         CurPfp.pfp.syncGameState();
 
         logServer("x=" + gameState.teams[0].players[0].x);
@@ -720,7 +722,8 @@ public class GameActivity extends ActionBarActivity implements
         HVPoint newPosition = LocationManager.getInstance().getCurrentPosition();
         newPosition.H = (short) (newPosition.H + 400);
 
-        LocationManager.getInstance().setPosition(newPosition);
+        //LocationManager.getInstance().setPosition(newPosition);
+        CurPfp.pfp.setPosPad0(0, 0, newPosition);
         CurPfp.pfp.syncGameState();
 
         logServer("x=" + gameState.teams[0].players[0].x);
