@@ -156,6 +156,12 @@ public class PlayFieldSurfaceView extends SurfaceView
     public void maj_visu(Canvas pCanvas, boolean dirOfView) // dirOfView pour retourner la visu
     {
         CurPfp.pfp.extrapolate();
+        LocationManager locationManager = LocationManager.getInstance();
+        locationManager.setPosition(
+                new HVPoint(
+                        (short)CurPfp.pfp.xPosPadExt[0][0],
+                        (short)CurPfp.pfp.yPosPadExt[0][0])
+        );
         CurPfp.pfp.syncGameState();
         pCanvas.drawColor(0xFF101080); // Efface toute la zone
         drawBall(pCanvas, dirOfView);  // Dessine la balle
