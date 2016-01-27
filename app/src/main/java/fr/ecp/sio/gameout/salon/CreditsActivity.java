@@ -29,8 +29,6 @@ public class CreditsActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(CreditsActivity.this, MainActivity.class);
-        startActivity(intent);
         finish();
     }
 }
