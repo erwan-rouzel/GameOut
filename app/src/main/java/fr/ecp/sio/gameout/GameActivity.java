@@ -413,6 +413,9 @@ public class GameActivity extends ActionBarActivity implements
                     tInitBal   = -1;
                     nbMajBal   = 0;
 
+                    //TODO : envoyer la taille du terrain au serveur
+                    // pour le calcul de la vitesse de la balle
+
                     /*
                     if (balThread == null)
                     {
