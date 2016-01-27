@@ -7,6 +7,8 @@ package fr.ecp.sio.gameout;
 
 import android.location.Location;
 
+import fr.ecp.sio.gameout.model.HVPoint;
+
 public class LatiLongHV
 {
     private static Location mBackLeftCorner;
@@ -100,7 +102,7 @@ public class LatiLongHV
             else if (x>1)
                 res.H = HVPoint.WIDTH_REF;
             else
-                res.H = (int) Math.round(x*HVPoint.WIDTH_REF-1);
+                res.H = (short) Math.round(x*HVPoint.WIDTH_REF-1);
 
             res.V = (HVPoint.WIDTH_REF/10)*8;
         } else {

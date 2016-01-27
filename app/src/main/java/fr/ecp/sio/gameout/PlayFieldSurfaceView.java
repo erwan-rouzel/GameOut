@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import fr.ecp.sio.gameout.model.HVPoint;
+
 /**
  * Created by od on 10/31/2015.
  * Zone graphique où est affiché le jeu en cour.

@@ -3,11 +3,10 @@ package fr.ecp.sio.gameout.remote;
 import android.os.AsyncTask;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
-import fr.ecp.sio.gameout.HVPoint;
 import fr.ecp.sio.gameout.model.GameSession;
 import fr.ecp.sio.gameout.model.GameState;
+import fr.ecp.sio.gameout.model.HVPoint;
 import fr.ecp.sio.gameout.model.Player;
 import fr.ecp.sio.gameout.model.Team;
 
@@ -36,9 +35,36 @@ public class RemoteGameState extends GameState
         return instance;
     }
 
-    public void sendPosition(HVPoint position) throws ExecutionException, InterruptedException {
-        SendPositionTask serverTask = new SendPositionTask();
-        serverTask.execute(position);
+    public void sendPosition(final HVPoint position) {
+        //SendPositionTask serverTask = new SendPositionTask();
+        //serverTask.execute(position);
+
+        new Thread(){
+            @Override
+            public void run() {
+                String responseFromServer;
+                GameoutClient client = null;
+                try {
+                    client = GameoutClient.getInstance();
+
+                    GameState gameState = new GameState(client.getGameSession());
+                    Team team = new Team((byte)0, gameState, 2);
+
+                    //HVPoint position = params[0];
+                    Player player = new Player((byte)0, team);
+                    player.x = (short)position.H;
+                    player.y = (short)position.V;
+                    player.vx = (short)1;
+                    player.vx = (short)1;
+
+                    byte[] responseBytes = client.sendPosition(player);
+                    GameoutClientHelper.updateGameState(responseBytes);
+                    responseFromServer = "";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     public void getNewState() // Fonction bloquante en attente des nouvelles position.
@@ -57,6 +83,9 @@ public class RemoteGameState extends GameState
             return null;
         }
     }
+
+    /*
+    TODO : faire fonctionner l'envoie des données avec cette AsyncTask
 
     private static class SendPositionTask extends AsyncTask<HVPoint, Void, String> {
 
@@ -88,4 +117,5 @@ public class RemoteGameState extends GameState
             return responseFromServer;
         }
     }
+    */
 }

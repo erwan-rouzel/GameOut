@@ -1,7 +1,5 @@
 package fr.ecp.sio.gameout.model;
 
-import com.google.android.gms.games.Game;
-
 import java.net.InetAddress;
 
 /**
@@ -12,8 +10,8 @@ public class Player extends GameObject {
     public byte id;
     public Team parentTeam;
     public InetAddress ip;
-    public PlayerType type;
-    public PlayerState state;
+    public byte type;
+    public byte state;
     public short x;
     public short y;
     public short vx;
@@ -24,10 +22,10 @@ public class Player extends GameObject {
         this.parentTeam = parentTeam;
         this.id = id;
         ip = null;
-        type = PlayerType.Guest;
-        state = PlayerState.Active;
-        x = 0;
-        y = 0;
+        type = PlayerType.GUEST;
+        state = PlayerState.ACTIVE;
+        x = 6000;
+        y = 10000;
         vx = 1;
         vy = 1;
     }
