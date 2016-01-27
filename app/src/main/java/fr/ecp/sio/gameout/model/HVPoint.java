@@ -10,4 +10,14 @@ public class HVPoint
     public final static int WIDTH_REF = 12000; // Largeur arbitraire du terrain
     public short H;
     public short V;
+
+    public HVPoint(short H, short V) {
+        this.H = H;
+        this.V = V;
+    }
+
+    public HVPoint() {
+        this.H = 0;
+        this.V = 0;
+    }
 }

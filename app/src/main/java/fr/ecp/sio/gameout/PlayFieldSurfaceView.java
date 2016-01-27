@@ -156,6 +156,7 @@ public class PlayFieldSurfaceView extends SurfaceView
     public void maj_visu(Canvas pCanvas, boolean dirOfView) // dirOfView pour retourner la visu
     {
         CurPfp.pfp.extrapolate();
+        CurPfp.pfp.syncGameState();
         pCanvas.drawColor(0xFF101080); // Efface toute la zone
         drawBall(pCanvas, dirOfView);  // Dessine la balle
         drawPads(pCanvas, dirOfView);  // Dessine la raquette

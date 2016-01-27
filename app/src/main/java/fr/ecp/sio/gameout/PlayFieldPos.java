@@ -251,6 +251,7 @@ public class PlayFieldPos
 
         //Envoyer position de la raquette du joueur
         gameState.sendPosition(locationManager.getCurrentPosition());
+        //gameState.sendPosition(CurPfp.p);
 
         // Mapping entre RemoteGameState et PlayFieldPos
         xPosBal = gameState.ball.x;
@@ -262,12 +263,12 @@ public class PlayFieldPos
 
                 for (Player player : team.players) {
                     if (player != null) {
-                        xPosPad[team.id][player.id] = gameState.teams[team.id].players[player.id].x;
-                        yPosPad[team.id][player.id] = gameState.teams[team.id].players[player.id].y;
-                        xPosPadExt[team.id][player.id] = xPosPad[team.id][player.id];
-                        yPosPadExt[team.id][player.id] = yPosPad[team.id][player.id];
-                        xSpePad[team.id][player.id] = gameState.teams[team.id].players[player.id].vx;
-                        ySpePad[team.id][player.id] = gameState.teams[team.id].players[player.id].vy;
+                        //xPosPad[team.id][player.id] = gameState.teams[team.id].players[player.id].x;
+                        //yPosPad[team.id][player.id] = gameState.teams[team.id].players[player.id].y;
+                        xPosPadExt[team.id][player.id] = gameState.teams[team.id].players[player.id].x;
+                        yPosPadExt[team.id][player.id] = gameState.teams[team.id].players[player.id].y;
+                        //xSpePad[team.id][player.id] = gameState.teams[team.id].players[player.id].vx;
+                        //ySpePad[team.id][player.id] = gameState.teams[team.id].players[player.id].vy;
                         statePad[team.id][player.id] = gameState.teams[team.id].players[player.id].state;
                     }
                 }

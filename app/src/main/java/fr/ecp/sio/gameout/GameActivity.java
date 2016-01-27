@@ -170,10 +170,10 @@ public class GameActivity extends ActionBarActivity implements
 
                     // Rebond en X sur les murs
                     if (CurPfp.pfp.xPosBal < CurPfp.pfp.xRadBal)
-                        CurPfp.pfp.xSpeBal = Math.abs(CurPfp.pfp.xSpeBal);
+                        CurPfp.pfp.xSpeBal = (short) Math.abs(CurPfp.pfp.xSpeBal);
                     else
                     if (CurPfp.pfp.xPosBal>(HVPoint.WIDTH_REF-CurPfp.pfp.xRadBal))
-                        CurPfp.pfp.xSpeBal = - Math.abs(CurPfp.pfp.xSpeBal);
+                        CurPfp.pfp.xSpeBal = (short) - Math.abs(CurPfp.pfp.xSpeBal);
 
                     // Mouvement sur Y
                     yMov = (int) Math.round(CurPfp.pfp.ySpeBal/3600000.*tDelta);
@@ -181,12 +181,12 @@ public class GameActivity extends ActionBarActivity implements
 
                     // Rebond en Y sur les murs
                     if (CurPfp.pfp.yPosBal < CurPfp.pfp.yRadBal)
-                        CurPfp.pfp.ySpeBal = Math.abs(CurPfp.pfp.ySpeBal);
+                        CurPfp.pfp.ySpeBal = (short) Math.abs(CurPfp.pfp.ySpeBal);
                     else
                     if (CurPfp.pfp.yPosBal>(HVPoint.WIDTH_REF-CurPfp.pfp.yRadBal))
                     // Cas special en plus nous remettons le score à 0 la balle a été loupée
                     {
-                        CurPfp.pfp.ySpeBal = - Math.abs(CurPfp.pfp.ySpeBal);
+                        CurPfp.pfp.ySpeBal = (short) - Math.abs(CurPfp.pfp.ySpeBal);
                         CurPfp.pfp.resetScoreBidon();
                         CurPfp.pfp.balleRegleVitesse();
                     }
@@ -200,7 +200,7 @@ public class GameActivity extends ActionBarActivity implements
                                     || ((CurPfp.pfp.xPosBal - CurPfp.pfp.xRadBal) > (CurPfp.pfp.xPosPadExt[0][0] + CurPfp.pfp.xRadPad[0][0]))
                         )   )
                     {
-                        CurPfp.pfp.ySpeBal = -Math.abs(CurPfp.pfp.ySpeBal);
+                        CurPfp.pfp.ySpeBal = (short) -Math.abs(CurPfp.pfp.ySpeBal);
                         // incrementons le score, la balle a été envoyée
                         CurPfp.pfp.incScoreBidon();
                         // agmentons la vitesse de la balle lorsque le score augmente
@@ -451,9 +451,7 @@ public class GameActivity extends ActionBarActivity implements
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
 
-        HVPoint pt = new HVPoint();
-        pt.H = 6000;
-        pt.V = 10000;
+        HVPoint pt = new HVPoint((short)6000, (short)10000);
         LocationManager.getInstance().setPosition(pt);
 
         long startTime = System.nanoTime();
@@ -465,6 +463,7 @@ public class GameActivity extends ActionBarActivity implements
 
         logServer("ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")");
 
+        /*
         new Thread()
         {
             public void run() {
@@ -479,6 +478,7 @@ public class GameActivity extends ActionBarActivity implements
                 }
             }
         }.start();
+        */
     }
 
     private void logServer(String message) {
@@ -565,6 +565,9 @@ public class GameActivity extends ActionBarActivity implements
                                 + "ms " + "G=" + GPSTiming.nbEvents() + " "
                                 + GPSTiming.meanPeriod()
                                 + "ms" ;
+
+                    LocationManager locationManager = LocationManager.getInstance();
+                    locationManager.setPosition(p);
                     break;
 
                 default:
