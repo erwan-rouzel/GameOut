@@ -64,7 +64,7 @@ public class GameActivity extends ActionBarActivity implements
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
     InterstitialAd mInterstitialAd;
     protected char balTraffic = 'N';
-    private   BallThread balThread = null;
+    //private   BallThread balThread = null;
 
     private long tUpdBal = -1; //Date of the last update of the ball in milliseconds
     private long tInitBal = -1;  // Date of first update of the ball for debug
@@ -127,6 +127,7 @@ public class GameActivity extends ActionBarActivity implements
     String paramTestText;
     int paramTest;
 
+    /*
     protected class BallThread extends Thread
     {
         public void run()
@@ -220,6 +221,7 @@ public class GameActivity extends ActionBarActivity implements
             balTraffic = 'R';
         }
     }
+    */
 
     /*
      * Tracks the status of the location updates request. Value changes when the user presses the
@@ -411,6 +413,7 @@ public class GameActivity extends ActionBarActivity implements
                     tInitBal   = -1;
                     nbMajBal   = 0;
 
+                    /*
                     if (balThread == null)
                     {
                         balTraffic = 'R';
@@ -422,6 +425,7 @@ public class GameActivity extends ActionBarActivity implements
                         balTraffic = 'V';
                     else
                         Log.v("Bal", "Bad ball restart condition");
+                    */
 
                     break;
 
