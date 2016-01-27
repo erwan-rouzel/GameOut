@@ -44,12 +44,16 @@ limitations under the License.
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
+
         <service
             android:name=".remote.SyncStateService"
             android:exported="false" />
 
-        <activity android:name=".GameActivity" />
+        <activity
+            android:name=".GameActivity"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity android:name=".salon.InstructionsActivity" />
         <activity android:name=".salon.SettingsActivity" />
         <activity android:name=".salon.CreditsActivity" />
@@ -58,14 +62,16 @@ limitations under the License.
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".salon.ParametersActivity"></activity>
     </application>
 
 </manifest>

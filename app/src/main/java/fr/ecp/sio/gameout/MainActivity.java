@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.plus.Plus;
 import com.google.example.games.basegameutils.BaseGameUtils;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 
+import fr.ecp.sio.gameout.ads.InterstitialAdSingleton;
 import fr.ecp.sio.gameout.salon.GoogleApiClientSingleton;
 import fr.ecp.sio.gameout.salon.InstructionsActivity;
 import fr.ecp.sio.gameout.salon.OnlineGameActivity;
@@ -28,16 +28,15 @@ public class MainActivity extends ActionBarActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    InterstitialAd mInterstitialAd;
 
     private static final String TAG = MainActivity.class.getSimpleName();
-
     private static final int RC_SIGN_IN = 9001;
 
      // Client used to interact with Google APIs
     private GoogleApiClient mGoogleApiClient;
 
-    private GoogleApiClientSingleton singleton;
+    // Client used to interact with AdRequest
+    InterstitialAd mInterstitialAd;
 
     // Are we currently resolving a connection failure?
     private boolean mResolvingConnectionFailure = false;
@@ -52,20 +51,10 @@ public class MainActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-        mInterstitialAd = new InterstitialAd(getApplicationContext());
-        String adUnitId = getResources().getString(R.string.fs_ads_unit_id);
-        mInterstitialAd.setAdUnitId(adUnitId);
-        requestNewInterstitial();
         setContentView(R.layout.activity_main);
+
         final AdView adView = (AdView) findViewById(R.id.banner1);
         adView.loadAd(new AdRequest.Builder().build());
-        mInterstitialAd.setAdListener(new AdListener() {
-
-            @Override
-            public void onAdLoaded() {
-                mInterstitialAd.show();
-            }
-        });
 
         // Get invitation from Bundle
         if (savedInstanceState == null) {
@@ -124,9 +113,21 @@ public class MainActivity extends ActionBarActivity implements
         findViewById(R.id.single_player_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
+                final InterstitialAd mInterstitialAd = InterstitialAdSingleton
+                        .getInstance(getApplicationContext())
+                        .getInterstitialAd();
+
+                mInterstitialAd.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdLoaded() {
+                        super.onAdLoaded();
+                        Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                        startActivity(intent);
+                        mInterstitialAd.show();
+                    }
+                });
             }
+
         });
 
         findViewById(R.id.exit_button).setOnClickListener(new View.OnClickListener() {
@@ -203,16 +204,4 @@ public class MainActivity extends ActionBarActivity implements
             }
         }
     }
-    private void requestNewInterstitial() {
-        Log.d(TAG,"requestNewInterstitial");
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-
-        mInterstitialAd.loadAd(adRequest);
-
-    }
-
-
-
 }
