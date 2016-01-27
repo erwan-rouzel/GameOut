@@ -9,4 +9,8 @@ public class GameSession extends GameObject {
     public int numberOfPlayersInTeam1;
     public int numberOfPlayersInTeam2;
     public int numberOfPlayersInTeam3;
+
+    public GameSession() {
+        this.id = -1;
+    }
 }

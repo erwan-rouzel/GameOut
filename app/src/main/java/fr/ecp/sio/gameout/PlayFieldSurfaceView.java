@@ -9,6 +9,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import fr.ecp.sio.gameout.model.HVPoint;
+import fr.ecp.sio.gameout.remote.RemoteGameState;
 
 /**
  * Created by od on 10/31/2015.
@@ -162,7 +163,10 @@ public class PlayFieldSurfaceView extends SurfaceView
                         (short)CurPfp.pfp.xPosPadExt[0][0],
                         (short)CurPfp.pfp.yPosPadExt[0][0])
         );
-        CurPfp.pfp.syncGameState();
+
+        if(CurPfp.pfp.isGameStarted) {
+            CurPfp.pfp.syncGameState();
+        }
         pCanvas.drawColor(0xFF101080); // Efface toute la zone
         drawBall(pCanvas, dirOfView);  // Dessine la balle
         drawPads(pCanvas, dirOfView);  // Dessine la raquette

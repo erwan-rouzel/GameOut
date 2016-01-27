@@ -415,6 +415,7 @@ public class GameActivity extends ActionBarActivity implements
 
                     //TODO : envoyer la taille du terrain au serveur
                     // pour le calcul de la vitesse de la balle
+                    // => voir méthode balleMiseEnJeuRep
 
                     /*
                     if (balThread == null)
@@ -456,7 +457,7 @@ public class GameActivity extends ActionBarActivity implements
         Random random = new Random();
 
         GameSession gameSession = new GameSession();
-        gameSession.id = random.nextInt(10000);
+        gameSession.id = 1;
         gameSession.numberOfPlayersInTeam1 = 1;
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
@@ -465,30 +466,13 @@ public class GameActivity extends ActionBarActivity implements
         LocationManager.getInstance().setPosition(pt);
 
         long startTime = System.nanoTime();
-        RemoteGameState.getInstance(gameSession).sendPosition(pt);
+        RemoteGameState.getInstance(gameSession);
         long endTime = System.nanoTime();
         double difference = Math.round((endTime - startTime)/1e6);
 
         RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
 
         logServer("ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")");
-
-        /*
-        new Thread()
-        {
-            public void run() {
-                while(true) {
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    CurPfp.pfp.syncGameState();
-                }
-            }
-        }.start();
-        */
     }
 
     private void logServer(String message) {
@@ -715,6 +699,7 @@ public class GameActivity extends ActionBarActivity implements
 
         HVPoint newPosition = LocationManager.getInstance().getCurrentPosition();
         newPosition.H = (short) (newPosition.H - 400);
+        newPosition.V = 10000;
 
         //LocationManager.getInstance().setPosition(newPosition);
         CurPfp.pfp.setPosPad0(0, 0, newPosition);
@@ -728,6 +713,7 @@ public class GameActivity extends ActionBarActivity implements
 
         HVPoint newPosition = LocationManager.getInstance().getCurrentPosition();
         newPosition.H = (short) (newPosition.H + 400);
+        newPosition.V = 10000;
 
         //LocationManager.getInstance().setPosition(newPosition);
         CurPfp.pfp.setPosPad0(0, 0, newPosition);
