@@ -31,6 +31,7 @@ public class PlayFieldPos
 
     public static char ThreadTraffic='R'; // Gestion à l'ancienne de l'activité du thread
     private int bestScoreBid; // Meilleur score (temporaire)
+    public boolean isGameStarted;
     //TODO Supprimer l'utilisation de la variable bestScoreBid (Bid pour Bidon).
 
 
@@ -43,6 +44,7 @@ public class PlayFieldPos
         xSpeBal = 0; ySpeBal = 0;
         timeLNU = -1;
         timeExt = -1;
+        isGameStarted = false;
 
         bestScoreBid = 0;
 

@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
+import fr.ecp.sio.gameout.CurPfp;
 import fr.ecp.sio.gameout.model.GameSession;
 import fr.ecp.sio.gameout.model.GameState;
 import fr.ecp.sio.gameout.model.HVPoint;
@@ -76,11 +77,18 @@ public class RemoteGameState extends GameState
         @Override
         protected String doInBackground(GameSession... params) {
             try {
-                return GameoutClient.getInstance().startGameSession(params[0]);
+                String result = GameoutClient.getInstance().startGameSession(params[0]);
+                return result;
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            CurPfp.pfp.isGameStarted = true;
         }
     }
 
