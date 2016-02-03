@@ -62,7 +62,6 @@ import fr.ecp.sio.gameout.remote.SyncStateService;
  */
 public class GameActivity extends ActionBarActivity implements
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
-    InterstitialAd mInterstitialAd;
     protected char balTraffic = 'N';
     //private   BallThread balThread = null;
 
@@ -235,11 +234,6 @@ public class GameActivity extends ActionBarActivity implements
         PlayFieldSurfaceView lPfsv;
 
         super.onCreate(savedInstanceState);
-        mInterstitialAd = new InterstitialAd(getApplicationContext());
-        mInterstitialAd.setAdUnitId("ca-app-pub-2963674502359443/7565389212");
-        requestNewInterstitial();
-        if (mInterstitialAd != null && mInterstitialAd.isLoaded())
-            mInterstitialAd.show();
         setContentView(R.layout.game_activity);
 
         // Locate the UI widgets.
@@ -727,12 +721,5 @@ public class GameActivity extends ActionBarActivity implements
         super.onBackPressed();
         finish();
     }
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
 
-        mInterstitialAd.loadAd(adRequest);
-
-    }
 }

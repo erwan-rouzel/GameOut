@@ -5,11 +5,19 @@
         <item>Medium</item>
         <item>Ads free</item>
     </string-array>
-    <integer-array name="anti_rebond">
+    <string-array name="anti_rebond">
         <item>0</item>
         <item>1</item>
         <item>2</item>
-    </integer-array>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
     <string-array name="server_name">
         <item>Server 1</item>
         <item>Server 2</item>
