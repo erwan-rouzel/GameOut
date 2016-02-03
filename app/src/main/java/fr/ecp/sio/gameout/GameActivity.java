@@ -22,6 +22,7 @@
  */
 package fr.ecp.sio.gameout;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -61,7 +62,7 @@ import fr.ecp.sio.gameout.remote.helper.SyncStateService;
  * - Olivier Desté : intial idea and Android dev
  *
  */
-public class GameActivity extends ActionBarActivity implements
+public class GameActivity extends Activity implements
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
     protected char balTraffic = 'N';
     //private   BallThread balThread = null;

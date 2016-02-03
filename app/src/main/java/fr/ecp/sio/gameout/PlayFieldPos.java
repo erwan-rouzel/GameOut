@@ -253,7 +253,7 @@ public class PlayFieldPos
         LocationManager locationManager = LocationManager.getInstance();
 
         if(gameState == null) return;
-        if(gameState.status == GameStatus.INITIALIZING) return;
+        //if(gameState.status == GameStatus.INITIALIZING) return;
 
         //Envoyer position de la raquette du joueur
         gameState.sendPosition(locationManager.getCurrentPosition());
