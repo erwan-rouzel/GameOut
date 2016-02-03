@@ -457,7 +457,7 @@ public class GameActivity extends ActionBarActivity implements
         Random random = new Random();
 
         GameSession gameSession = new GameSession();
-        gameSession.id = 1;
+        gameSession.id = random.nextInt(1000);
         gameSession.numberOfPlayersInTeam1 = 1;
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;

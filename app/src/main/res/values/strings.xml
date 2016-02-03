@@ -48,4 +48,13 @@
     <string name="param_test_button">Parameter test button</string>
     <string name="banner_ads_unit_id">ca-app-pub-2963674502359443/6088656017</string>
     <string name="fs_ads_unit_id">ca-app-pub-2963674502359443/7565389212</string>
+    <string name="ads_level">Ads level</string>
+    <string name="app_settings">App Settings</string>
+    <string name="game_settings">Game Settings</string>
+    <string name="server_name">Server name</string>
+    <string name="parameters">parameters</string>
+    <string name="rebond">Rebond</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
