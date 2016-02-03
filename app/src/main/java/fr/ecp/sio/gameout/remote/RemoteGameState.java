@@ -45,36 +45,31 @@ public class RemoteGameState extends GameState
         //SendPositionTask serverTask = new SendPositionTask();
         //serverTask.execute(position);
 
-        new Thread(){
-            @Override
-            public void run() {
-                String responseFromServer;
-                GameoutClient client = null;
-                try {
-                    client = GameoutClient.getInstance();
-                    LocationManager locationManager = LocationManager.getInstance();
-                    GameState gameState = new GameState(client.getGameSession());
-                    byte teamId = locationManager.getTeamId();
-                    byte playerId = locationManager.getPlayerId();
+        String responseFromServer;
+        GameoutClient client = null;
+        try {
+            client = GameoutClient.getInstance();
+            LocationManager locationManager = LocationManager.getInstance();
+            GameState gameState = new GameState(client.getGameSession());
+            byte teamId = locationManager.getTeamId();
+            byte playerId = locationManager.getPlayerId();
 
-                    Team team = new Team(teamId, gameState, gameState.teams[teamId].players.length);
+            Team team = new Team(teamId, gameState, gameState.teams[teamId].players.length);
 
-                    //HVPoint position = params[0];
-                    Player player = new Player(playerId, team);
+            //HVPoint position = params[0];
+            Player player = new Player(playerId, team);
 
-                    player.x = (short)position.H;
-                    player.y = (short)position.V;
-                    player.vx = (short)1;
-                    player.vx = (short)1;
+            player.x = (short)position.H;
+            player.y = (short)position.V;
+            player.vx = (short)1;
+            player.vx = (short)1;
 
-                    byte[] responseBytes = client.sendPosition(player);
-                    GameoutClientHelper.updateGameState(responseBytes);
-                    responseFromServer = "";
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+            byte[] responseBytes = client.sendPosition(player);
+            GameoutClientHelper.updateGameState(responseBytes);
+            responseFromServer = "";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static class StartSessionTask extends AsyncTask<GameSession, Void, GameInit> {
