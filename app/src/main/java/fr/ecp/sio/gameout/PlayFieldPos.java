@@ -1,5 +1,6 @@
 package fr.ecp.sio.gameout;
 
+import fr.ecp.sio.gameout.model.GameStatus;
 import fr.ecp.sio.gameout.model.HVPoint;
 import fr.ecp.sio.gameout.model.Player;
 import fr.ecp.sio.gameout.model.Team;
@@ -32,6 +33,7 @@ public class PlayFieldPos
     public static char ThreadTraffic='R'; // Gestion à l'ancienne de l'activité du thread
     private int bestScoreBid; // Meilleur score (temporaire)
     public boolean isGameStarted;
+    public byte gameStatus;
     //TODO Supprimer l'utilisation de la variable bestScoreBid (Bid pour Bidon).
 
 
@@ -45,6 +47,7 @@ public class PlayFieldPos
         timeLNU = -1;
         timeExt = -1;
         isGameStarted = false;
+        gameStatus = GameStatus.INITIALIZING;
 
         bestScoreBid = 0;
 
@@ -246,14 +249,14 @@ public class PlayFieldPos
     }
 
     public void syncGameState() {
-        RemoteGameState gameState = RemoteGameState.getInstance();
+        RemoteGameState gameState = RemoteGameState.startGame();
         LocationManager locationManager = LocationManager.getInstance();
 
         if(gameState == null) return;
+        if(gameState.status == GameStatus.INITIALIZING) return;
 
         //Envoyer position de la raquette du joueur
         gameState.sendPosition(locationManager.getCurrentPosition());
-        //gameState.sendPosition(CurPfp.p);
 
         // Mapping entre RemoteGameState et PlayFieldPos
         xPosBal = gameState.ball.x;
@@ -277,6 +280,7 @@ public class PlayFieldPos
             }
         }
 
+        this.gameStatus = gameState.status;
 
         //TODO - mise à jour du score - à voir avec Olivier
     }

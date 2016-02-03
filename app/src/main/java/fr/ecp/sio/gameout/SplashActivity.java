@@ -25,12 +25,13 @@ public class SplashActivity extends ActionBarActivity {
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 mInterstitialAd.show();
+                finish();
             }
         });
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-        finish();
+
     }
 }

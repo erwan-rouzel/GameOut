@@ -48,9 +48,10 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import fr.ecp.sio.gameout.model.GameSession;
+import fr.ecp.sio.gameout.model.GameType;
 import fr.ecp.sio.gameout.model.HVPoint;
 import fr.ecp.sio.gameout.remote.RemoteGameState;
-import fr.ecp.sio.gameout.remote.SyncStateService;
+import fr.ecp.sio.gameout.remote.helper.SyncStateService;
 
 /**
  * Out door game mixing the fun of mobile games, retro gaming and fitness activity.
@@ -62,7 +63,6 @@ import fr.ecp.sio.gameout.remote.SyncStateService;
  */
 public class GameActivity extends ActionBarActivity implements
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
-    InterstitialAd mInterstitialAd;
     protected char balTraffic = 'N';
     //private   BallThread balThread = null;
 
@@ -110,6 +110,8 @@ public class GameActivity extends ActionBarActivity implements
     protected ToggleButton mOnOffSwitch;
     protected Button mCalibButton;
     protected Button mParamTestButton;
+    protected Button mMonoPongButton;
+    protected Button mMultiPongButton;
 
     protected String mInfoString; // Pour le debug
     protected TextView mInfoTextView; // Affichage pour le debug
@@ -235,17 +237,14 @@ public class GameActivity extends ActionBarActivity implements
         PlayFieldSurfaceView lPfsv;
 
         super.onCreate(savedInstanceState);
-        mInterstitialAd = new InterstitialAd(getApplicationContext());
-        mInterstitialAd.setAdUnitId("ca-app-pub-2963674502359443/7565389212");
-        requestNewInterstitial();
-        if (mInterstitialAd != null && mInterstitialAd.isLoaded())
-            mInterstitialAd.show();
         setContentView(R.layout.game_activity);
 
         // Locate the UI widgets.
         mOnOffSwitch = (ToggleButton) findViewById(R.id.toggle_gps_button);
         mCalibButton = (Button)  findViewById(R.id.calib_button);
         mParamTestButton = (Button) findViewById(R.id.param_test_button);
+        mMonoPongButton = (Button) findViewById(R.id.start_mono_pong);
+        mMultiPongButton = (Button) findViewById(R.id.start_multi_pong);
 
         mLatitudeTextView = (TextView) findViewById(R.id.latitude_text);
         mLongitudeTextView = (TextView) findViewById(R.id.longitude_text);
@@ -391,8 +390,7 @@ public class GameActivity extends ActionBarActivity implements
     /**
      * Handles the Set Calib button.
      */
-    public void calibButtonHandler(View view)
-    {
+    public void calibButtonHandler(View view) throws IOException, ExecutionException, InterruptedException {
         if (mRequestingLocationUpdates)
         {
             switch (calibStage)
@@ -407,7 +405,15 @@ public class GameActivity extends ActionBarActivity implements
                     mCalibButton.setEnabled(false);
                     
                     // C'est le moment de mettre la balle en jeu.
-                    CurPfp.pfp.balleMiseEnJeuRep();
+                    GameSession gameSession = new GameSession();
+                    gameSession.id = new Random().nextInt(1000);
+                    gameSession.gameType = GameType.PONG_MONO;
+                    gameSession.numberOfPlayersInTeam1 = 1;
+                    gameSession.numberOfPlayersInTeam2 = 0;
+                    gameSession.numberOfPlayersInTeam3 = 0;
+
+                    RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
+
                     tUpdBal = System.currentTimeMillis();
 
                     tInitBal   = -1;
@@ -449,34 +455,44 @@ public class GameActivity extends ActionBarActivity implements
         paramTest = (paramTest+1)%8;
         paramTestText = String.format("%2d",paramTest);
         mParamTestButton.setText(paramTestText);
-        //TODO ERWAN ajouter test serveur
+    }
+
+    public void startMonoPongButtonHandler(View view) throws IOException, ExecutionException, InterruptedException {
         mLogServerEditText = (EditText) this.findViewById(R.id.edit_text_log_server);
         mLogServerEditText.setTextSize(8.0f);
         mLogServerEditText.setMinWidth(400);
 
-        Random random = new Random();
-
         GameSession gameSession = new GameSession();
-        gameSession.id = random.nextInt(1000);
+        gameSession.id = new Random().nextInt(1000);
+        gameSession.gameType = GameType.PONG_MONO;
         gameSession.numberOfPlayersInTeam1 = 1;
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
 
-        HVPoint pt = new HVPoint((short)6000, (short)10000);
-        LocationManager.getInstance().setPosition(pt);
+        RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
 
-        long startTime = System.nanoTime();
-        RemoteGameState.getInstance(gameSession);
-        long endTime = System.nanoTime();
-        double difference = Math.round((endTime - startTime)/1e6);
+        logServer("ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")");
+    }
 
-        RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
+    public void startMultiPongButtonHandler(View view) throws IOException, ExecutionException, InterruptedException {
+        mLogServerEditText = (EditText) this.findViewById(R.id.edit_text_log_server);
+        mLogServerEditText.setTextSize(8.0f);
+        mLogServerEditText.setMinWidth(400);
+
+        GameSession gameSession = new GameSession();
+        gameSession.id = 10;
+        gameSession.gameType = GameType.PONG_MULTI;
+        gameSession.numberOfPlayersInTeam1 = 1;
+        gameSession.numberOfPlayersInTeam2 = 1;
+        gameSession.numberOfPlayersInTeam3 = 0;
+
+        RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
 
         logServer("ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")");
     }
 
     private void logServer(String message) {
-        mLogServerEditText.setText(mLogServerEditText.getText() + "[" + RemoteGameState.getInstance().timestamp + "] " + message + "\n");
+        mLogServerEditText.setText(mLogServerEditText.getText() + "[" + RemoteGameState.startGame().timestamp + "] " + message + "\n");
         mLogServerEditText.setSelection(mLogServerEditText.getText().length());
     }
 
@@ -695,13 +711,13 @@ public class GameActivity extends ActionBarActivity implements
     }
 
     public void moveLeftButtonHandler(View view) {
-        RemoteGameState gameState = RemoteGameState.getInstance();
+        RemoteGameState gameState = RemoteGameState.startGame();
 
         HVPoint newPosition = LocationManager.getInstance().getCurrentPosition();
         newPosition.H = (short) (newPosition.H - 400);
         newPosition.V = 10000;
 
-        //LocationManager.getInstance().setPosition(newPosition);
+        //LocationManager.startGame().setPosition(newPosition);
         CurPfp.pfp.setPosPad0(0, 0, newPosition);
         CurPfp.pfp.syncGameState();
 
@@ -709,13 +725,13 @@ public class GameActivity extends ActionBarActivity implements
     }
 
     public void moveRightButtonHandler(View view) {
-        RemoteGameState gameState = RemoteGameState.getInstance();
+        RemoteGameState gameState = RemoteGameState.startGame();
 
         HVPoint newPosition = LocationManager.getInstance().getCurrentPosition();
         newPosition.H = (short) (newPosition.H + 400);
         newPosition.V = 10000;
 
-        //LocationManager.getInstance().setPosition(newPosition);
+        //LocationManager.startGame().setPosition(newPosition);
         CurPfp.pfp.setPosPad0(0, 0, newPosition);
         CurPfp.pfp.syncGameState();
 
@@ -727,12 +743,5 @@ public class GameActivity extends ActionBarActivity implements
         super.onBackPressed();
         finish();
     }
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
 
-        mInterstitialAd.loadAd(adRequest);
-
-    }
 }
