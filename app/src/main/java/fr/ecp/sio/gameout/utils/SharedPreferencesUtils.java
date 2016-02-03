@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
  * Created by cquenum on 27/01/16.
  */
 public class SharedPreferencesUtils {
-    private static final String PREFERENCES_FILE = "federatedbirds_settings";
+    private static final String PREFERENCES_FILE = "gameout_settings";
 
     public static void saveSharedSetting(Context ctx, String settingName, String settingValue) {
         SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
