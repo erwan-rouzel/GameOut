@@ -282,11 +282,16 @@ public class PlayFieldPos
 
         this.gameStatus = gameState.status;
 
-        big_digit[0] = gameState.teams[0].score;
-        big_digit[1] = gameState.teams[1].score;
-        big_digit[2] = gameState.teams[2].score;
+        if(gameState.session.numberOfPlayersInTeam1 > 0) {
+            big_digit[0] = gameState.teams[0].score;
+        }
 
+        if(gameState.session.numberOfPlayersInTeam2 > 0) {
+            big_digit[1] = gameState.teams[1].score;
+        }
 
-        //TODO - mise à jour du score - à voir avec Olivier
+        if(gameState.session.numberOfPlayersInTeam3 > 0) {
+            big_digit[2] = gameState.teams[2].score;
+        }
     }
 }
