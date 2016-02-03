@@ -47,7 +47,7 @@ limitations under the License.
             android:launchMode="singleTop" />
 
         <service
-            android:name=".remote.SyncStateService"
+            android:name=".remote.helper.SyncStateService"
             android:exported="false" />
 
         <activity

@@ -10,6 +10,7 @@ public class GameState extends GameObject {
     public int id;
     public Ball ball;
     public Team[] teams;
+    public byte status;
 
     public GameState(GameSession session) {
         this.session = session;
@@ -28,5 +29,7 @@ public class GameState extends GameObject {
         if(session.numberOfPlayersInTeam3 > 0) {
             this.teams[2] = new Team((byte)2, this, session.numberOfPlayersInTeam3);
         }
+
+        this.status = GameStatus.INITIALIZING;
     }
 }
