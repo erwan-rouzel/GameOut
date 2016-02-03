@@ -9,12 +9,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import fr.ecp.sio.gameout.R;
+import fr.ecp.sio.gameout.utils.SharedPreferencesUtils;
 
 /**
  * Created by ABDELHAFIZ on 02/02/2016.
  */
 public class ParamActivity extends ActionBarActivity {
-    public static String Nom_serveur,Niveau_pub,lissage_param;
+    public static String nomServeur, niveauPub, lissageParam;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +36,9 @@ public class ParamActivity extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
 
-                Niveau_pub = parent.getItemAtPosition(pos).toString();
-                Toast.makeText(parent.getContext(), "The pub level is " + Niveau_pub, Toast.LENGTH_LONG).show();
+                niveauPub = parent.getItemAtPosition(pos).toString();
+                Toast.makeText(parent.getContext(), "The pub level is " + niveauPub, Toast.LENGTH_LONG).show();
+                SharedPreferencesUtils.saveSharedSetting(getApplicationContext(),"AD_LEVEL", niveauPub);
 
             }
 
@@ -48,8 +50,10 @@ public class ParamActivity extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
 
-                Nom_serveur = parent.getItemAtPosition(pos).toString();
-                Toast.makeText(parent.getContext(), "The server name is " + Nom_serveur, Toast.LENGTH_LONG).show();
+                nomServeur = parent.getItemAtPosition(pos).toString();
+                Toast.makeText(parent.getContext(), "The server name is " + nomServeur, Toast.LENGTH_LONG).show();
+                SharedPreferencesUtils.saveSharedSetting(getApplicationContext(), "SERVEUR_NAME", nomServeur);
+
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -60,8 +64,10 @@ public class ParamActivity extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
 
-                lissage_param = parent.getItemAtPosition(pos).toString();
-                Toast.makeText(parent.getContext(), "The lissage param is " + lissage_param, Toast.LENGTH_LONG).show();
+                lissageParam = parent.getItemAtPosition(pos).toString();
+                Toast.makeText(parent.getContext(), "The lissage param is " + lissageParam, Toast.LENGTH_LONG).show();
+                SharedPreferencesUtils.saveSharedSetting(getApplicationContext(), "LISSAGE_PARAM", lissageParam);
+
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
