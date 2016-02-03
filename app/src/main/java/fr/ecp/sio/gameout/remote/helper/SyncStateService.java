@@ -1,4 +1,4 @@
-package fr.ecp.sio.gameout.remote;
+package fr.ecp.sio.gameout.remote.helper;
 
 import android.app.IntentService;
 import android.content.Intent;
