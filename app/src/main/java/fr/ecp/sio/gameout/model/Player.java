@@ -24,9 +24,15 @@ public class Player extends GameObject {
         ip = null;
         type = PlayerType.GUEST;
         state = PlayerState.ACTIVE;
-        x = 6000;
-        y = 10000;
         vx = 1;
         vy = 1;
+
+        x = 5000;
+
+        if(parentTeam.isBottom) {
+            y = 10000;
+        } else {
+            y = 1000;
+        }
     }
 }

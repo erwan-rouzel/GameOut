@@ -11,6 +11,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 
+import fr.ecp.sio.gameout.MainActivity;
 import fr.ecp.sio.gameout.R;
 
 public class SettingsActivity extends ActionBarActivity {
@@ -23,7 +24,6 @@ public class SettingsActivity extends ActionBarActivity {
 
     // Google Api Client
     private GoogleApiClient mGoogleApiClient;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class SettingsActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                new Handler().postDelayed(new Runnable(){
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         Intent intent = new Intent(getApplicationContext(), CreditsActivity.class);
@@ -75,7 +75,7 @@ public class SettingsActivity extends ActionBarActivity {
         findViewById(R.id.parameters_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ParametersActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ParamActivity.class);
                 startActivity(intent);
                 finish();
             }

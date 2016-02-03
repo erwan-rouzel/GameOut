@@ -1,4 +1,4 @@
-package fr.ecp.sio.gameout.remote;
+package fr.ecp.sio.gameout.remote.helper;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

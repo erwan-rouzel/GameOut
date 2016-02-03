@@ -1,12 +1,14 @@
 package fr.ecp.sio.gameout.remote;
 
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+import fr.ecp.sio.gameout.model.GameInit;
 import fr.ecp.sio.gameout.model.GameSession;
 import fr.ecp.sio.gameout.model.Player;
 import fr.ecp.sio.gameout.utils.GameoutUtils;
@@ -49,9 +51,14 @@ public class GameoutClient {
         return instance;
     }
 
-    public String startGameSession(GameSession session) throws IOException {
+    public GameInit startGameSession(GameSession session) throws IOException {
         gameSession = session;
-        return sendMessageTCP(new Gson().toJson(session));
+        String response = sendMessageTCP(new Gson().toJson(session));
+
+        Gson gson = new Gson();
+        JsonReader reader = new JsonReader(new StringReader(response));
+        reader.setLenient(true);
+        return gson.fromJson(reader, GameInit.class);
     }
 
     public boolean isGameStarted() {

@@ -8,11 +8,18 @@ public class Team extends GameObject {
     public GameState parentGameState;
     public Player[] players;
     public byte score;
+    public boolean isBottom;
 
     public Team(byte id, GameState parentGameState, int numberOfPlayers) {
         this.id = id;
         this.parentGameState = parentGameState;
         this.players = new Player[numberOfPlayers];
+
+        if(id == 0) {
+            isBottom = true;
+        } else if(id == 1){
+            isBottom = false;
+        }
 
         for(int i = 0; i < numberOfPlayers; i++) {
             this.players[i] = new Player((byte)i, this);
