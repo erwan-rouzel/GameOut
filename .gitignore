@@ -59,8 +59,8 @@ proguard/
 *.iml
 
 ## Directory-based project format:
-.idea/
 /.idea/
+/.idea/workspace.xml
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
