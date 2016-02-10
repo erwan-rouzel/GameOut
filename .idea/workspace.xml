@@ -9,15 +9,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee1b9bfc-31c7-4260-befe-3cfc79a55a11" name="Default" comment="Passage de ActionBarActivity à Activity">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/salon/message/GameOutRoom.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/salon/message/PleaseContactServerMessage.java" />
+    <list default="true" id="ee1b9bfc-31c7-4260-befe-3cfc79a55a11" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/salon/GameOutParticipant.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/salon/GameOutParticipant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/model/GameSession.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/model/GameSession.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/salon/OnlineGameActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/salon/OnlineGameActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/model/Player.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/ecp/sio/gameout/model/Player.java" />
     </list>
     <ignored path="GameOut.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -3395,7 +3388,13 @@
       <option name="project" value="LOCAL" />
       <updated>1454491450189</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Ajout reception message PleaseContactServer et GameOutParticipant">
+      <created>1455104970065</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1455104970065</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3461,7 +3460,8 @@
     <MESSAGE value="Premier draft de l'intégration serveur" />
     <MESSAGE value="Modifs mineures pendant la relecture du code par OD" />
     <MESSAGE value="Passage de ActionBarActivity à Activity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Passage de ActionBarActivity à Activity" />
+    <MESSAGE value="Ajout reception message PleaseContactServer et GameOutParticipant" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout reception message PleaseContactServer et GameOutParticipant" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
