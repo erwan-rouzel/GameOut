@@ -37,6 +37,7 @@ import fr.ecp.sio.gameout.MainActivity;
 import fr.ecp.sio.gameout.R;
 import fr.ecp.sio.gameout.salon.message.Message;
 import fr.ecp.sio.gameout.salon.message.ParticipantMessage;
+import fr.ecp.sio.gameout.salon.message.PleaseContactServerMessage;
 import fr.ecp.sio.gameout.salon.message.TurnMessage;
 
 public class OnlineGameActivity extends ActionBarActivity implements
@@ -126,7 +127,7 @@ public class OnlineGameActivity extends ActionBarActivity implements
         findViewById(R.id.show_invitations_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OnlineGameActivity.this,MainActivity.class);
+                Intent intent = new Intent(OnlineGameActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -135,7 +136,7 @@ public class OnlineGameActivity extends ActionBarActivity implements
     }
 
     private void startQuickGame() {
-        Log.d(TAG,"startQuickGame: ");
+        Log.d(TAG, "startQuickGame: ");
         // auto-match criteria to invite one random automatch opponent.
         // You can also specify more opponents (up to 3).
         Bundle am = RoomConfig.createAutoMatchCriteria(1, 1, 0);
@@ -217,7 +218,6 @@ public class OnlineGameActivity extends ActionBarActivity implements
                 // user canceled
                 Log.d(TAG, "onActivityResult: sign in failed.");
             }
-
         }
     }
 
@@ -336,7 +336,7 @@ public class OnlineGameActivity extends ActionBarActivity implements
         }
 
         mRoom = room;
-        // TODO: 06/12/2015 Start the game
+        // TODO: 06/12/2015 Start the game Erwan
         // updateViewVisibility();
     }
 
@@ -378,13 +378,18 @@ public class OnlineGameActivity extends ActionBarActivity implements
                         ParticipantMessage updateMsg = new ParticipantMessage(oldParticipant);
                     } else if (mParticipants.containsKey(participant.getPersistentId())) {
                         // Current participant, update the score
-                        mParticipants.get(participant.getPersistentId()).setScore(
-                                participant.getScore());
+                        //mParticipants.get(participant.getPersistentId()).setScore(
+                        //        participant.getScore());
                         onParticipantConnected(participant);
                     } else {
                         // Add new participant
                         onParticipantConnected(participant);
                     }
+                } else if(message.getType().equals(PleaseContactServerMessage.TAG)){
+                    PleaseContactServerMessage pleaseContactServerMessage = mMapper.readValue(data,PleaseContactServerMessage.class);
+                    String serverInetAddress = pleaseContactServerMessage.getServerInetAddress();
+
+                    // TODO: 2/10/2016 Erwan contact server
                 } else {
                     onParticipantDisconnected(participant.getMessagingId(), participant.getPersistentId());
                 }
@@ -556,6 +561,5 @@ public class OnlineGameActivity extends ActionBarActivity implements
                 .setMessageReceivedListener(this)
                 .setRoomStatusUpdateListener(this);
     }
-
 
 }

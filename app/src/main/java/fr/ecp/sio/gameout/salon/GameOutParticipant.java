@@ -25,8 +25,11 @@ import com.google.android.gms.games.multiplayer.Participant;
  */
 public class GameOutParticipant {
 
-    // True if the player is connected via Nearby Connections, false otherwise.
-    private boolean isLocal;
+    // True if the player is hosting the match, false otherwise.
+    private boolean isHost;
+
+    // The participant room id
+    private String roomId;
 
     // Id used to target messages (for RTMP this is Participant ID, for Nearby this is endpoint ID)
     private String messagingId;
@@ -41,7 +44,22 @@ public class GameOutParticipant {
     private Uri iconImageUri;
 
     // The participant's score in this round
-    private int score;
+    // private int score;
+
+    // The participant team id
+    private int teamId;
+
+    // The participant id in the team
+    private int inTeamId;
+
+    // The participant location
+    private String location;
+
+    // The participant timezone
+    private String timezone;
+
+    // The participant time
+    private String timestamp;
 
     /** Default constructor required for Jackson **/
     public GameOutParticipant() {}
@@ -50,24 +68,24 @@ public class GameOutParticipant {
      * Initialize for a Nearby Connections player
      */
     public GameOutParticipant(String endpointId, String deviceId, String name) {
-        isLocal = true;
+        this.isHost = true;
         this.messagingId = endpointId;
         this.persistentId = deviceId;
         this.displayName = name;
         this.iconImageUri = null;
-        this.score = 0;
+        //this.score = 0;
     }
 
     /**
      * Initialize for a remote (RTMP) player
      */
     public GameOutParticipant(Participant participant) {
-        isLocal = false;
+        this.isHost = false;
         this.messagingId = participant.getParticipantId();
         this.persistentId = participant.getParticipantId();
         this.displayName = participant.getDisplayName();
         this.iconImageUri = participant.getIconImageUri();
-        this.score = 0;
+        //this.score = 0;
     }
 
     @Override
@@ -125,19 +143,27 @@ public class GameOutParticipant {
         this.iconImageUri = iconImageUri;
     }
 
-    public int getScore() {
+    /*public int getScore() {
         return score;
-    }
+    }*/
 
-    public void setScore(int score) {
+    /*public void setScore(int score) {
         this.score = score;
+    }*/
+
+    public boolean getIsHost() {
+        return this.isHost;
     }
 
-    public boolean getIsLocal() {
-        return isLocal;
+    public void setIsHost(boolean isHost) {
+        this.isHost = isHost;
     }
 
-    public void setIsLocal(boolean isLocal) {
-        this.isLocal = isLocal;
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
     }
 }

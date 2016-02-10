@@ -17,6 +17,12 @@ public class Player extends GameObject {
     public short vx;
     public short vy;
 
+    // TODO erwan : rajouter ces infos ici + dans le protocole + côté serveur
+    // Numéro d'équipe
+    // Identifiant du joueur google play
+    // Coordonnée GPS du joueur (pour faire des stats)
+    // Heure locale du joueur (pour faire des stats)
+
 
     public Player(byte id, Team parentTeam) {
         this.parentTeam = parentTeam;
