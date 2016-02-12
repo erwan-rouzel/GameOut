@@ -1,9 +1,18 @@
 package fr.ecp.sio.gameout.remote;
 
+import android.util.Log;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.FieldNamingStrategy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,11 +29,12 @@ import fr.ecp.sio.gameout.utils.GameoutUtils;
  */
 
 public class GameoutClient {
-    private static final String SERVER_IP = "195.154.123.213";
+    private static final String SESSION_SERVER_IP = "195.154.123.213";
     private static final int TCP_PORT = 9475;
     private static final int UDP_PORT = 9476;
 
-    private InetAddress ipAddress;
+    private InetAddress sessionIpAddress;
+    private InetAddress streamIpAddress;
     private Socket tcpSocket;
     private DatagramSocket udpSocket;
 
@@ -38,7 +48,7 @@ public class GameoutClient {
 
     private GameoutClient() throws UnknownHostException, SocketException {
         messageCounter = 0;
-        ipAddress = InetAddress.getByName(SERVER_IP);
+        sessionIpAddress = InetAddress.getByName(SESSION_SERVER_IP);
         udpSocket = new DatagramSocket();
         gameSession = null;
     }
@@ -53,7 +63,10 @@ public class GameoutClient {
 
     public GameInit startGameSession(GameSession session) throws IOException {
         gameSession = session;
-        String response = sendMessageTCP(new Gson().toJson(session));
+
+        String jsonSession = new Gson().toJson(session);
+        Log.i("JSON_SESSION", jsonSession);
+        String response = sendMessageTCP(jsonSession);
 
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new StringReader(response));
@@ -131,7 +144,7 @@ public class GameoutClient {
     }
 
     private String sendMessageTCP(String message) throws IOException {
-        tcpSocket = new Socket(ipAddress, TCP_PORT);
+        tcpSocket = new Socket(sessionIpAddress, TCP_PORT);
 
         OutputStream output = tcpSocket.getOutputStream();
         output.write(GameoutUtils.stringToBytes(message));
@@ -147,7 +160,7 @@ public class GameoutClient {
         udpSocket = new DatagramSocket();
 
         byte[] receiveData = new byte[1024];
-        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, ipAddress, UDP_PORT);
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, streamIpAddress, UDP_PORT);
         udpSocket.send(sendPacket);
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
         udpSocket.receive(receivePacket);
@@ -155,5 +168,9 @@ public class GameoutClient {
         udpSocket.close();
 
         return responseBytes;
+    }
+
+    public void setStreamIpAdress(String ip) throws UnknownHostException {
+        this.streamIpAddress = InetAddress.getByName(ip);
     }
 }

@@ -36,7 +36,7 @@ public class Player extends GameObject {
         x = 5000;
 
         if(parentTeam.isBottom) {
-            y = 10000;
+            y = (short) (10000 - 1500*((short)id));
         } else {
             y = 1000;
         }

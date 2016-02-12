@@ -60,25 +60,22 @@ public class GameoutUtils {
         return buffer.array();
     }
 
-    public static String implode(String glue, ArrayList<String> strArray)
-    {
+    public static String implode(String glue, ArrayList<String> strArray) {
         String ret = "";
-        for(int i=0;i<strArray.size();i++)
-        {
+        for (int i = 0; i < strArray.size(); i++) {
             ret += (i == strArray.size() - 1) ? strArray.get(i) : strArray.get(i) + glue;
         }
         return ret;
     }
 
-    public static String readTxt(InputStream inputStream){
+    public static String readTxt(InputStream inputStream) {
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         int i;
         try {
             i = inputStream.read();
-            while (i != -1)
-            {
+            while (i != -1) {
                 byteArrayOutputStream.write(i);
                 i = inputStream.read();
             }
@@ -89,5 +86,9 @@ public class GameoutUtils {
         }
 
         return byteArrayOutputStream.toString();
+    }
+
+    public static long getCurrentTimestamp() {
+        return System.currentTimeMillis();
     }
 }

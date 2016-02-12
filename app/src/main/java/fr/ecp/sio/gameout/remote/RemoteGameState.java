@@ -27,6 +27,11 @@ public class RemoteGameState extends GameState
         StartSessionTask startSessionTask = new StartSessionTask();
         GameInit gameInit = startSessionTask.execute(session).get();
         LocationManager.getInstance().setPlayer(gameInit.teamId, gameInit.playerId);
+        session.updateFromGameInit(gameInit);
+
+        GameoutClient.getInstance().setStreamIpAdress(session.serverHostName);
+        this.id = gameInit.sessionId;
+
     }
 
     public static synchronized RemoteGameState startGame(GameSession session) throws IOException, ExecutionException, InterruptedException {

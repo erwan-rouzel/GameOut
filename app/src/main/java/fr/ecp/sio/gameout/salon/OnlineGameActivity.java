@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -31,10 +32,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import fr.ecp.sio.gameout.GameActivity;
 import fr.ecp.sio.gameout.MainActivity;
 import fr.ecp.sio.gameout.R;
+import fr.ecp.sio.gameout.model.GameInit;
+import fr.ecp.sio.gameout.model.GameSession;
+import fr.ecp.sio.gameout.model.GameType;
+import fr.ecp.sio.gameout.remote.GameoutClient;
+import fr.ecp.sio.gameout.remote.RemoteGameState;
 import fr.ecp.sio.gameout.salon.message.Message;
 import fr.ecp.sio.gameout.salon.message.ParticipantMessage;
 import fr.ecp.sio.gameout.salon.message.PleaseContactServerMessage;
@@ -139,7 +146,7 @@ public class OnlineGameActivity extends ActionBarActivity implements
         Log.d(TAG, "startQuickGame: ");
         // auto-match criteria to invite one random automatch opponent.
         // You can also specify more opponents (up to 3).
-        Bundle am = RoomConfig.createAutoMatchCriteria(1, 1, 0);
+        Bundle am = RoomConfig.createAutoMatchCriteria(0, 0, 0);
 
         // build the room config:
         RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();
@@ -152,8 +159,6 @@ public class OnlineGameActivity extends ActionBarActivity implements
         // prevent screen from sleeping during handshake
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        // go to game screen
-        startActivity(new Intent(this,GameActivity.class));
     }
 
     @Override
@@ -223,6 +228,8 @@ public class OnlineGameActivity extends ActionBarActivity implements
 
 
     private void startMatch(){
+        // go to game screen
+        startActivity(new Intent(this,GameActivity.class));
 
     }
 
@@ -338,6 +345,13 @@ public class OnlineGameActivity extends ActionBarActivity implements
         mRoom = room;
         // TODO: 06/12/2015 Start the game Erwan
         // updateViewVisibility();
+
+        //System.out.println("RoomID=" + room.getRoomId());
+        GameSession gameSession = new GameSession(-1, room.getRoomId(), "", GameType.PONG_MONO, 1, 0, 0);
+        try {
+            RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
+        } catch (Exception e) {
+        }
     }
 
 
@@ -387,9 +401,14 @@ public class OnlineGameActivity extends ActionBarActivity implements
                     }
                 } else if(message.getType().equals(PleaseContactServerMessage.TAG)){
                     PleaseContactServerMessage pleaseContactServerMessage = mMapper.readValue(data,PleaseContactServerMessage.class);
-                    String serverInetAddress = pleaseContactServerMessage.getServerInetAddress();
+                    GameInit gameInit = pleaseContactServerMessage.getGameInit();
 
                     // TODO: 2/10/2016 Erwan contact server
+                    GameSession gameSession = new GameSession(gameInit.sessionId, gameInit.roomId, gameInit.serverHostName, GameType.PONG_MONO, 1, 0, 0);
+                    try {
+                        RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
+                    } catch (Exception e) {
+                    }
                 } else {
                     onParticipantDisconnected(participant.getMessagingId(), participant.getPersistentId());
                 }

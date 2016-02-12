@@ -32,4 +32,8 @@ public class GameState extends GameObject {
 
         this.status = GameStatus.INITIALIZING;
     }
+
+    public void updateFromGameInit(GameInit gameInit) {
+        this.id = gameInit.sessionId;
+    }
 }

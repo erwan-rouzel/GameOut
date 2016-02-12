@@ -406,7 +406,7 @@ public class GameActivity extends Activity implements
                     
                     // C'est le moment de mettre la balle en jeu.
                     GameSession gameSession = new GameSession();
-                    gameSession.id = new Random().nextInt(1000);
+                    gameSession.id = -1;
                     gameSession.gameType = GameType.PONG_MONO;
                     gameSession.numberOfPlayersInTeam1 = 1;
                     gameSession.numberOfPlayersInTeam2 = 0;
@@ -463,7 +463,7 @@ public class GameActivity extends Activity implements
         mLogServerEditText.setMinWidth(400);
 
         GameSession gameSession = new GameSession();
-        gameSession.id = new Random().nextInt(1000);
+        gameSession.id = -1;
         gameSession.gameType = GameType.PONG_MONO;
         gameSession.numberOfPlayersInTeam1 = 1;
         gameSession.numberOfPlayersInTeam2 = 0;
@@ -480,10 +480,10 @@ public class GameActivity extends Activity implements
         mLogServerEditText.setMinWidth(400);
 
         GameSession gameSession = new GameSession();
-        gameSession.id = 10;
-        gameSession.gameType = GameType.PONG_MULTI;
-        gameSession.numberOfPlayersInTeam1 = 1;
-        gameSession.numberOfPlayersInTeam2 = 1;
+        gameSession.id = -1;
+        gameSession.gameType = GameType.PONG_MONO;
+        gameSession.numberOfPlayersInTeam1 = 2;
+        gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
 
         RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
