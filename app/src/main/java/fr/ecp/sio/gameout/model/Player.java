@@ -35,6 +35,7 @@ public class Player extends GameObject {
 
         x = 5000;
 
+        //TODO voir si cela est bien articulé avec le dirOfView de PlayFieldSurfaceView.dirOfView
         if(parentTeam.isBottom) {
             y = (short) (10000 - 1500*((short)id));
         } else {

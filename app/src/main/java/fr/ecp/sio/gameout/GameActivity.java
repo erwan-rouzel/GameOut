@@ -63,19 +63,13 @@ import fr.ecp.sio.gameout.remote.helper.SyncStateService;
  */
 public class GameActivity extends Activity implements
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
-    protected char balTraffic = 'N';
-    //private   BallThread balThread = null;
 
-    private long tUpdBal = -1; //Date of the last update of the ball in milliseconds
-    private long tInitBal = -1;  // Date of first update of the ball for debug
-    private long nbMajBal = 0;   // Number of updates since tInitBal for debug
-
-    protected static final String TAG = "location-updates-sample";
+    protected static final String TAG = "GameActivity";
 
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
-    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 600;
+    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 800;
 
     /**
      * The fastest rate for active location updates. Exact. Updates will never be more frequent
@@ -129,103 +123,7 @@ public class GameActivity extends Activity implements
     String paramTestText;
     int paramTest;
 
-    /*
-    protected class BallThread extends Thread
-    {
-        public void run()
-        {
-            int xMov, yMov;
-            long tCurrent;
-            int  tDelta;
-
-            do
-            {
-                try
-                {
-                    Thread.sleep(400);
-                }
-                catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-            while ((balTraffic == 'R') || (balTraffic == 'N'));
-
-            balTraffic = 'J';
-            while(balTraffic == 'J')
-            {
-                try
-                {
-                    Thread.sleep(40);
-                    tCurrent = System.currentTimeMillis();
-                    tDelta   = (int) (tCurrent - tUpdBal);
-                    if (tDelta==0)
-                    {
-                        Log.v("Ball","null delta time");
-                        tDelta = 1;
-                    }
-                    nbMajBal++;
-                    if (tInitBal<0)
-                        tInitBal = tCurrent;
-
-                    // Mouvement sur X
-                    xMov = (int) Math.round(CurPfp.pfp.xSpeBal/3600000.*tDelta);
-                    CurPfp.pfp.xPosBal += xMov;
-
-                    // Rebond en X sur les murs
-                    if (CurPfp.pfp.xPosBal < CurPfp.pfp.xRadBal)
-                        CurPfp.pfp.xSpeBal = (short) Math.abs(CurPfp.pfp.xSpeBal);
-                    else
-                    if (CurPfp.pfp.xPosBal>(HVPoint.WIDTH_REF-CurPfp.pfp.xRadBal))
-                        CurPfp.pfp.xSpeBal = (short) - Math.abs(CurPfp.pfp.xSpeBal);
-
-                    // Mouvement sur Y
-                    yMov = (int) Math.round(CurPfp.pfp.ySpeBal/3600000.*tDelta);
-                    CurPfp.pfp.yPosBal += yMov;
-
-                    // Rebond en Y sur les murs
-                    if (CurPfp.pfp.yPosBal < CurPfp.pfp.yRadBal)
-                        CurPfp.pfp.ySpeBal = (short) Math.abs(CurPfp.pfp.ySpeBal);
-                    else
-                    if (CurPfp.pfp.yPosBal>(HVPoint.WIDTH_REF-CurPfp.pfp.yRadBal))
-                    // Cas special en plus nous remettons le score à 0 la balle a été loupée
-                    {
-                        CurPfp.pfp.ySpeBal = (short) - Math.abs(CurPfp.pfp.ySpeBal);
-                        CurPfp.pfp.resetScoreBidon();
-                        CurPfp.pfp.balleRegleVitesse();
-                    }
-
-                    // Rebond sur la raquette
-                    if ( ! (
-                            ( CurPfp.pfp.ySpeBal < 0 )
-                                    || ((CurPfp.pfp.yPosBal + CurPfp.pfp.yRadBal) < (CurPfp.pfp.yPosPadExt[0][0] - CurPfp.pfp.yRadPad[0][0]))
-                                    || ((CurPfp.pfp.yPosBal - CurPfp.pfp.yRadBal) > (CurPfp.pfp.yPosPadExt[0][0] + CurPfp.pfp.yRadPad[0][0]))
-                                    || ((CurPfp.pfp.xPosBal + CurPfp.pfp.xRadBal) < (CurPfp.pfp.xPosPadExt[0][0] - CurPfp.pfp.xRadPad[0][0]))
-                                    || ((CurPfp.pfp.xPosBal - CurPfp.pfp.xRadBal) > (CurPfp.pfp.xPosPadExt[0][0] + CurPfp.pfp.xRadPad[0][0]))
-                        )   )
-                    {
-                        CurPfp.pfp.ySpeBal = (short) -Math.abs(CurPfp.pfp.ySpeBal);
-                        // incrementons le score, la balle a été envoyée
-                        CurPfp.pfp.incScoreBidon();
-                        // agmentons la vitesse de la balle lorsque le score augmente
-                        CurPfp.pfp.balleRegleVitesse();
-                    }
-                    tUpdBal = tCurrent;
-                }
-                catch (InterruptedException ex)
-                {
-                    Log.v("Bal","Pb during ball thread mvt calculations");
-                }
-            }
-
-            if (balTraffic != 'O')
-                Log.v("Bal","Should be Orange before stop");
-            balTraffic = 'R';
-        }
-    }
-    */
-
-    /*
+     /*
      * Tracks the status of the location updates request. Value changes when the user presses the
      * Start Updates and Stop Updates buttons.
      */
@@ -255,7 +153,7 @@ public class GameActivity extends Activity implements
 
         mRequestingLocationUpdates = false;
         calibStage= 0;
-        paramTest = 3;
+        paramTest = 0;
         // Update values using data stored in the Bundle.
         // TODO understand why next line meaning
         updateValuesFromBundle(savedInstanceState);
@@ -363,11 +261,9 @@ public class GameActivity extends Activity implements
             if (!mRequestingLocationUpdates)
             {
                 calibStage=0;
-                CurPfp.pfp.balleAuCentre();
-                tUpdBal = System.currentTimeMillis();
                 mRequestingLocationUpdates = true;
                 mCalibButton.setEnabled(true);
-                paramTest = 3;
+                paramTest = 0;
                 startLocationUpdates();
             }
         }
@@ -376,8 +272,6 @@ public class GameActivity extends Activity implements
             if (mRequestingLocationUpdates)
             {
                 calibStage=0;
-                CurPfp.pfp.balleAuCentre();
-                tUpdBal = System.currentTimeMillis();
                 mRequestingLocationUpdates = false;
                 mCalibButton.setEnabled(true);
                 stopLocationUpdates();
@@ -393,18 +287,18 @@ public class GameActivity extends Activity implements
     public void calibButtonHandler(View view) throws IOException, ExecutionException, InterruptedException {
         if (mRequestingLocationUpdates)
         {
-            switch (calibStage)
+            switch (++calibStage)
             {
-                case 0:
+                case 1:
                     LatiLongHV.setBackLeftCorner(mCurrentLocation);
                     mCalibButton.setEnabled(true); // Inutile
                   break;
 
-                case 1:
+                case 2:
                     LatiLongHV.setBackRightCorner(mCurrentLocation);
                     mCalibButton.setEnabled(false);
                     
-                    // C'est le moment de mettre la balle en jeu.
+                    // C'est le moment où le joueur est prêt.
                     GameSession gameSession = new GameSession();
                     gameSession.id = -1;
                     gameSession.gameType = GameType.PONG_MONO;
@@ -414,28 +308,9 @@ public class GameActivity extends Activity implements
 
                     RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
 
-                    tUpdBal = System.currentTimeMillis();
-
-                    tInitBal   = -1;
-                    nbMajBal   = 0;
-
                     //TODO : envoyer la taille du terrain au serveur
                     // pour le calcul de la vitesse de la balle
                     // => voir méthode balleMiseEnJeuRep
-
-                    /*
-                    if (balThread == null)
-                    {
-                        balTraffic = 'R';
-                        balThread = new BallThread();
-                        balThread.start();
-                    }
-
-                    if (balTraffic == 'R')
-                        balTraffic = 'V';
-                    else
-                        Log.v("Bal", "Bad ball restart condition");
-                    */
 
                     break;
 
@@ -444,7 +319,7 @@ public class GameActivity extends Activity implements
                     Log.v("Calib","cas non prévu");
             }
         }
-        calibStage++;
+
         updateMyButtons();
     }
 
@@ -554,10 +429,6 @@ public class GameActivity extends Activity implements
                 case 1:
                     double dist = LatiLongHV.distBackLeftCorner(mCurrentLocation);
 
-                    // Ball begin to move from center
-                    tInitBal   = -1;
-                    nbMajBal=  0;
-
                     mInfoString = "dist="+ String.format("%.2f",dist) + "m.";
                     mInfoString += (dist>45)?" OK":" Allez plus loin";
                     break;
@@ -566,13 +437,12 @@ public class GameActivity extends Activity implements
                     HVPoint p = LatiLongHV.convertLocToHV(mCurrentLocation);
                     switch (paramTest) // 2 - 6 pour essayer le param entre 0 et 1 par saut de 1/4
                     {
-                        case 0 : CurPfp.pfp.setPosPad0 (0, 0, p);
-                        case 1 : CurPfp.pfp.setPosPad1 (0, 0, p);
-                        default: CurPfp.pfp.setPosPad2 (0, 0, p, (paramTest - 2f) / 4f);
+                        case 0 : CurPfp.pfp.setPosPad0 (p);
+                        case 1 : CurPfp.pfp.setPosPad1 (p);
+                        default: CurPfp.pfp.setPosPad2 (p, (paramTest - 2f) / 4f);
                     }
 
-                    mInfoString = "bal=" + Math.round((tUpdBal - tInitBal)/(1.0*nbMajBal))
-                                + "ms " + "G=" + GPSTiming.nbEvents() + " "
+                    mInfoString = "G=" + GPSTiming.nbEvents() + " "
                                 + GPSTiming.meanPeriod()
                                 + "ms" ;
 
@@ -591,6 +461,7 @@ public class GameActivity extends Activity implements
             String bestScoreString = String.format("%3d", CurPfp.pfp.bestScoreBidon());
             mBestScoreTextView.setText(bestScoreString);
 
+            //Vérfier que les coord du client actuel sont envoyées au et recues du serveur
             // TODO supprimer texte ci-dessous.
             paramTestText = String.format("%2d",paramTest);
             mParamTestButton.setText(paramTestText);
@@ -718,7 +589,7 @@ public class GameActivity extends Activity implements
         newPosition.V = 10000;
 
         //LocationManager.startGame().setPosition(newPosition);
-        CurPfp.pfp.setPosPad0(0, 0, newPosition);
+        CurPfp.pfp.setPosPad0(newPosition);
         CurPfp.pfp.syncGameState();
 
         logServer("x=" + gameState.teams[0].players[0].x);
@@ -732,7 +603,7 @@ public class GameActivity extends Activity implements
         newPosition.V = 10000;
 
         //LocationManager.startGame().setPosition(newPosition);
-        CurPfp.pfp.setPosPad0(0, 0, newPosition);
+        CurPfp.pfp.setPosPad0(newPosition);
         CurPfp.pfp.syncGameState();
 
         logServer("x=" + gameState.teams[0].players[0].x);

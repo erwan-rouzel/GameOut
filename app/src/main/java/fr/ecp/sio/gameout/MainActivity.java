@@ -121,11 +121,15 @@ public class MainActivity extends ActionBarActivity implements
                     @Override
                     public void onAdLoaded() {
                         super.onAdLoaded();
+                        /* todo remettre la pub
                         Intent intent = new Intent(MainActivity.this, GameActivity.class);
                         startActivity(intent);
                         mInterstitialAd.show();
+                        */
                     }
                 });
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(intent);
             }
 
         });

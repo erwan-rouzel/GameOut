@@ -47,6 +47,8 @@ public class RemoteGameState extends GameState
     }
 
     public void sendPosition(final HVPoint position) {
+        //TODO peut-on retirer les lignes en commentaires dans sendPosition
+        //TODO sendPosition fait pense que c'est appelé souvent (10Hz) pourtant il y a un
         //SendPositionTask serverTask = new SendPositionTask();
         //serverTask.execute(position);
 

@@ -3,7 +3,7 @@ package fr.ecp.sio.gameout.model;
 /**
  * Created by od on 11/6/2015.
  * Point défini par ces coordonnées horizontale et verticale dans un espace fictif representant
- * le terrain de jeu dans la largeur est défini dans la constante WIDTH_REF.
+ * le terrain de jeu dont la largeur est défini dans la constante WIDTH_REF.
  */
 public class HVPoint
 {

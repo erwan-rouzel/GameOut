@@ -9,7 +9,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import fr.ecp.sio.gameout.model.HVPoint;
-import fr.ecp.sio.gameout.remote.RemoteGameState;
 
 /**
  * Created by od on 10/31/2015.
@@ -72,12 +71,15 @@ public class PlayFieldSurfaceView extends SurfaceView
     {
         CurPfp.pfp.nb_team = 1;
         CurPfp.pfp.nb_player [0] = 1;
+        CurPfp.pfp.xPosPadLocalExt = 23;
+        CurPfp.pfp.yPosPadLocalExt = 32;
+        //TODO supprimer les 4 lignes d'init si dessous, c'est au serveur de le faire.
+        /*
         CurPfp.pfp.xPosPad   [0][0] = 2;
         CurPfp.pfp.yPosPad   [0][0] = 2;
-        CurPfp.pfp.xPosPadExt[0][0] = CurPfp.pfp.xPosPad[0][0];
-        CurPfp.pfp.yPosPadExt[0][0] = CurPfp.pfp.yPosPad[0][0];
         CurPfp.pfp.xRadPad   [0][0] = HVPoint.WIDTH_REF/16;
         CurPfp.pfp.yRadPad   [0][0] = HVPoint.WIDTH_REF/80;
+        */
         mPft = new PlayFieldThread(this);
         PlayFieldPos.ThreadTraffic = 'R';
         mPft.start();
@@ -122,7 +124,7 @@ public class PlayFieldSurfaceView extends SurfaceView
     {
         Paint paint = new Paint();
         paint.setARGB(255,240,240,16);
-        drawRect(pCanvas, CurPfp.pfp.xPosBal, CurPfp.pfp.yPosBal, CurPfp.pfp.xRadBal, CurPfp.pfp.yRadBal, paint, dirOfView);
+        drawRect(pCanvas, CurPfp.pfp.xPosBalSrv, CurPfp.pfp.yPosBalSrv, CurPfp.pfp.xRadBalSrv, CurPfp.pfp.yRadBalSrv, paint, dirOfView);
     }
 
     private void drawPads(Canvas pCanvas, boolean dirOfView)
@@ -139,7 +141,7 @@ public class PlayFieldSurfaceView extends SurfaceView
         for (e=0; e<CurPfp.pfp.nb_team; e++)
             for (j=0; j<CurPfp.pfp.nb_player[e]; j++)
             {
-                switch (CurPfp.pfp.statePad[e][j])
+                switch (CurPfp.pfp.statePadSrv[e][j])
                 {
                     case 0:
                         paint = paint0;
@@ -150,18 +152,16 @@ public class PlayFieldSurfaceView extends SurfaceView
                     default :
                         paint = paintE;
                 }
-                drawRect (pCanvas, CurPfp.pfp.xPosPadExt[e][j], CurPfp.pfp.yPosPadExt[e][j], CurPfp.pfp.xRadPad[e][j], CurPfp.pfp.yRadPad[e][j], paint, dirOfView);
+                drawRect (pCanvas, CurPfp.pfp.xPosPadSrv[e][j], CurPfp.pfp.yPosPadSrv[e][j], CurPfp.pfp.xRadPadSrv[e][j], CurPfp.pfp.yRadPadSrv[e][j], paint, dirOfView);
             }
     }
 
     public void maj_visu(Canvas pCanvas, boolean dirOfView) // dirOfView pour retourner la visu
     {
-        CurPfp.pfp.extrapolate();
+        CurPfp.pfp.extrapolateLocal();
         LocationManager locationManager = LocationManager.getInstance();
         locationManager.setPosition(
-                new HVPoint(
-                        (short)CurPfp.pfp.xPosPadExt[0][0],
-                        (short)CurPfp.pfp.yPosPadExt[0][0])
+                new HVPoint( (short)CurPfp.pfp.xPosPadLocal, (short)CurPfp.pfp.yPosPadLocal)
         );
 
         if(CurPfp.pfp.isGameStarted) {

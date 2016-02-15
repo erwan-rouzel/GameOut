@@ -45,6 +45,7 @@ public class PlayFieldThread extends Thread
         {
             try
             {
+                //TODO Revoir le sleep 100 pour régler entre 30 et 100 selon l'heure courante
                 Thread.sleep(100);
                 lCanvas = mPfsv.getHolder().lockCanvas();
 
