@@ -203,6 +203,7 @@ public class PlayFieldPos
     }
 
     public void syncGameState() {
+        //TODO ne plus appeler startGame. ER ET OD
         RemoteGameState gameState = RemoteGameState.startGame();
         LocationManager locationManager = LocationManager.getInstance();
 
