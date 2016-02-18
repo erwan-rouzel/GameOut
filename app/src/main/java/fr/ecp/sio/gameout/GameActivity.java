@@ -340,6 +340,7 @@ public class GameActivity extends Activity implements
         gameSession.numberOfPlayersInTeam1 = 1;
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
+        PlayFieldPos.ThreadTraffic = 'V';
 
         RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
 
@@ -357,6 +358,7 @@ public class GameActivity extends Activity implements
         gameSession.numberOfPlayersInTeam1 = 2;
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
+        PlayFieldPos.ThreadTraffic = 'V';
 
         RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
 

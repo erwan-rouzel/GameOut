@@ -92,6 +92,7 @@ public class GameoutClient {
         2 octets : coordonnée VY
         */
 
+        Log.i("DEBUGME", "sendPosition BEGIN");
         byte[] buffer;
         ArrayList<Byte> message = new ArrayList<Byte>();
 
@@ -140,6 +141,8 @@ public class GameoutClient {
             result[i] = message.get(i);
         }
 
+        Log.i("DEBUGME", "sendPosition END");
+
         return sendMessageUDP(result);
     }
 
@@ -157,15 +160,25 @@ public class GameoutClient {
     }
 
     private byte[] sendMessageUDP(byte[] sendData) throws IOException {
+        Log.i("DEBUGME", "sendMessageUDP BEGIN");
         udpSocket = new DatagramSocket();
+        udpSocket.setSoTimeout(1000);
 
+        Log.i("DEBUGME", "sendMessageUDP 1");
         byte[] receiveData = new byte[1024];
+        Log.i("DEBUGME", "sendMessageUDP 2");
         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, streamIpAddress, UDP_PORT);
+        Log.i("DEBUGME", "sendMessageUDP 3");
         udpSocket.send(sendPacket);
+        Log.i("DEBUGME", "sendMessageUDP 4");
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+        Log.i("DEBUGME", "sendMessageUDP 5");
         udpSocket.receive(receivePacket);
+        Log.i("DEBUGME", "sendMessageUDP 6");
         byte[] responseBytes = receivePacket.getData();
+        Log.i("DEBUGME", "sendMessageUDP 7");
         udpSocket.close();
+        Log.i("DEBUGME", "sendMessageUDP END");
 
         return responseBytes;
     }

@@ -1,6 +1,7 @@
 package fr.ecp.sio.gameout.remote;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -53,6 +54,8 @@ public class RemoteGameState extends GameState
 
         String responseFromServer;
         GameoutClient client = null;
+
+        Log.i("DEBUGME", "RemoteGameState.sendPosition BEGIN");
         try {
             client = GameoutClient.getInstance();
             LocationManager locationManager = LocationManager.getInstance();
@@ -74,8 +77,11 @@ public class RemoteGameState extends GameState
             GameoutClientHelper.updateGameState(responseBytes);
             responseFromServer = "";
         } catch (Exception e) {
+            Log.i(RemoteGameState.class.getSimpleName(), "RemoteGameState.sendPosition CATCH");
             e.printStackTrace();
         }
+
+        Log.i("DEBUGME", "RemoteGameState.sendPosition END");
     }
 
     private static class StartSessionTask extends AsyncTask<GameSession, Void, GameInit> {
