@@ -445,7 +445,11 @@ public class GameActivity extends Activity implements
                             + PlayFieldPos.ThreadTraffic + " "
                             + TimeKeeper.nbEvents(1) + " "
                             + TimeKeeper.nbEvents(2) + " "
-                            + TimeKeeper.nbEvents(3) ;
+                            + TimeKeeper.nbEvents(3) + " "
+                            + TimeKeeper.nbEvents(4) + " "
+                            + TimeKeeper.nbEvents(5) + " "
+                            + TimeKeeper.nbEvents(6) + " "
+                    ;
 
                     break;
 

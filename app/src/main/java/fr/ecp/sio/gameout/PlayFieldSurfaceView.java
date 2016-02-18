@@ -166,14 +166,17 @@ public class PlayFieldSurfaceView extends SurfaceView
 
         TimeKeeper.addEvent(1);
         if(CurPfp.pfp.isGameStarted) {
+            TimeKeeper.addEvent(2);
             CurPfp.pfp.syncGameState();
+            TimeKeeper.addEvent(3);
         }
 
-        TimeKeeper.addEvent(2);
+        TimeKeeper.addEvent(4);
         lCanvas = getHolder().lockCanvas();
 
+        TimeKeeper.addEvent(5);
         if (lCanvas != null) {
-            TimeKeeper.addEvent(3);
+            TimeKeeper.addEvent(6);
             lCanvas.drawColor(0xFF101080); // Efface toute la zone
             drawBall(lCanvas, dirOfView);  // Dessine la balle
             drawPads(lCanvas, dirOfView);  // Dessine la raquette
