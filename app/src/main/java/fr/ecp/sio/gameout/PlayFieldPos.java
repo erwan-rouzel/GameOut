@@ -168,7 +168,7 @@ public class PlayFieldPos
         {
             long tPrev = timeLGP; // La date de l'étape n-1 est celle de la Last Network Update
             long tCurrent = System.currentTimeMillis(); // la date de l'étape n
-            long tNext  = tCurrent + GPSTiming.meanPeriod(); // La date de l'étape n+1
+            long tNext  = tCurrent + TimeKeeper.meanPeriod(0); // La date de l'étape n+1
 
             int  deltaH = p.H - xPosPadLocalExt; // Delta entre position extrapolée et la position sou
             int  deltaV = p.V - yPosPadLocalExt;// haitée à l'instant n.
@@ -203,8 +203,8 @@ public class PlayFieldPos
     }
 
     public void syncGameState() {
-        //TODO ne plus appeler startGame. ER ET OD
-        RemoteGameState gameState = RemoteGameState.startGame();
+        //TODO ne plus appeler getInstance. ER ET OD
+        RemoteGameState gameState = RemoteGameState.getInstance();
         LocationManager locationManager = LocationManager.getInstance();
 
         if(gameState == null) return;

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +31,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import fr.ecp.sio.gameout.GameActivity;
 import fr.ecp.sio.gameout.MainActivity;
@@ -40,7 +38,6 @@ import fr.ecp.sio.gameout.R;
 import fr.ecp.sio.gameout.model.GameInit;
 import fr.ecp.sio.gameout.model.GameSession;
 import fr.ecp.sio.gameout.model.GameType;
-import fr.ecp.sio.gameout.remote.GameoutClient;
 import fr.ecp.sio.gameout.remote.RemoteGameState;
 import fr.ecp.sio.gameout.salon.message.Message;
 import fr.ecp.sio.gameout.salon.message.ParticipantMessage;
@@ -349,7 +346,7 @@ public class OnlineGameActivity extends ActionBarActivity implements
         //System.out.println("RoomID=" + room.getRoomId());
         GameSession gameSession = new GameSession(-1, room.getRoomId(), "", GameType.PONG_MONO, 1, 0, 0);
         try {
-            RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
+            RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
         } catch (Exception e) {
         }
     }
@@ -406,7 +403,7 @@ public class OnlineGameActivity extends ActionBarActivity implements
                     // TODO: 2/10/2016 Erwan contact server
                     GameSession gameSession = new GameSession(gameInit.sessionId, gameInit.roomId, gameInit.serverHostName, GameType.PONG_MONO, 1, 0, 0);
                     try {
-                        RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
+                        RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
                     } catch (Exception e) {
                     }
                 } else {

@@ -31,10 +31,9 @@ public class RemoteGameState extends GameState
 
         GameoutClient.getInstance().setStreamIpAdress(session.serverHostName);
         this.id = gameInit.sessionId;
-
     }
 
-    public static synchronized RemoteGameState startGame(GameSession session) throws IOException, ExecutionException, InterruptedException {
+    public static synchronized RemoteGameState getInstance(GameSession session) throws IOException, ExecutionException, InterruptedException {
         if(instance == null) {
             instance = new RemoteGameState(session);
         }
@@ -42,7 +41,7 @@ public class RemoteGameState extends GameState
         return instance;
     }
 
-    public static synchronized RemoteGameState startGame() {
+    public static synchronized RemoteGameState getInstance() {
         return instance;
     }
 
@@ -108,7 +107,7 @@ public class RemoteGameState extends GameState
 
             GameoutClient client = null;
             try {
-                client = GameoutClient.startGame();
+                client = GameoutClient.getInstance();
 
                 GameState gameState = new GameState(client.getGameSession());
                 Team team = new Team((byte)0, gameState, 2);

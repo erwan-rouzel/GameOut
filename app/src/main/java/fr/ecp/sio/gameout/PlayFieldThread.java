@@ -26,9 +26,7 @@ public class PlayFieldThread extends Thread
     @Override
     public void run()
     {
-        Canvas lCanvas;
-
-        while(PlayFieldPos.ThreadTraffic != 'V')
+         while(PlayFieldPos.ThreadTraffic != 'V')
         {
             try
             {
@@ -47,16 +45,7 @@ public class PlayFieldThread extends Thread
             {
                 //TODO Revoir le sleep 100 pour régler entre 30 et 100 selon l'heure courante
                 Thread.sleep(100);
-                lCanvas = mPfsv.getHolder().lockCanvas();
-
-                if(lCanvas != null)
-                {
-                    synchronized (mPfsv.getHolder())
-                    {
-                        mPfsv.maj_visu(lCanvas, true);
-                    }
-                    mPfsv.getHolder().unlockCanvasAndPost(lCanvas);
-                }
+                mPfsv.maj_visu(true);
             }
             catch (InterruptedException ex)
             {

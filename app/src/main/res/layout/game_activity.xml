@@ -49,42 +49,41 @@
         android:text="@string/calib_txt"
         android:onClick="calibButtonHandler"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/latitude_label"
-        android:layout_toEndOf="@+id/latitude_label"
+        android:layout_toRightOf="@+id/toggle_gps_button"
         android:layout_alignBottom="@+id/toggle_gps_button" />
 
     <Button
         android:id="@+id/param_test_button"
-        android:layout_width="32dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
         android:onClick="paramTestButtonHandler"
         android:layout_alignTop="@+id/calib_button"
         android:layout_toRightOf="@+id/calib_button"
-        android:layout_marginLeft="2dp"
-        android:layout_marginStart="2dp" />
+        android:layout_marginLeft="1dip"
+        android:layout_marginStart="1dip" />
 
     <Button
         android:id="@+id/start_mono_pong"
-        android:layout_width="32dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
         android:onClick="startMonoPongButtonHandler"
         android:layout_alignTop="@+id/calib_button"
         android:layout_toRightOf="@+id/param_test_button"
-        android:layout_marginLeft="2dp"
-        android:layout_marginStart="2dp" />
+        android:layout_marginLeft="1dip"
+        android:layout_marginStart="1dip" />
 
     <Button
         android:id="@+id/start_multi_pong"
-        android:layout_width="32dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2"
         android:onClick="startMultiPongButtonHandler"
         android:layout_alignTop="@+id/calib_button"
         android:layout_toRightOf="@+id/start_mono_pong"
-        android:layout_marginLeft="2dp"
-        android:layout_marginStart="2dp" />
+        android:layout_marginLeft="1dip"
+        android:layout_marginStart="1dip" />
 
     <TextView
         android:id="@+id/latitude_label"

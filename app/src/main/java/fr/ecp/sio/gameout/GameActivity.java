@@ -33,8 +33,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
@@ -44,7 +42,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import java.io.IOException;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import fr.ecp.sio.gameout.model.GameSession;
@@ -162,7 +159,7 @@ public class GameActivity extends Activity implements
         // API.
         buildGoogleApiClient();
         updateMyButtons();
-        GPSTiming.resetStatEvents();
+        TimeKeeper.resetAllStat();
 
         Intent mServiceIntent = new Intent(this, SyncStateService.class);
         this.startService(mServiceIntent);
@@ -275,7 +272,7 @@ public class GameActivity extends Activity implements
                 mRequestingLocationUpdates = false;
                 mCalibButton.setEnabled(true);
                 stopLocationUpdates();
-                GPSTiming.resetStatEvents();
+                TimeKeeper.resetStat(0);
             }
         }
         updateMyButtons();
@@ -305,8 +302,8 @@ public class GameActivity extends Activity implements
                     gameSession.numberOfPlayersInTeam1 = 1;
                     gameSession.numberOfPlayersInTeam2 = 0;
                     gameSession.numberOfPlayersInTeam3 = 0;
-
-                    RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
+                    RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
+                    PlayFieldPos.ThreadTraffic = 'V';
 
                     //TODO : envoyer la taille du terrain au serveur
                     // pour le calcul de la vitesse de la balle
@@ -344,7 +341,7 @@ public class GameActivity extends Activity implements
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
 
-        RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
+        RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
 
         logServer("ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")");
     }
@@ -361,13 +358,13 @@ public class GameActivity extends Activity implements
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
 
-        RemoteGameState remoteGameState = RemoteGameState.startGame(gameSession);
+        RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
 
         logServer("ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")");
     }
 
     private void logServer(String message) {
-        mLogServerEditText.setText(mLogServerEditText.getText() + "[" + RemoteGameState.startGame().timestamp + "] " + message + "\n");
+        mLogServerEditText.setText(mLogServerEditText.getText() + "[" + RemoteGameState.getInstance().timestamp + "] " + message + "\n");
         mLogServerEditText.setSelection(mLogServerEditText.getText().length());
     }
 
@@ -423,7 +420,8 @@ public class GameActivity extends Activity implements
             switch (calibStage)
             {
                 case 0:
-                    mInfoString = "V151120c No calib "  + " G=" + GPSTiming.nbEvents();
+                    mInfoString = "V151120c No calib "  + " G=" + TimeKeeper.nbEvents(0)
+                            + " " + PlayFieldPos.ThreadTraffic;
                     break;
 
                 case 1:
@@ -442,14 +440,17 @@ public class GameActivity extends Activity implements
                         default: CurPfp.pfp.setPosPad2 (p, (paramTest - 2f) / 4f);
                     }
 
-                    mInfoString = "G=" + GPSTiming.nbEvents() + " "
-                                + GPSTiming.meanPeriod()
-                                + "ms" ;
+                    mInfoString = "G=" + TimeKeeper.nbEvents(0) + " "
+                                + TimeKeeper.meanPeriod(0)+ "ms "
+                            + PlayFieldPos.ThreadTraffic + " "
+                            + TimeKeeper.nbEvents(1) + " "
+                            + TimeKeeper.nbEvents(2) + " "
+                            + TimeKeeper.nbEvents(3) ;
 
                     break;
 
                 default:
-                    mInfoString = "bug ?"  + " G=" + GPSTiming.nbEvents();
+                    mInfoString = "bug ?"  + " G=" + TimeKeeper.nbEvents(0);
                     break;
             }
             mInfoTextView.setText(mInfoString);
@@ -553,7 +554,7 @@ public class GameActivity extends Activity implements
     public void onLocationChanged(Location location)
     {
         mCurrentLocation = location;
-        GPSTiming.addEvent();
+        TimeKeeper.addEvent(0);
         updateUI();
     }
 
@@ -582,13 +583,13 @@ public class GameActivity extends Activity implements
     }
 
     public void moveLeftButtonHandler(View view) {
-        RemoteGameState gameState = RemoteGameState.startGame();
+        RemoteGameState gameState = RemoteGameState.getInstance();
 
         HVPoint newPosition = LocationManager.getInstance().getCurrentPosition();
         newPosition.H = (short) (newPosition.H - 400);
         newPosition.V = 10000;
 
-        //LocationManager.startGame().setPosition(newPosition);
+        //LocationManager.getInstance().setPosition(newPosition);
         CurPfp.pfp.setPosPad0(newPosition);
         CurPfp.pfp.syncGameState();
 
@@ -596,13 +597,13 @@ public class GameActivity extends Activity implements
     }
 
     public void moveRightButtonHandler(View view) {
-        RemoteGameState gameState = RemoteGameState.startGame();
+        RemoteGameState gameState = RemoteGameState.getInstance();
 
         HVPoint newPosition = LocationManager.getInstance().getCurrentPosition();
         newPosition.H = (short) (newPosition.H + 400);
         newPosition.V = 10000;
 
-        //LocationManager.startGame().setPosition(newPosition);
+        //LocationManager.getInstance().setPosition(newPosition);
         CurPfp.pfp.setPosPad0(newPosition);
         CurPfp.pfp.syncGameState();
 

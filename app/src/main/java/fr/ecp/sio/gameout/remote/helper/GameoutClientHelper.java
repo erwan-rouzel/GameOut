@@ -30,7 +30,7 @@ public class GameoutClientHelper {
         ...
         */
 
-        RemoteGameState remoteGameState = RemoteGameState.startGame();
+        RemoteGameState remoteGameState = RemoteGameState.getInstance();
         if(remoteGameState == null) return;
 
         remoteGameState.timestamp =  GameoutUtils.bytesToLong(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7]);

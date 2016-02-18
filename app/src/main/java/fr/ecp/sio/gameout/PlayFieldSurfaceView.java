@@ -83,7 +83,6 @@ public class PlayFieldSurfaceView extends SurfaceView
         mPft = new PlayFieldThread(this);
         PlayFieldPos.ThreadTraffic = 'R';
         mPft.start();
-        PlayFieldPos.ThreadTraffic = 'V';
     }
 
     private void drawRect(Canvas pCanvas,
@@ -156,19 +155,30 @@ public class PlayFieldSurfaceView extends SurfaceView
             }
     }
 
-    public void maj_visu(Canvas pCanvas, boolean dirOfView) // dirOfView pour retourner la visu
+    public void maj_visu(boolean dirOfView) // dirOfView pour retourner la visu
     {
+        Canvas lCanvas;
         CurPfp.pfp.extrapolateLocal();
         LocationManager locationManager = LocationManager.getInstance();
         locationManager.setPosition(
-                new HVPoint( (short)CurPfp.pfp.xPosPadLocal, (short)CurPfp.pfp.yPosPadLocal)
+                new HVPoint((short) CurPfp.pfp.xPosPadLocal, (short) CurPfp.pfp.yPosPadLocal)
         );
 
+        TimeKeeper.addEvent(1);
         if(CurPfp.pfp.isGameStarted) {
             CurPfp.pfp.syncGameState();
         }
-        pCanvas.drawColor(0xFF101080); // Efface toute la zone
-        drawBall(pCanvas, dirOfView);  // Dessine la balle
-        drawPads(pCanvas, dirOfView);  // Dessine la raquette
+
+        TimeKeeper.addEvent(2);
+        lCanvas = getHolder().lockCanvas();
+
+        if (lCanvas != null) {
+            TimeKeeper.addEvent(3);
+            lCanvas.drawColor(0xFF101080); // Efface toute la zone
+            drawBall(lCanvas, dirOfView);  // Dessine la balle
+            drawPads(lCanvas, dirOfView);  // Dessine la raquette
+        }
+
+        getHolder().unlockCanvasAndPost(lCanvas);
     }
 }
