@@ -55,7 +55,6 @@ public class RemoteGameState extends GameState
         String responseFromServer;
         GameoutClient client = null;
 
-        Log.i("DEBUGME", "RemoteGameState.sendPosition BEGIN");
         try {
             client = GameoutClient.getInstance();
             LocationManager locationManager = LocationManager.getInstance();
@@ -77,11 +76,8 @@ public class RemoteGameState extends GameState
             GameoutClientHelper.updateGameState(responseBytes);
             responseFromServer = "";
         } catch (Exception e) {
-            Log.i(RemoteGameState.class.getSimpleName(), "RemoteGameState.sendPosition CATCH");
             e.printStackTrace();
         }
-
-        Log.i("DEBUGME", "RemoteGameState.sendPosition END");
     }
 
     private static class StartSessionTask extends AsyncTask<GameSession, Void, GameInit> {
