@@ -272,7 +272,7 @@ public class GameActivity extends Activity implements
                 mRequestingLocationUpdates = false;
                 mCalibButton.setEnabled(true);
                 stopLocationUpdates();
-                TimeKeeper.resetStat(0);
+                TimeKeeper.resetPerio(0, 100, 1200);
             }
         }
         updateMyButtons();

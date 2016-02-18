@@ -7,55 +7,93 @@ package fr.ecp.sio.gameout;
  */
 public class TimeKeeper
 {
-    private static long cpt[] = new long[10];
-    private static long firstDateMillis[] = new long[10];
-    private static long lastDateMillis [] = new long[10];
+    private static long perioCpt[] = new long[10];
+    private static long perioFirstDateMillis[] = new long[10];
+    private static long perioLastDateMillis [] = new long[10];
+    private static int  perioMin[] = new int[10];
+    private static int  perioMax[] = new int[10];
+
+    private static long duratStart[] = new long [10];
+    private static long duratCpt[]   = new long [10];
+    private static long duratCumul[] = new long [10];
 
     static private int boxed(int i)
     {
         return (i<0) ? 0 : (i>9) ? 9 : i;
     }
 
-    static public void resetStat(int ind)
-    {
-        cpt[boxed(ind)] = 0;
-    }
-
     static public void resetAllStat()
     {
         for (int i=0; i<10; i++)
-            cpt[i]=0;
+        {
+            resetPerio(i, 0, 54321);
+            resetDurat(i);
+        }
+    }
+
+    static public void resetDurat(int ind)
+    {
+        int i = boxed(ind);
+        duratStart[i] = 0;
+        duratCpt[i]   = 0;
+        duratCumul[i] = 0;
+    }
+
+    static public void duratStartEvent(int ind)
+    {
+        int i = boxed(ind);
+        duratStart[i] = System.currentTimeMillis();
+    }
+
+    static public void duratEndEvent(int ind)
+    {
+        int i = boxed(ind);
+        duratCumul[i] += System.currentTimeMillis() - duratStart[i];
+        duratCpt[i]++;
+    }
+
+    static public void resetPerio(int ind)
+    {
+        int i = boxed(ind);
+        perioCpt[i] = 0;
+    }
+
+    static public void resetPerio(int ind, int min, int max)
+    {
+        int i = boxed(ind);
+        perioMin[i]=min;
+        perioMax[i]=max;
+        perioCpt[boxed(i)] = 0;
     }
 
     static public void addEvent(int ind)
     {
         int i = boxed(ind);
-        cpt[i]++;
-        lastDateMillis[i] = System.currentTimeMillis();
-        if (cpt[i] <= 1)
-            firstDateMillis[i] = lastDateMillis[i];
+        perioCpt[i]++;
+        perioLastDateMillis[i] = System.currentTimeMillis();
+        if (perioCpt[i] <= 1)
+            perioFirstDateMillis[i] = perioLastDateMillis[i];
     }
 
     static public long nbEvents(int ind)
     {
-        return (cpt[boxed(ind)]);
+        return (perioCpt[boxed(ind)]);
     }
 
     static public int meanPeriod(int ind)
     {
         int i = boxed(ind);
         int res;
-        if (cpt[i] < 2)
-            res = 1200; // 1,2 seconde comme valeur par défaut
+        if (perioCpt[i] < 2)
+            res = 1+ perioMax[i]/2 + perioMin[i]/2;
         else
         {
-            res =(int) ((lastDateMillis[i] - firstDateMillis[i])/(cpt[i]-1));
-            // Normal values are between 800 to 1600 ms, we will excludes values far from these ones
-            if (res < 100)
-                res = 100;
+            res = (int) ((perioLastDateMillis[i] - perioFirstDateMillis[i]) / (perioCpt[i]-1));
+            if (res < perioMin[i])
+                res = perioMin[i];
 
-            if (res > 2300)
-                    res = 2300;
+            if (res > perioMax[i])
+                    res = perioMax[i];
         }
         return (res);
     }

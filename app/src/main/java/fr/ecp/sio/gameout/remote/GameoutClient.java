@@ -17,6 +17,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+import fr.ecp.sio.gameout.TimeKeeper;
 import fr.ecp.sio.gameout.model.GameInit;
 import fr.ecp.sio.gameout.model.GameSession;
 import fr.ecp.sio.gameout.model.Player;
@@ -157,16 +158,23 @@ public class GameoutClient {
     }
 
     private byte[] sendMessageUDP(byte[] sendData) throws IOException {
+        TimeKeeper.duratEndEvent(1);
         udpSocket = new DatagramSocket();
-        udpSocket.setSoTimeout(100);
+        udpSocket.setSoTimeout(500);
+        TimeKeeper.duratEndEvent(1);
 
+        TimeKeeper.duratStartEvent(2);
         byte[] receiveData = new byte[1024];
         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, streamIpAddress, UDP_PORT);
         udpSocket.send(sendPacket);
+        TimeKeeper.duratEndEvent(2);
+
+        TimeKeeper.duratStartEvent(3);
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
         udpSocket.receive(receivePacket);
         byte[] responseBytes = receivePacket.getData();
         udpSocket.close();
+        TimeKeeper.duratEndEvent(3);
 
         return responseBytes;
     }
