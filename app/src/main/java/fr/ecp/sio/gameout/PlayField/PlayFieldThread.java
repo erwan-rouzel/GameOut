@@ -1,7 +1,9 @@
-package fr.ecp.sio.gameout;
+package fr.ecp.sio.gameout.PlayField;
 
-import android.graphics.Canvas;
 import android.util.Log;
+
+import fr.ecp.sio.gameout.PlayField.PlayFieldPos;
+import fr.ecp.sio.gameout.PlayField.PlayFieldSurfaceView;
 
 /**
  * Created by od on 10/31/2015.

@@ -1,12 +1,11 @@
 package fr.ecp.sio.gameout.remote;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-import fr.ecp.sio.gameout.CurPfp;
+import fr.ecp.sio.gameout.PlayField.CurPfp;
 import fr.ecp.sio.gameout.LocationManager;
 import fr.ecp.sio.gameout.model.GameInit;
 import fr.ecp.sio.gameout.model.GameSession;

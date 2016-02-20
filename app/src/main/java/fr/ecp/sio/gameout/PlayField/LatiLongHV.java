@@ -1,4 +1,4 @@
-package fr.ecp.sio.gameout;
+package fr.ecp.sio.gameout.PlayField;
 
 /**
  * Created by Olivier Desté on 11/5/2015.

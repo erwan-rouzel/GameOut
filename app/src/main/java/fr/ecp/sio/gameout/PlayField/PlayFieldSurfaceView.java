@@ -1,4 +1,4 @@
-package fr.ecp.sio.gameout;
+package fr.ecp.sio.gameout.PlayField;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import fr.ecp.sio.gameout.LocationManager;
+import fr.ecp.sio.gameout.TimeKeeper;
 import fr.ecp.sio.gameout.model.HVPoint;
 
 /**

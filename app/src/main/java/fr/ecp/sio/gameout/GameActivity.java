@@ -44,6 +44,10 @@ import com.google.android.gms.location.LocationServices;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
+import fr.ecp.sio.gameout.PlayField.CurPfp;
+import fr.ecp.sio.gameout.PlayField.LatiLongHV;
+import fr.ecp.sio.gameout.PlayField.PlayFieldPos;
+import fr.ecp.sio.gameout.PlayField.PlayFieldSurfaceView;
 import fr.ecp.sio.gameout.model.GameSession;
 import fr.ecp.sio.gameout.model.GameType;
 import fr.ecp.sio.gameout.model.HVPoint;

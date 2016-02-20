@@ -1,4 +1,6 @@
-package fr.ecp.sio.gameout;
+package fr.ecp.sio.gameout.PlayField;
+
+import fr.ecp.sio.gameout.PlayField.PlayFieldPos;
 
 /**
  * Created by od on 11/7/2015.

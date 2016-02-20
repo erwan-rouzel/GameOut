@@ -158,9 +158,9 @@ public class GameoutClient {
     }
 
     private byte[] sendMessageUDP(byte[] sendData) throws IOException {
-        TimeKeeper.duratEndEvent(1);
+        TimeKeeper.duratStartEvent(1);
         udpSocket = new DatagramSocket();
-        udpSocket.setSoTimeout(500);
+        udpSocket.setSoTimeout(5000);
         TimeKeeper.duratEndEvent(1);
 
         TimeKeeper.duratStartEvent(2);

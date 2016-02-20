@@ -1,5 +1,7 @@
-package fr.ecp.sio.gameout;
+package fr.ecp.sio.gameout.PlayField;
 
+import fr.ecp.sio.gameout.LocationManager;
+import fr.ecp.sio.gameout.TimeKeeper;
 import fr.ecp.sio.gameout.model.GameStatus;
 import fr.ecp.sio.gameout.model.HVPoint;
 import fr.ecp.sio.gameout.model.Player;

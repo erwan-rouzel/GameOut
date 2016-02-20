@@ -20,7 +20,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/layout_padding">
 
-    <fr.ecp.sio.gameout.PlayFieldSurfaceView
+    <fr.ecp.sio.gameout.PlayField.PlayFieldSurfaceView
         android:id="@+id/surface_view"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:text="1"
         android:onClick="startMonoPongButtonHandler"
-        android:layout_alignTop="@+id/calib_button"
+        android:layout_alignTop="@+id/param_test_button"
         android:layout_toRightOf="@+id/param_test_button"
         android:layout_marginLeft="1dip"
         android:layout_marginStart="1dip" />
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:text="2"
         android:onClick="startMultiPongButtonHandler"
-        android:layout_alignTop="@+id/calib_button"
+        android:layout_alignTop="@+id/start_mono_pong"
         android:layout_toRightOf="@+id/start_mono_pong"
         android:layout_marginLeft="1dip"
         android:layout_marginStart="1dip" />
