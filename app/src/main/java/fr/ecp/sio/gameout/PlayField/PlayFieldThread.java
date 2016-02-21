@@ -4,6 +4,7 @@ import android.util.Log;
 
 import fr.ecp.sio.gameout.PlayField.PlayFieldPos;
 import fr.ecp.sio.gameout.PlayField.PlayFieldSurfaceView;
+import fr.ecp.sio.gameout.TimeKeeper;
 
 /**
  * Created by od on 10/31/2015.
@@ -45,9 +46,11 @@ public class PlayFieldThread extends Thread
         {
             try
             {
-                //TODO Revoir le sleep 100 pour régler entre 30 et 100 selon l'heure courante
-                Thread.sleep(100);
+                //TODO Revoir le sleep pour régler entre 50 et 125 selon l'heure courante
+                Thread.sleep(125);
+                TimeKeeper.duratStartEvent(0);
                 mPfsv.maj_visu(true);
+                TimeKeeper.duratEndEvent(0);
             }
             catch (InterruptedException ex)
             {

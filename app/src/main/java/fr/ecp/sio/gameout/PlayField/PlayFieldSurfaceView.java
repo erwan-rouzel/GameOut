@@ -159,31 +159,34 @@ public class PlayFieldSurfaceView extends SurfaceView
 
     public void maj_visu(boolean dirOfView) // dirOfView pour retourner la visu
     {
+        TimeKeeper.addEvent(1);
+        TimeKeeper.duratStartEvent(1);
         Canvas lCanvas;
         CurPfp.pfp.extrapolateLocal();
         LocationManager locationManager = LocationManager.getInstance();
         locationManager.setPosition(
-                new HVPoint((short) CurPfp.pfp.xPosPadLocal, (short) CurPfp.pfp.yPosPadLocal)
+                new HVPoint((short) CurPfp.pfp.xPosPadLocalExt, (short) CurPfp.pfp.yPosPadLocalExt)
         );
 
-        TimeKeeper.addEvent(1);
+        TimeKeeper.duratEndEvent(1);
+        TimeKeeper.duratStartEvent(2);
         if(CurPfp.pfp.isGameStarted) {
             TimeKeeper.addEvent(2);
             CurPfp.pfp.syncGameState();
-            TimeKeeper.addEvent(3);
         }
+        TimeKeeper.duratEndEvent(2);
+        TimeKeeper.duratStartEvent(3);
 
-        TimeKeeper.addEvent(4);
         lCanvas = getHolder().lockCanvas();
 
-        TimeKeeper.addEvent(5);
         if (lCanvas != null) {
-            TimeKeeper.addEvent(6);
+            TimeKeeper.addEvent(3);
             lCanvas.drawColor(0xFF101080); // Efface toute la zone
             drawBall(lCanvas, dirOfView);  // Dessine la balle
             drawPads(lCanvas, dirOfView);  // Dessine la raquette
         }
 
         getHolder().unlockCanvasAndPost(lCanvas);
+        TimeKeeper.duratEndEvent(3);
     }
 }

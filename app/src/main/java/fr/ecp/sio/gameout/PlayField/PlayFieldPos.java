@@ -109,7 +109,6 @@ public class PlayFieldPos
             deltaTime = targetTime - timeLGP;
             xPosPadLocalExt = xPosPadLocal + (int) Math.round(xSpePadLocal/3600000.*deltaTime);
             yPosPadLocalExt = yPosPadLocal + (int) Math.round(ySpePadLocal/3600000.*deltaTime);
-
         }
     }
 
@@ -125,8 +124,8 @@ public class PlayFieldPos
             xSpePadLocal = 0;
             ySpePadLocal = 0;
 
-            xPosPadLocalExt = xSpePadLocal;
-            yPosPadLocalExt = ySpePadLocal;
+            xPosPadLocalExt = xPosPadLocal;
+            yPosPadLocalExt = yPosPadLocal;
 
             timeLGP = tCurrent;
         }
@@ -152,10 +151,12 @@ public class PlayFieldPos
             yPosPadLocal = p.V;
 
             xSpePadLocal = (int) Math.round(deltaH*3600000./deltaT);
-            ySpePadLocal = (int) Math.round(deltaV*3600000./deltaT);
+            //ySpePadLocal = (int) Math.round(deltaV*3600000./deltaT);
+            //TODO DEBUG, retirer cette ligne
+            ySpePadLocal = 11;
 
-            xPosPadLocalExt = xSpePadLocal;
-            yPosPadLocalExt = ySpePadLocal;
+            xPosPadLocalExt = xPosPadLocal;
+            yPosPadLocalExt = yPosPadLocal;
 
             timeLGP = tCurrent;
         }
@@ -172,8 +173,8 @@ public class PlayFieldPos
             long tCurrent = System.currentTimeMillis(); // la date de l'étape n
             long tNext  = tCurrent + TimeKeeper.meanPeriod(0); // La date de l'étape n+1
 
-            int  deltaH = p.H - xPosPadLocalExt; // Delta entre position extrapolée et la position sou
-            int  deltaV = p.V - yPosPadLocalExt;// haitée à l'instant n.
+            int  deltaH = p.H - xPosPadLocalExt; // Delta entre position extrapolée et la position
+            int  deltaV = p.V - yPosPadLocalExt; // souhaitée à l'instant n.
 
             int  HNext = Math.round(p.H + coef * deltaH * (tNext-tCurrent) / (float) (tCurrent-tPrev));
             int  VNext = Math.round(p.V + coef * deltaV * (tNext-tCurrent) / (float) (tCurrent-tPrev));
@@ -181,14 +182,16 @@ public class PlayFieldPos
             // Big risk of overshoot with big move, fall back to a more jumpy and
             // less smooth move.
             if (Math.abs(deltaH)+Math.abs(deltaV) > (HVPoint.WIDTH_REF/4))
-                setPosPad1(p);
+                setPosPad0(p);
             else
             {
                 xPosPadLocal = xPosPadLocalExt;
                 yPosPadLocal = yPosPadLocalExt;
 
                 xSpePadLocal = (int) Math.round((HNext-xPosPadLocal)*3600000./(tNext-tCurrent));
-                ySpePadLocal = (int) Math.round((VNext-yPosPadLocal)*3600000./(tNext-tCurrent));
+                //ySpePadLocal = (int) Math.round((VNext-yPosPadLocal)*3600000./(tNext-tCurrent));
+                //TODO DEBUG, retirer cette ligne
+                ySpePadLocal = 22;
             }
             timeLGP = tCurrent;
         }

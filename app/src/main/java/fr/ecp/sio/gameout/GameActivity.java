@@ -439,22 +439,30 @@ public class GameActivity extends Activity implements
 
                 case 2:
                     HVPoint p = LatiLongHV.convertLocToHV(mCurrentLocation);
-                    switch (paramTest) // 2 - 6 pour essayer le param entre 0 et 1 par saut de 1/4
+                    switch (paramTest) // 2 - 7 pour essayer le param entre 0 et 1 par saut de 1/4
                     {
-                        case 0 : CurPfp.pfp.setPosPad0 (p);
-                        case 1 : CurPfp.pfp.setPosPad1 (p);
-                        default: CurPfp.pfp.setPosPad2 (p, (paramTest - 2f) / 4f);
+                        case 0 : CurPfp.pfp.setPosPad0 (p); break;
+                        case 1 : CurPfp.pfp.setPosPad1 (p); break;
+                        default: CurPfp.pfp.setPosPad2 (p, (paramTest - 2f) / 5f);
                     }
 
                     mInfoString = "G=" + TimeKeeper.nbEvents(0) + " "
+                            + "yS=" + CurPfp.pfp.ySpePadLocal + " " +
                                 + TimeKeeper.meanPeriod(0)+ "ms "
                             + PlayFieldPos.ThreadTraffic + " "
                             + TimeKeeper.nbEvents(1) + " "
-                            + TimeKeeper.nbEvents(2) + " "
-                            + TimeKeeper.nbEvents(3) + " "
-                            + TimeKeeper.nbEvents(4) + " "
-                            + TimeKeeper.nbEvents(5) + " "
-                            + TimeKeeper.nbEvents(6) + " "
+                            + (TimeKeeper.nbEvents(2) - TimeKeeper.nbEvents(1) )+ " "
+                            + (TimeKeeper.nbEvents(3) - TimeKeeper.nbEvents(1) ) + " "
+                            + TimeKeeper.meanDurat(0)+ "<"+ TimeKeeper.maxDurat(0)+">:"
+                            + TimeKeeper.meanDurat(1)+ "("+ TimeKeeper.maxDurat(1)+")+"
+                            + TimeKeeper.meanDurat(2)+ "("+ TimeKeeper.maxDurat(2)+")+"
+                            + TimeKeeper.meanDurat(3)+ "("+ TimeKeeper.maxDurat(3)+") "
+                            + TimeKeeper.meanDurat(4)+ "["+ TimeKeeper.maxDurat(4)+"]+"
+                            + TimeKeeper.meanDurat(5)+ "["+ TimeKeeper.maxDurat(5)+"]+"
+                            + TimeKeeper.meanDurat(6)+ "["+ TimeKeeper.maxDurat(6)+"] "
+                            + TimeKeeper.meanDurat(7)+ "{"+ TimeKeeper.maxDurat(7)+"}+"
+                            + TimeKeeper.meanDurat(8)+ "{"+ TimeKeeper.maxDurat(8)+"}+"
+                            + TimeKeeper.meanDurat(9)+ "{"+ TimeKeeper.maxDurat(9)+"} "
                     ;
 
                     break;

@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import fr.ecp.sio.gameout.PlayField.CurPfp;
 import fr.ecp.sio.gameout.LocationManager;
+import fr.ecp.sio.gameout.TimeKeeper;
 import fr.ecp.sio.gameout.model.GameInit;
 import fr.ecp.sio.gameout.model.GameSession;
 import fr.ecp.sio.gameout.model.GameState;
@@ -47,10 +48,11 @@ public class RemoteGameState extends GameState
 
     public void sendPosition(final HVPoint position) {
         //TODO peut-on retirer les lignes en commentaires dans sendPosition
-        //TODO sendPosition fait pense que c'est appelé souvent (10Hz) pourtant il y a un
+        //sendPosition fait penser que c'est appelé souvent (10Hz) pourtant il y a un
         //SendPositionTask serverTask = new SendPositionTask();
         //serverTask.execute(position);
 
+        TimeKeeper.duratStartEvent(4);
         String responseFromServer;
         GameoutClient client = null;
 
@@ -71,8 +73,13 @@ public class RemoteGameState extends GameState
             player.vx = (short)1;
             player.vx = (short)1;
 
+            TimeKeeper.duratEndEvent(4);
+            TimeKeeper.duratStartEvent(5);
             byte[] responseBytes = client.sendPosition(player);
+            TimeKeeper.duratEndEvent(5);
+            TimeKeeper.duratStartEvent(6);
             GameoutClientHelper.updateGameState(responseBytes);
+            TimeKeeper.duratEndEvent(6);
             responseFromServer = "";
         } catch (Exception e) {
             e.printStackTrace();

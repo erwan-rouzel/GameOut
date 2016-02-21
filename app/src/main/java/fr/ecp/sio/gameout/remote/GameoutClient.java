@@ -158,23 +158,26 @@ public class GameoutClient {
     }
 
     private byte[] sendMessageUDP(byte[] sendData) throws IOException {
-        TimeKeeper.duratStartEvent(1);
-        udpSocket = new DatagramSocket();
-        udpSocket.setSoTimeout(5000);
-        TimeKeeper.duratEndEvent(1);
 
-        TimeKeeper.duratStartEvent(2);
+        TimeKeeper.duratStartEvent(7);
+        udpSocket = new DatagramSocket();
+        udpSocket.setSoTimeout(1200);
+
         byte[] receiveData = new byte[1024];
         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, streamIpAddress, UDP_PORT);
         udpSocket.send(sendPacket);
-        TimeKeeper.duratEndEvent(2);
+        TimeKeeper.duratEndEvent(7);
 
-        TimeKeeper.duratStartEvent(3);
+        TimeKeeper.duratStartEvent(8);
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+        TimeKeeper.duratEndEvent(8);
+
+        TimeKeeper.duratStartEvent(9);
         udpSocket.receive(receivePacket);
         byte[] responseBytes = receivePacket.getData();
+        udpSocket.setSoTimeout(200);
         udpSocket.close();
-        TimeKeeper.duratEndEvent(3);
+        TimeKeeper.duratEndEvent(9);
 
         return responseBytes;
     }

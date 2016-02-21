@@ -18,7 +18,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/layout_padding">
+    android:padding="6dip">
 
     <fr.ecp.sio.gameout.PlayField.PlayFieldSurfaceView
         android:id="@+id/surface_view"
@@ -38,7 +38,6 @@
         android:id="@+id/toggle_gps_button"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:onClick="toggleButtonHandler"
         android:checked="false" />
 
@@ -49,41 +48,46 @@
         android:text="@string/calib_txt"
         android:onClick="calibButtonHandler"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/toggle_gps_button"
-        android:layout_alignBottom="@+id/toggle_gps_button" />
+        android:layout_toRightOf="@id/toggle_gps_button" />
 
     <Button
         android:id="@+id/param_test_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
+        android:paddingRight="6dp"
+        android:paddingLeft="6dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:onClick="paramTestButtonHandler"
-        android:layout_alignTop="@+id/calib_button"
-        android:layout_toRightOf="@+id/calib_button"
-        android:layout_marginLeft="1dip"
-        android:layout_marginStart="1dip" />
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/calib_button" />
 
     <Button
         android:id="@+id/start_mono_pong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
+        android:paddingRight="6dp"
+        android:paddingLeft="6dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="6dp"
         android:onClick="startMonoPongButtonHandler"
-        android:layout_alignTop="@+id/param_test_button"
-        android:layout_toRightOf="@+id/param_test_button"
-        android:layout_marginLeft="1dip"
-        android:layout_marginStart="1dip" />
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/param_test_button" />
 
     <Button
         android:id="@+id/start_multi_pong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2"
+        android:paddingRight="6dp"
+        android:paddingLeft="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
         android:onClick="startMultiPongButtonHandler"
-        android:layout_alignTop="@+id/start_mono_pong"
-        android:layout_toRightOf="@+id/start_mono_pong"
-        android:layout_marginLeft="1dip"
-        android:layout_marginStart="1dip" />
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/start_mono_pong"/>
 
     <TextView
         android:id="@+id/latitude_label"
@@ -99,8 +103,8 @@
         android:id="@+id/latitude_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/latitude_label"
-        android:layout_alignBaseline="@+id/latitude_label"
+        android:layout_toRightOf="@id/latitude_label"
+        android:layout_alignBaseline="@id/latitude_label"
         android:layout_marginLeft="@dimen/small_margin_left"
         android:textSize="@dimen/default_text_size" />
 
@@ -110,15 +114,15 @@
         android:layout_height="wrap_content"
         android:text="@string/longitude_label"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/latitude_label"
+        android:layout_below="@id/latitude_label"
         android:textSize="@dimen/default_text_size" />
 
     <TextView
         android:id="@+id/longitude_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/longitude_label"
-        android:layout_alignBaseline="@+id/longitude_label"
+        android:layout_toRightOf="@id/longitude_label"
+        android:layout_alignBaseline="@id/longitude_label"
         android:layout_marginLeft="@dimen/small_margin_left"
         android:textSize="@dimen/default_text_size" />
 
@@ -126,12 +130,12 @@
         android:id="@+id/text_delta_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/dist_txt"
         android:layout_below="@+id/longitude_label"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="@dimen/default_text_size" />
+         />
 
     <TextView
         android:id="@+id/text_view_score"
@@ -152,23 +156,21 @@
         android:text="@string/best_score_txt"
         android:layout_marginRight="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_alignBaseline="@+id/text_view_score"
-        android:layout_alignBottom="@+id/text_view_score"
-        android:layout_toLeftOf="@+id/text_view_score"
-        android:layout_toStartOf="@+id/text_view_score" />
+        android:layout_alignBaseline="@id/text_view_score"
+        android:layout_alignBottom="@id/text_view_score"
+        android:layout_toLeftOf="@id/text_view_score"
+        android:layout_toStartOf="@id/text_view_score" />
 
     <EditText
         android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:layout_height="30dp"
         android:inputType="textMultiLine"
         android:ems="10"
         android:ellipsize="end"
         android:id="@+id/edit_text_log_server"
-        android:layout_below="@+id/param_test_button"
-        android:layout_alignLeft="@+id/param_test_button"
-        android:layout_alignStart="@+id/param_test_button"
-        android:layout_marginLeft="120dp">
-    </EditText>
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/calib_button"
+        android:layout_toRightOf="@id/latitude_text" />
 
     <Button
         android:id="@+id/move_left_button"

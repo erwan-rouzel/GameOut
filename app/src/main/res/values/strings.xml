@@ -28,7 +28,7 @@
     <string name="switch_txt">Start</string>
     <string name="stop_txt">Stop</string>
     <string name="start_txt">Start</string>
-    <string name="calib_txt">Center</string>
+    <string name="calib_txt">Cal</string>
     <string name="dist_txt">Dist to center</string>
     <string name="score_txt">888</string>
     <string name="best_score_txt">777</string>

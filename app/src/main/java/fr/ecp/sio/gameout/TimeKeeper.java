@@ -16,6 +16,7 @@ public class TimeKeeper
     private static long duratStart[] = new long [10];
     private static long duratCpt[]   = new long [10];
     private static long duratCumul[] = new long [10];
+    private static long duratMax[]   = new long [10];
 
     static private int boxed(int i)
     {
@@ -37,6 +38,7 @@ public class TimeKeeper
         duratStart[i] = 0;
         duratCpt[i]   = 0;
         duratCumul[i] = 0;
+        duratMax[i]   = -1;
     }
 
     static public void duratStartEvent(int ind)
@@ -48,8 +50,27 @@ public class TimeKeeper
     static public void duratEndEvent(int ind)
     {
         int i = boxed(ind);
-        duratCumul[i] += System.currentTimeMillis() - duratStart[i];
+        long duration = System.currentTimeMillis() - duratStart[i];
+        duratCumul[i] += duration;
         duratCpt[i]++;
+        if (duration>duratMax[i])
+            duratMax[i] = duration;
+    }
+
+    static public int meanDurat(int ind)
+    {
+        int i = boxed(ind);
+        int res = -1;
+        if (duratCpt[i]>0)
+            res = (int) (1 + duratCumul [i] /duratCpt[i]);
+        return(res);
+    }
+
+    static public int maxDurat(int ind)
+    {
+        int i = boxed(ind);
+        int res = (int) duratMax[i];
+        return(res);
     }
 
     static public void resetPerio(int ind)
