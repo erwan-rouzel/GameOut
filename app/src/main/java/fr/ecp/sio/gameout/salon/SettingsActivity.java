@@ -13,6 +13,7 @@ import com.google.android.gms.games.Games;
 
 import fr.ecp.sio.gameout.MainActivity;
 import fr.ecp.sio.gameout.R;
+import fr.ecp.sio.gameout.utils.SharedPreferencesUtils;
 
 public class SettingsActivity extends ActionBarActivity {
 
@@ -21,6 +22,7 @@ public class SettingsActivity extends ActionBarActivity {
     // Intent codes used in startActivityForResult
     private final static int RC_ACHIEVEMENTS = 10002;
     private final static int REQUEST_LEADERBOARD = 5001;
+    private String pubLevel;
 
     // Google Api Client
     private GoogleApiClient mGoogleApiClient;
@@ -29,8 +31,13 @@ public class SettingsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        final AdView adView = (AdView) findViewById(R.id.banner);
-        adView.loadAd(new AdRequest.Builder().build());
+        int result;
+        pubLevel= SharedPreferencesUtils.readSharedSetting(getApplicationContext(), "AD_LEVEL", "Ads free");
+        result=pubLevel.compareToIgnoreCase("Ads free");
+
+        if (result!=0) {
+            final AdView adView = (AdView) findViewById(R.id.banner);
+        adView.loadAd(new AdRequest.Builder().build());}
 
         if (GoogleApiClientSingleton.getInstance().isSignedIn())
             mGoogleApiClient = GoogleApiClientSingleton.getInstance().getApiClient();
