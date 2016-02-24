@@ -3,6 +3,10 @@ package fr.ecp.sio.gameout.model;
 import fr.ecp.sio.gameout.utils.GameoutUtils;
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.Random;
+
 /* TODO erwan : rajouter ces infos ici + dans le protocole + côté serveur
   Taille du terrain après calibration en H
   Taille du terrain après calibration en V
@@ -30,7 +34,8 @@ public class GameSession extends GameObject {
     public GameSession() {
         this.id = -1;
         this.timestamp = (int) GameoutUtils.getCurrentTimestamp();
-        this.roomId = "noroom";
+        double d = 10000*(new Random().nextDouble());
+        this.roomId = ((Long)((long) d)).toString();
         this.serverHostName = "noserver";
         this.gameType = GameType.PONG_MONO;
         this.numberOfPlayersInTeam1 = 1;
