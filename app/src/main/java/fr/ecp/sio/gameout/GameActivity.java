@@ -463,6 +463,9 @@ public class GameActivity extends Activity implements
                             + TimeKeeper.meanDurat(7)+ "{"+ TimeKeeper.maxDurat(7)+"}+"
                             + TimeKeeper.meanDurat(8)+ "{"+ TimeKeeper.maxDurat(8)+"}+"
                             + TimeKeeper.meanDurat(9)+ "{"+ TimeKeeper.maxDurat(9)+"} "
+                            + TimeKeeper.meanDurat(10)+ "("+ TimeKeeper.maxDurat(10)+")+"
+                            + TimeKeeper.meanDurat(11)+ "("+ TimeKeeper.maxDurat(11)+")+"
+                            + TimeKeeper.meanDurat(12)+ "("+ TimeKeeper.maxDurat(12)+") "
                     ;
 
                     break;

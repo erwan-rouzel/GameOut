@@ -173,10 +173,20 @@ public class GameoutClient {
         TimeKeeper.duratEndEvent(8);
 
         TimeKeeper.duratStartEvent(9);
+
+        TimeKeeper.duratStartEvent(10);
         udpSocket.receive(receivePacket);
+        TimeKeeper.duratEndEvent(10);
+
+        TimeKeeper.duratStartEvent(11);
         byte[] responseBytes = receivePacket.getData();
+        TimeKeeper.duratEndEvent(11);
+
+        TimeKeeper.duratStartEvent(12);
         udpSocket.setSoTimeout(200);
         udpSocket.close();
+        TimeKeeper.duratEndEvent(12);
+
         TimeKeeper.duratEndEvent(9);
 
         return responseBytes;

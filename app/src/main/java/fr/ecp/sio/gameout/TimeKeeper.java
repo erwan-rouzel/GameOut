@@ -3,29 +3,29 @@ package fr.ecp.sio.gameout;
 /**
  * Created by od on 11/19/2015.
  * Calcul de la fréquence de rafraichissement d'un type d'évènement.
- * 10 types d'évènements sont possible
+ * 19 types d'évènements sont possible
  */
 public class TimeKeeper
 {
-    private static long perioCpt[] = new long[10];
-    private static long perioFirstDateMillis[] = new long[10];
-    private static long perioLastDateMillis [] = new long[10];
-    private static int  perioMin[] = new int[10];
-    private static int  perioMax[] = new int[10];
+    private static long perioCpt[] = new long[19];
+    private static long perioFirstDateMillis[] = new long[19];
+    private static long perioLastDateMillis [] = new long[19];
+    private static int  perioMin[] = new int[19];
+    private static int  perioMax[] = new int[19];
 
-    private static long duratStart[] = new long [10];
-    private static long duratCpt[]   = new long [10];
-    private static long duratCumul[] = new long [10];
-    private static long duratMax[]   = new long [10];
+    private static long duratStart[] = new long [19];
+    private static long duratCpt[]   = new long [19];
+    private static long duratCumul[] = new long [19];
+    private static long duratMax[]   = new long [19];
 
     static private int boxed(int i)
     {
-        return (i<0) ? 0 : (i>9) ? 9 : i;
+        return (i<0) ? 0 : (i>18) ? 18 : i;
     }
 
     static public void resetAllStat()
     {
-        for (int i=0; i<10; i++)
+        for (int i=0; i<18; i++)
         {
             resetPerio(i, 0, 54321);
             resetDurat(i);
