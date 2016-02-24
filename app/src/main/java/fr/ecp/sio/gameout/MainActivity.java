@@ -22,6 +22,7 @@ import fr.ecp.sio.gameout.salon.GoogleApiClientSingleton;
 import fr.ecp.sio.gameout.salon.InstructionsActivity;
 import fr.ecp.sio.gameout.salon.OnlineGameActivity;
 import fr.ecp.sio.gameout.salon.SettingsActivity;
+import fr.ecp.sio.gameout.utils.SharedPreferencesUtils;
 
 
 public class MainActivity extends ActionBarActivity implements
@@ -46,15 +47,21 @@ public class MainActivity extends ActionBarActivity implements
 
     // Should the sign-in flow be started automatically?
     private boolean mAutoStartSignInFlow = true;
+    private String pubLevel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);
+        pubLevel= SharedPreferencesUtils.readSharedSetting(getApplicationContext(), "AD_LEVEL", "Ads free");
+        int result;
+        result = pubLevel.compareToIgnoreCase("Ads free");
 
+        if (result!=0) {
         final AdView adView = (AdView) findViewById(R.id.banner1);
-        adView.loadAd(new AdRequest.Builder().build());
+        adView.loadAd(new AdRequest.Builder().build());}
 
         // Get invitation from Bundle
         if (savedInstanceState == null) {
@@ -70,9 +77,6 @@ public class MainActivity extends ActionBarActivity implements
             GoogleApiClientSingleton.getInstance()
                     .setApiClient(mGoogleApiClient);
         }
-        if (mInterstitialAd != null && mInterstitialAd.isLoaded())
-            mInterstitialAd.show();
-
 
         mGoogleApiClient = GoogleApiClientSingleton.getInstance()
                 .getApiClient();
@@ -113,6 +117,7 @@ public class MainActivity extends ActionBarActivity implements
         findViewById(R.id.single_player_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (pubLevel.equalsIgnoreCase("High")) {
                 final InterstitialAd mInterstitialAd = InterstitialAdSingleton
                         .getInstance(getApplicationContext())
                         .getInterstitialAd();
@@ -121,15 +126,16 @@ public class MainActivity extends ActionBarActivity implements
                     @Override
                     public void onAdLoaded() {
                         super.onAdLoaded();
-                        /* todo remettre la pub
                         Intent intent = new Intent(MainActivity.this, GameActivity.class);
                         startActivity(intent);
                         mInterstitialAd.show();
-                        */
                     }
                 });
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
+                }else{
+                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
 
         });
