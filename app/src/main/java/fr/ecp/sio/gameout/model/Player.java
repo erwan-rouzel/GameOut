@@ -16,6 +16,8 @@ public class Player extends GameObject {
     public short y;
     public short vx;
     public short vy;
+    public short rx;
+    public short ry;
 
     // TODO erwan : rajouter ces infos ici + dans le protocole + côté serveur
     // Numéro d'équipe
@@ -41,5 +43,8 @@ public class Player extends GameObject {
         } else {
             y = 1000;
         }
+
+        rx = HVPoint.WIDTH_REF / 16;
+        ry = HVPoint.HEIGHT_REF / 80;
     }
 }

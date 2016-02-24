@@ -8,6 +8,7 @@ package fr.ecp.sio.gameout.model;
 public class HVPoint
 {
     public final static int WIDTH_REF = 12000; // Largeur arbitraire du terrain
+    public final static int HEIGHT_REF = 12000;
     public short H;
     public short V;
 

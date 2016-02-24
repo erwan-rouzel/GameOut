@@ -5,6 +5,7 @@ import android.util.Log;
 import fr.ecp.sio.gameout.PlayField.PlayFieldPos;
 import fr.ecp.sio.gameout.PlayField.PlayFieldSurfaceView;
 import fr.ecp.sio.gameout.TimeKeeper;
+import fr.ecp.sio.gameout.model.GameStatus;
 
 /**
  * Created by od on 10/31/2015.
@@ -18,7 +19,6 @@ public class PlayFieldThread extends Thread
     public PlayFieldThread (PlayFieldSurfaceView lPlayFieldSurfaceView)
     {
         mPfsv = lPlayFieldSurfaceView;
-        PlayFieldPos.ThreadTraffic = 'R';
     }
 
     public void setPlayFieldPos (PlayFieldPos pPlayFieldPos)
@@ -28,21 +28,8 @@ public class PlayFieldThread extends Thread
 
     @Override
     public void run()
-    {
-         while(PlayFieldPos.ThreadTraffic != 'V')
-        {
-            try
-            {
-                Thread.sleep(1000);
-            }
-            catch (InterruptedException e)
-            {
-                Log.v("Pfsv thread", "Pb dans de slip rouge");
-            }
-        }
-
-        PlayFieldPos.ThreadTraffic = 'J';
-        while(PlayFieldPos.ThreadTraffic == 'J')
+    {;
+        while(CurPfp.pfp.gameStatus != GameStatus.FINISHED)
         {
             try
             {
@@ -58,8 +45,6 @@ public class PlayFieldThread extends Thread
             }
         }
 
-        if (PlayFieldPos.ThreadTraffic != 'O')
-            Log.v("pfsv thread", "Should be Orange before stop");
-        PlayFieldPos.ThreadTraffic = 'R';
+        Log.v("STATUS", " Game Over!");
     }
 }

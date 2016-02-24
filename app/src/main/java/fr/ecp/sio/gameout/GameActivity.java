@@ -46,7 +46,6 @@ import java.util.concurrent.ExecutionException;
 
 import fr.ecp.sio.gameout.PlayField.CurPfp;
 import fr.ecp.sio.gameout.PlayField.LatiLongHV;
-import fr.ecp.sio.gameout.PlayField.PlayFieldPos;
 import fr.ecp.sio.gameout.PlayField.PlayFieldSurfaceView;
 import fr.ecp.sio.gameout.model.GameSession;
 import fr.ecp.sio.gameout.model.GameType;
@@ -115,6 +114,7 @@ public class GameActivity extends Activity implements
 
     protected TextView mLatitudeTextView;
     protected TextView mLongitudeTextView;
+    protected PlayFieldSurfaceView mPlayFieldSurfaceView;
     EditText mLogServerEditText;
 
 
@@ -132,9 +132,6 @@ public class GameActivity extends Activity implements
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-        PlayFieldSurfaceView lPfsv;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
@@ -151,6 +148,8 @@ public class GameActivity extends Activity implements
         mScoreTextView = (TextView) findViewById(R.id.text_view_score);
         mBestScoreTextView = (TextView) findViewById(R.id.text_view_best_score);
         mInfoTextView  = (TextView) findViewById(R.id.text_delta_view);
+
+        mPlayFieldSurfaceView = (PlayFieldSurfaceView) findViewById(R.id.surface_view);
 
         mRequestingLocationUpdates = false;
         calibStage= 0;
@@ -307,7 +306,7 @@ public class GameActivity extends Activity implements
                     gameSession.numberOfPlayersInTeam2 = 0;
                     gameSession.numberOfPlayersInTeam3 = 0;
                     RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
-                    PlayFieldPos.ThreadTraffic = 'V';
+                    mPlayFieldSurfaceView.startGameThread();
 
                     //TODO : envoyer la taille du terrain au serveur
                     // pour le calcul de la vitesse de la balle
@@ -344,9 +343,9 @@ public class GameActivity extends Activity implements
         gameSession.numberOfPlayersInTeam1 = 1;
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
-        PlayFieldPos.ThreadTraffic = 'V';
 
         RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
+        mPlayFieldSurfaceView.startGameThread();
 
         logServer("ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")");
     }
@@ -359,12 +358,13 @@ public class GameActivity extends Activity implements
         GameSession gameSession = new GameSession();
         gameSession.id = -1;
         gameSession.gameType = GameType.PONG_MONO;
+        gameSession.roomId = "sameRoomFor2";
         gameSession.numberOfPlayersInTeam1 = 2;
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
-        PlayFieldPos.ThreadTraffic = 'V';
 
         RemoteGameState remoteGameState = RemoteGameState.getInstance(gameSession);
+        mPlayFieldSurfaceView.startGameThread();
 
         logServer("ball=(" + remoteGameState.ball.x + ", " + remoteGameState.ball.y + ")");
     }
@@ -427,7 +427,7 @@ public class GameActivity extends Activity implements
             {
                 case 0:
                     mInfoString = "V151120c No calib "  + " G=" + TimeKeeper.nbEvents(0)
-                            + " " + PlayFieldPos.ThreadTraffic;
+                            + " status=" + CurPfp.pfp.gameStatus;
                     break;
 
                 case 1:
@@ -449,7 +449,7 @@ public class GameActivity extends Activity implements
                     mInfoString = "G=" + TimeKeeper.nbEvents(0) + " "
                             + "yS=" + CurPfp.pfp.ySpePadLocal + " " +
                                 + TimeKeeper.meanPeriod(0)+ "ms "
-                            + PlayFieldPos.ThreadTraffic + " "
+                            + CurPfp.pfp.gameStatus + " "
                             + TimeKeeper.nbEvents(1) + " "
                             + (TimeKeeper.nbEvents(2) - TimeKeeper.nbEvents(1) )+ " "
                             + (TimeKeeper.nbEvents(3) - TimeKeeper.nbEvents(1) ) + " "
