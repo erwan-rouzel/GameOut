@@ -91,4 +91,10 @@ public class GameoutUtils {
     public static long getCurrentTimestamp() {
         return System.currentTimeMillis();
     }
+
+    public static short randomWithRange(int min, int max)
+    {
+        short range = (short) ((max - min) + 1);
+        return (short) ((Math.random() * range) + min);
+    }
 }

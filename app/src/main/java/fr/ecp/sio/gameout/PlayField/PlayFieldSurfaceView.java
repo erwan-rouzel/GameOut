@@ -69,6 +69,10 @@ public class PlayFieldSurfaceView extends SurfaceView
         });
     }
 
+    public void startGameThread() {
+        mPft.start();
+    }
+
     private void init_mPft()
     {
         CurPfp.pfp.nb_team = 1;
@@ -83,8 +87,6 @@ public class PlayFieldSurfaceView extends SurfaceView
         CurPfp.pfp.yRadPad   [0][0] = HVPoint.WIDTH_REF/80;
         */
         mPft = new PlayFieldThread(this);
-        PlayFieldPos.ThreadTraffic = 'R';
-        mPft.start();
     }
 
     private void drawRect(Canvas pCanvas,

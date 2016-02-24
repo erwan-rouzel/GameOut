@@ -36,7 +36,6 @@ public class PlayFieldPos
     public int xRadBalSrv, yRadBalSrv;
     public int xSpeBalSrv, ySpeBalSrv; // distance per hour
 
-    public static char ThreadTraffic='R'; // Gestion à l'ancienne de l'activité du thread
     private int bestScoreBid; // Meilleur score (temporaire)
     public boolean isGameStarted;
     public byte gameStatus;
@@ -221,6 +220,8 @@ public class PlayFieldPos
         // Mapping entre RemoteGameState et PlayFieldPos
         xPosBalSrv = gameState.ball.x;
         yPosBalSrv = gameState.ball.y;
+        xRadBalSrv = gameState.ball.rx;
+        yRadBalSrv = gameState.ball.ry;
         synchronized (mutex)
         {
             for(Team team: gameState.teams) {
@@ -231,6 +232,8 @@ public class PlayFieldPos
                         if (player != null) {
                             xPosPadSrv  [team.id][player.id] = gameState.teams[team.id].players[player.id].x;
                             yPosPadSrv  [team.id][player.id] = gameState.teams[team.id].players[player.id].y;
+                            xRadPadSrv  [team.id][player.id] = gameState.teams[team.id].players[player.id].rx;
+                            yRadPadSrv  [team.id][player.id] = gameState.teams[team.id].players[player.id].ry;
                             statePadSrv [team.id][player.id] = gameState.teams[team.id].players[player.id].state;
                         }
                     }
