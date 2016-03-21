@@ -230,11 +230,13 @@ public class PlayFieldPos
 
                     for (Player player : team.players) {
                         if (player != null) {
-                            xPosPadSrv  [team.id][player.id] = gameState.teams[team.id].players[player.id].x;
-                            yPosPadSrv  [team.id][player.id] = gameState.teams[team.id].players[player.id].y;
-                            xRadPadSrv  [team.id][player.id] = gameState.teams[team.id].players[player.id].rx;
-                            yRadPadSrv  [team.id][player.id] = gameState.teams[team.id].players[player.id].ry;
-                            statePadSrv [team.id][player.id] = gameState.teams[team.id].players[player.id].state;
+                            try {
+                                xPosPadSrv[team.id][player.id] = gameState.teams[team.id].players[player.id].x;
+                                yPosPadSrv[team.id][player.id] = gameState.teams[team.id].players[player.id].y;
+                                xRadPadSrv[team.id][player.id] = gameState.teams[team.id].players[player.id].rx;
+                                yRadPadSrv[team.id][player.id] = gameState.teams[team.id].players[player.id].ry;
+                                statePadSrv[team.id][player.id] = gameState.teams[team.id].players[player.id].state;
+                            } catch(ArrayIndexOutOfBoundsException e) {}
                         }
                     }
                 }

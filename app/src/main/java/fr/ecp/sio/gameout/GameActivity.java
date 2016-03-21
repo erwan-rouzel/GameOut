@@ -339,8 +339,9 @@ public class GameActivity extends Activity implements
 
         GameSession gameSession = new GameSession();
         gameSession.id = -1;
+        gameSession.roomId = "demoroom";
         gameSession.gameType = GameType.PONG_MONO;
-        gameSession.numberOfPlayersInTeam1 = 1;
+        gameSession.numberOfPlayersInTeam1 = 2;
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
 
@@ -356,9 +357,9 @@ public class GameActivity extends Activity implements
         mLogServerEditText.setMinWidth(400);
 
         GameSession gameSession = new GameSession();
-        gameSession.id = -1;
+        gameSession.id = 123;
         gameSession.gameType = GameType.PONG_MONO;
-        gameSession.roomId = "sameRoomFor2";
+        gameSession.roomId = "demoroom";
         gameSession.numberOfPlayersInTeam1 = 2;
         gameSession.numberOfPlayersInTeam2 = 0;
         gameSession.numberOfPlayersInTeam3 = 0;
